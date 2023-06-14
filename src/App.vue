@@ -1,30 +1,36 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <v-app>
+    <v-main>
+      <component :is='layout'>
+        <router-view v-slot='{ Component, route }'>
+          <transition
+            name='fade'
+            mode='out-in'
+          >
+            <div :key='route.name'>
+              <component :is='Component'/>
+            </div>
+          </transition>
+        </router-view>
+      </component>
+    </v-main>
+
+    <notifications
+      class='notifications'
+      group='app-front'
+      position='bottom right'
+    />
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script setup lang='ts'>
+import { computed } from 'vue'
+import {useRoute} from 'vue-router'
 
-nav {
-  padding: 30px;
+const route = useRoute()
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+const layout = computed(() => {
+  if (!route.name) return ''
+  return route.meta?.layout || 'DefaultLayout'
+})
+</script>

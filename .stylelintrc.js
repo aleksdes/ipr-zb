@@ -45,7 +45,7 @@ module.exports = {
     'number-leading-zero': null,
     'value-list-comma-newline-after': null,
     'scss/no-global-function-names': null,
-    'string-quotes': true,
-    'max-line-length': [false, 120],
+    'string-quotes': 'single',
+    'max-line-length': [true, 180],
   },
 }

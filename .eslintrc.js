@@ -3,27 +3,18 @@ module.exports = {
   env: {
     node: true,
   },
-
-  // parser: 'babel-eslint',
-
+  parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 2020,
     requireConfigFile: false,
-    // ecmaFeatures: {
-    //   jsx: true,
-    // },
     parser: '@typescript-eslint/parser',
   },
-
   extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
     '@vue/typescript/recommended',
-    'plugin:prettier/recommended',
-    // 'prettier',
   ],
-
-  // plugins: ['prettier'],
+  plugins: ['@typescript-eslint'],
 
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -75,10 +66,10 @@ module.exports = {
 
     // Проверка имени компонента — оно должно соответствовать имени файла, в котором он находится
     'vue/match-component-file-name': [
-      'error',
+      'warn',
       {
         extensions: ['vue'],
-        shouldMatchCase: false,
+        shouldMatchCase: true,
       },
     ],
 

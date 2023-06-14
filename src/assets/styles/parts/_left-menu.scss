@@ -1,0 +1,123 @@
+/* stylelint-disable no-descending-specificity */
+
+.left-menu {
+  padding: 12px;
+  background-color: map-get($grey, 'lighten-2');
+  border-right: none;
+
+  .v-navigation-drawer__content {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 3%);
+  }
+
+  &--mobile {
+    padding: 0;
+    background-color: transparent;
+
+    .v-navigation-drawer__content {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 3%);
+    }
+
+    .v-list-group {
+      .v-list-item__prepend i {
+        opacity: 1;
+
+        &:before {
+          font-size: 30px;
+          color: map-get($blue-grey, 'darken-4');
+        }
+      }
+
+      .v-list-item,
+      a {
+        text-align: start;
+        width: 100%;
+        color: map-get($blue-grey, 'darken-4');
+        caret-color: map-get($blue-grey, 'darken-4');
+        font-size: 16px;
+      }
+
+      &.current:not(.v-list-group--open) {
+        margin: 8px;
+        border-radius: 8px;
+        background-color: map-get($blue-grey, 'darken-4');
+
+        .v-list-item__prepend i:before {
+          font-size: 30px;
+          color: white;
+        }
+
+        .v-list-item,
+        a {
+          width: 100%;
+          color: white;
+          caret-color: white;
+        }
+      }
+    }
+  }
+
+}
+
+.layer-menu {
+  top: 60px !important;
+  height: calc(100% - 60px);
+  border-radius: 0;
+  background: #fbfcfd;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 5%);
+}
+
+.left-menu,
+.layer-menu {
+  a {
+    text-decoration: none;
+  }
+
+  .v-list {
+    box-shadow: none !important;
+
+    a .v-list-item:hover,
+    .v-list-item:hover,
+    .v-list-item:focus {
+      background: rgba(230, 233, 238, 30%);
+    }
+
+    .v-list-item:focus {
+      background: none;
+    }
+
+    .v-list-item.current,
+    a.current .v-list-item {
+      color: white;
+      position: relative;
+      background-color: map-get($blue-grey, 'darken-4');
+
+      & .v-list-item__content {
+        color: white;
+      }
+    }
+
+    .v-list-item {
+      font-size: 0.75rem;
+      padding: 8px 12px;
+
+      &-title {
+        font-size: 0.875rem !important;
+        margin-left: 10px;
+      }
+
+      .v-list-item__content {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        color: map-get($blue-grey, 'darken-4');
+      }
+    }
+  }
+}
