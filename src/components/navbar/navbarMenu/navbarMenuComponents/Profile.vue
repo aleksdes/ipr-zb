@@ -56,7 +56,7 @@ export default {
 </script>
 
 <script setup lang='ts'>
-import { computed, defineProps, defineEmits } from 'vue'
+import { computed, defineEmits } from 'vue'
 import useUserStore from '@/store/user'
 import NavbarMenu from '@/components/navbar/navbarMenu/NavbarMenu.vue'
 import { User } from '@/types/user'

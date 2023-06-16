@@ -120,16 +120,12 @@ const onCloseMenu: () => void = (): void => {
     display: grid;
     grid-auto-flow: column;
     gap: 10px;
-
-    //@media #{map-get($display-breakpoints, 'sm-and-down')} {
-    //  gap: 10px;
-    //}
   }
 }
 
 #app-bar {
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 3%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 8%);
 }
 
 .slide-fade-enter-active {

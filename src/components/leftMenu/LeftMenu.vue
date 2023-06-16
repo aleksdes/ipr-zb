@@ -12,6 +12,7 @@
       <v-list
         nav
         dense
+        class='scroll'
       >
         <item-menu
           :items='menuItems'

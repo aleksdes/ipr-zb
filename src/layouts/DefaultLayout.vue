@@ -22,6 +22,10 @@ import Navbar from '@/components/navbar/Navbar.vue'
 
 <style lang="scss" scoped>
 .main-wrap {
-  background-color: map-get($grey, 'lighten-2');
+  background-color: white;
+
+  & > :deep div {
+    height: 100%;
+  }
 }
 </style>
