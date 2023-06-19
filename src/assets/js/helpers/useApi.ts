@@ -1,5 +1,7 @@
 import axios from 'axios'
-const api = axios.create({})
+const api = axios.create({
+  baseURL: 'https://dummyjson.com',
+})
 
 const useResponse: IUseResponse = async (data = null, options: IOptionsUseResponse) => {
   let response: any = {}

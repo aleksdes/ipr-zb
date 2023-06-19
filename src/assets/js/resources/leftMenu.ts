@@ -23,10 +23,25 @@ export interface IChild {
 const leftMenu: ILeftMenu[] = [
   {
     id: 'electronics',
-    to: routeNames.electronics,
     title: 'Электроника',
     icon: 'mdi-laptop',
     sort: 1,
+    child: [
+      {
+        id: 'smartphones',
+        to: routeNames.electronics.smartphones,
+        title: 'Смартфоны',
+        icon: 'mdi-laptop',
+        sort: 1,
+      },
+      {
+        id: 'laptops',
+        to: routeNames.electronics.laptops,
+        title: 'Ноутбуки',
+        icon: 'mdi-laptop',
+        sort: 2,
+      },
+    ],
   },
   {
     id: 'clothing',

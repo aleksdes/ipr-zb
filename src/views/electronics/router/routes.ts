@@ -3,9 +3,14 @@ import { routeNames } from '@/router/RouteNames'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/electronics',
-    name: routeNames.electronics,
-    component: () => import('@/views/electronics/ElectronicsView.vue'),
+    path: '/electronics/smartphones',
+    name: routeNames.electronics.smartphones,
+    component: () => import('@/views/electronics/smartphones/SmartphonesView.vue'),
+  },
+  {
+    path: '/electronics/laptops',
+    name: routeNames.electronics.laptops,
+    component: () => import('@/views/electronics/laptops/LaptopsView.vue'),
   },
 ]
 

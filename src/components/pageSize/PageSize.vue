@@ -12,11 +12,9 @@
       :items='items'
       :label='isMobile ? label : ""'
       hide-details
-      density='comfortable'
+      density='compact'
       solo
       variant='outlined'
-      item-color='light-blue'
-      color='light-blue'
       @update:modelValue='emits("update:modelValue", $event)'
     />
   </div>

@@ -9,7 +9,7 @@ const vuetify = createVuetify({
   components,
   directives,
   locale: {
-    locale: 'ru',
+    locale: 'en',
     fallback: 'en',
   },
   icons: {

@@ -5,9 +5,10 @@ export interface IMetaBaseStore {
   per_page: number
   total: number
 }
+
 export interface IBaseStore {
-  meta: IMetaBaseStore
   loading: boolean
+  meta: IMetaBaseStore
   filter: any
   [key: string]: any
 }
@@ -15,8 +16,8 @@ export interface IBaseStore {
 export interface IBaseStoreGetters {
   getLoading: (state: IBaseStore) => boolean
   getItems: (state: IBaseStore) => any
-  getMeta: (state: IBaseStore) => IMetaBaseStore
   getPage: (state: IBaseStore) => number
+  getMeta: (state: IBaseStore) => IMetaBaseStore
   getPerPage: (state: IBaseStore) => number
   getTotal: (state: IBaseStore) => number
   getFilter: (state: IBaseStore) => any
@@ -26,11 +27,13 @@ export interface IBaseStoreGetters {
 
 export interface IBaseStoreActions {
   setData: (data: any) => void
-  setItems: (items: any[]) => void
   setMeta: (meta: IMetaBaseStore) => void
+  setItems: (items: any[]) => void
   setFilter: (filters: any) => void
-  fetchData: (filter?: any) => Promise<any>
+  fetchData: (filter?: any, url?: string) => Promise<any>
   deleteData: (id: string | number) => Promise<any>
+  resetStore: () => void
+  fetchDataWithoutStore: (filter?: any) => Promise<any>
   [key: string]: any
 }
 
@@ -51,6 +54,9 @@ const getters: IBaseStoreGetters = {
   getItems(state: IBaseStore): any {
     return state.items
   },
+  getMeta(state: IBaseStore): IMetaBaseStore {
+    return state.meta || {}
+  },
   getItemsForOptions(state: IBaseStore): any {
     return state.items.map((item: any) => {
       return {
@@ -59,9 +65,6 @@ const getters: IBaseStoreGetters = {
         code: item.extid || item.id,
       }
     })
-  },
-  getMeta(state: IBaseStore): IMetaBaseStore {
-    return state.meta || {}
   },
   getPage(state: IBaseStore): number {
     return state.meta.current_page || 0
@@ -79,19 +82,30 @@ const getters: IBaseStoreGetters = {
 
 const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '' =''): IBaseStoreActions => {
   return {
+    resetStore() {
+      this.items = []
+      this.meta = {
+        ...this.meta,
+        current_page: 0,
+        total: 0,
+      }
+    },
     setData(data: any) {
       if (data.data) {
         this.items = data.data
+
+        this.meta = {
+          ...this.meta,
+          current_page: 0,
+          total: data?.data?.total,
+        }
       }
-      if (data.meta) {
-        this.meta = data.meta
-      }
-    },
-    setItems(items: any[]) {
-      this.items = items
     },
     setMeta(meta: IMetaBaseStore) {
       this.meta = meta
+    },
+    setItems(items: any[]) {
+      this.items = items
     },
     setFilter(filters: any = {}) {
       const currentFilters: any = {
@@ -105,21 +119,19 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
     delFilter() {
       this.filter = {}
     },
-    async fetchData(filter: any = {}) {
+    async fetchData(filter: any = {}, url='') {
       const filteredFilters = filterParams(filter)
       this.loading = true
-      const result: any = await useApi.get(apiUrl, null, { params: filteredFilters })
+      const result: any = await useApi.get(apiUrl+url, null, { params: filteredFilters })
       this.loading = false
-
-      if (
-        result.errors ||
-        (result.data && Array.isArray(result.data) && !result.data.length) ||
-        (result.data && !result.data.data)
-      )
-        return result
-
+      console.log('result', result)
       this.setData(result.data)
-      return result.data
+      return result
+    },
+    async fetchDataWithoutStore(filter: any = {}, url='') {
+      const filteredFilters = filterParams(filter)
+      const result: any = await useApi.get(apiUrl+url, null, { params: filteredFilters })
+      return result
     },
     async deleteData(id: string | number) {
       const result: any = await useApi.delete(id ? `${apiUrl}/${id}` : `${apiUrl}`, null)
@@ -133,12 +145,12 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
 }
 
 const state: IBaseStore = {
+  filter: {},
   meta: {
     current_page: 0,
     per_page: 1000,
     total: 0,
   },
-  filter: {},
   items: [],
   loading: false,
 }

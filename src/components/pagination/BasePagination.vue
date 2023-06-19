@@ -24,8 +24,8 @@
         elevation='0'
         icon
         :ripple='false'
-        color='white'
         class='pagination-btn'
+        variant='outlined'
         @click='emits("update:page", 1)'
       >
         <v-icon>
@@ -39,15 +39,16 @@
         class='base-pagination__pagination'
         :length='totalPages'
         :total-visible='paginationLength'
-        color='light-blue'
+
+        variant='outlined'
       />
 
       <v-btn
         elevation='0'
         icon
         :ripple='false'
-        color='white'
         class='pagination-btn'
+        variant='outlined'
         @click='emits("update:page", totalPages)'
       >
         <v-icon>
@@ -134,21 +135,15 @@ const getPerPage = computed({
       .v-pagination__item {
         & button {
           box-shadow: none;
-          border: thin solid rgba(0, 0, 0, 12%);
         }
       }
     }
   }
 
   .pagination-btn {
-    border: thin solid rgba(0, 0, 0, 12%);
     border-radius: 4px;
     width: 38px;
     height: 38px;
-
-    i:before {
-      color: map-get($light-blue, 'base')
-    }
 
     @media (max-width: 576px) {
       height: 30px;
