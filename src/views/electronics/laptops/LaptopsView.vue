@@ -2,13 +2,44 @@
   <ProductBaseLayout
     :breadcrumbs='breadcrumbs'
   >
-    <div class='electronics h-100'>
-      <div class='electronics__content pa-3'>
+    <div class='laptops h-100'>
+      <div
+        v-if='isLoading'
+        class='d-flex flex-row w-100 mt-8'
+      >
+        <v-spacer />
+        <CircleLoader
+          size='100'
+        />
+        <v-spacer />
+      </div>
+
+      <BaseEmptyData
+        v-else-if='!products.length'
+        class='mt-8'
+      />
+
+      <div
+        v-else
+        class='electronics__content pa-3'
+      >
         <ProductCardBase
-          v-for='product in getProductsView'
+          v-for='product in products'
           :key='product.id'
           :data='product'
+          @show-product-details='selectedProduct = product; dialog=true'
         />
+
+        <v-dialog
+          v-if='dialog'
+          :model-value='true'
+          width='auto'
+        >
+          <ProductCardDetails
+            :data='selectedProduct'
+            @close='closeCardDetails'
+          />
+        </v-dialog>
       </div>
 
       <BasePagination
@@ -16,7 +47,7 @@
         v-model:page='currentPage'
         :page-length-list='pageLengthList'
         :total-count='totalCount'
-        class='electronics__pagination'
+        class='laptops__pagination'
       />
     </div>
   </ProductBaseLayout>
@@ -24,55 +55,81 @@
 
 <script lang="ts">
 export default {
-  name: 'ElectronicsView',
+  name: 'Laptops',
 }
 </script>
 
 <script setup lang="ts">
-import {computed, ref, Ref, onMounted} from 'vue'
+import {computed, ref, Ref} from 'vue'
+import { debounceFilter, watchWithFilter } from '@vueuse/core'
 import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
 import BasePagination from '@/components/pagination/BasePagination.vue'
 import ProductCardBase from '@/components/common/productCards/ProductCardBase.vue'
+import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
 
+import {productsUrls} from '@/constants/urls'
 import {IBreadcrumb} from '@/types/breadcrumbs'
 import {routeNames} from '@/router/RouteNames'
 import useProductsStore from '@/store/products/products'
 import {Product} from '@/types/products'
+import BaseEmptyData from '@/components/emptyData/BaseEmptyData.vue'
+import CircleLoader from '@/components/loader/CircleLoader.vue'
 
 const breadcrumbs: IBreadcrumb[] = [
   {title: 'Главная', href: routeNames.home},
   {title: 'Электроника'},
+  {title: 'Ноутбуки'},
 ]
 
 const productsStore = useProductsStore()
-
-onMounted(async () => {
-  await productsStore.fetchData('/category/smartphones')
-})
 
 const products = computed((): Product[] => {
   return productsStore.getItems
 })
 
+const dialog = ref(false)
+const selectedProduct: any = ref(null)
 const currentPage = ref(1)
-const pageLengthList: Ref<number[]> = ref([4, 6, 12, 36])
+const pageLengthList: Ref<number[]> = ref([5, 10, 15, 50])
 const perPage: Ref<number> = ref(pageLengthList.value[0])
-const totalCount = computed(() => products.value.length)
+const totalCount = computed(() => productsStore.getMeta.total || 0)
 
-const getProductsView = computed((): Product[] => {
-  return products.value.slice((currentPage.value-1)*perPage.value, (currentPage.value-1)*perPage.value + perPage.value)
+const paginateFilter = computed(() => ({
+  limit: perPage.value,
+  skip: (currentPage.value-1)*perPage.value,
+}))
+
+const fetchData = () => productsStore.fetchData(paginateFilter.value, productsUrls.PRODUCTS_CATEGORIES_LAPTOPS_URL)
+
+const isLoading = computed(() => {
+  return productsStore.getLoading
 })
 
+watchWithFilter(
+  paginateFilter,
+  async () => {
+    await fetchData()
+  },
+  {
+    eventFilter: debounceFilter(300),
+    immediate: true,
+  },
+)
+
+const closeCardDetails = () => {
+  dialog.value = false
+  selectedProduct.value = null
+}
 </script>
 
 <style lang="scss" scoped>
-.electronics {
+.laptops {
   display: flex;
   flex-direction: column;
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: row;
     grid-gap: 20px;
   }
 

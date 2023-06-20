@@ -3,7 +3,26 @@
     :breadcrumbs='breadcrumbs'
   >
     <div class='electronics h-100'>
-      <div class='electronics__content pa-3'>
+      <div
+        v-if='isLoading'
+        class='d-flex flex-row w-100 mt-8'
+      >
+        <v-spacer />
+        <CircleLoader
+          size='100'
+        />
+        <v-spacer />
+      </div>
+
+      <BaseEmptyData
+        v-else-if='!products.length'
+        class='mt-8'
+      />
+
+      <div
+        v-else
+        class='electronics__content pa-3'
+      >
         <ProductCardBase
           v-for='product in products'
           :key='product.id'
@@ -12,15 +31,15 @@
         />
 
         <v-dialog
-          v-model='dialog'
+          v-if='dialog'
+          :model-value='true'
           width='auto'
         >
           <ProductCardDetails
             :data='selectedProduct'
-            @close='dialog=false; selectedProduct=null'
+            @close='closeCardDetails'
           />
         </v-dialog>
-
       </div>
 
       <BasePagination
@@ -49,6 +68,8 @@ import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vu
 import BasePagination from '@/components/pagination/BasePagination.vue'
 import ProductCardBase from '@/components/common/productCards/ProductCardBase.vue'
 import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
+import CircleLoader from '@/components/loader/CircleLoader.vue'
+import BaseEmptyData from '@/components/emptyData/BaseEmptyData.vue'
 
 import {productsUrls} from '@/constants/urls'
 import {IBreadcrumb} from '@/types/breadcrumbs'
@@ -69,7 +90,7 @@ const products = computed((): Product[] => {
 })
 
 const dialog = ref(false)
-const selectedProduct: any = null
+const selectedProduct: any = ref(null)
 const currentPage = ref(1)
 const pageLengthList: Ref<number[]> = ref([5, 10, 15, 50])
 const perPage: Ref<number> = ref(pageLengthList.value[0])
@@ -82,6 +103,10 @@ const paginateFilter = computed(() => ({
 
 const fetchData = () => productsStore.fetchData(paginateFilter.value, productsUrls.PRODUCTS_CATEGORIES_SMARTPHONES_URL)
 
+const isLoading = computed(() => {
+  return productsStore.getLoading
+})
+
 watchWithFilter(
   paginateFilter,
   async () => {
@@ -91,9 +116,12 @@ watchWithFilter(
     eventFilter: debounceFilter(300),
     immediate: true,
   },
-
 )
 
+const closeCardDetails = () => {
+  dialog.value = false
+  selectedProduct.value = null
+}
 </script>
 
 <style lang="scss" scoped>
@@ -104,7 +132,6 @@ watchWithFilter(
   &__content {
     display: grid;
     grid-auto-flow: row;
-    //grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
   }
 

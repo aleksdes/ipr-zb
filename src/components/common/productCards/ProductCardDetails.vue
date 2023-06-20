@@ -2,6 +2,14 @@
   <v-card
     class='product'
   >
+    <v-btn
+      icon='mdi-close'
+      size='xs-small'
+      class='product__close bg-white'
+      elevation='0'
+      @click='emits("close")'
+    />
+
     <div class='product__box-imgs'>
       <v-card
         outlined
@@ -42,15 +50,7 @@
       <div>
         <div class='text-left'>
           <p class='product__brand text-grey-darken-1'>{{data.brand}}</p>
-          <v-badge
-            color='red'
-            :content='"-" + Math.ceil(data.discountPercentage) + "%"'
-            :disabled='!data.discountPercentage'
-            location='top right'
-          >
-            <p class='product__name mb-4'>{{data.title}}</p>
-          </v-badge>
-
+          <p class='product__name mb-4'>{{data.title}}</p>
         </div>
 
         <div class='product__box-desc mb-6'>
@@ -59,7 +59,13 @@
         </div>
 
         <div class='text-left mb-4'>
-          <div class='product__rating mb-2'>
+          <v-badge
+            color='red'
+            :content='"-" + Math.ceil(data.discountPercentage) + "%"'
+            :disabled='!data.discountPercentage'
+            inline=''
+          />
+          <div class='product__rating my-2'>
             <v-rating
               :model-value='data.rating'
               size='24'
@@ -107,6 +113,8 @@ export default {
 import {ref, computed, defineEmits, defineProps, PropType} from 'vue'
 import {Product} from '@/types/products'
 
+const emits = defineEmits(['close'])
+
 const props = defineProps({
   data: {
     type: Object as PropType<Product>,
@@ -131,6 +139,7 @@ const imgItems = computed(() => {
   grid-column-gap: 25px;
   display: grid !important;
   grid-template-columns: 1fr;
+  position: relative;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
@@ -140,7 +149,7 @@ const imgItems = computed(() => {
     display: flex;
     align-items: center;
     overflow: hidden;
-    height: 150px;
+    height: 200px;
 
     @media (min-width: 768px) {
       height: 300px;
@@ -234,6 +243,13 @@ const imgItems = computed(() => {
     min-width: auto;
     width: 36px;
     height: 36px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 100;
   }
 }
 </style>
