@@ -43,7 +43,7 @@
   <v-menu
     v-for='(i,k) in menu(items)'
     :key='k'
-    location='end'
+    location='end center'
     :open-on-click='!!menu(i.child || []).length'
     :close-on-content-click='false'
     content-class='layer-menu'

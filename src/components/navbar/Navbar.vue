@@ -19,6 +19,21 @@
       </div>
 
       <nav class='app-navbar__navs'>
+        <v-badge
+          :model-value='true'
+          content='0'
+          color='orange-lighten-1'
+        >
+          <v-icon
+            size='30'
+            class='pointer'
+          >
+            mdi-heart-outline
+          </v-icon>
+        </v-badge>
+
+        <BasketBtn />
+
         <template
           v-for='navBtn in navMenuBtns'
           :key='navBtn.id'
@@ -58,6 +73,8 @@ export default  {
 
 <script setup lang="ts">
 import {ref, computed} from 'vue'
+import BasketBtn from './navbarMenu/navbarActionBtns/BasketBtn.vue'
+
 import {INavbarMenuBtns} from '@/types/navbarMenu'
 import { useDisplay } from 'vuetify'
 import {navbarMenuBtns} from '@/assets/js/resources/navbarMenu'
@@ -119,7 +136,8 @@ const onCloseMenu: () => void = (): void => {
   &__navs {
     display: grid;
     grid-auto-flow: column;
-    gap: 10px;
+    gap: 20px;
+    align-items: center;
   }
 }
 

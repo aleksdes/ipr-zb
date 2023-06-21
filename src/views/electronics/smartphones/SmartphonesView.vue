@@ -1,47 +1,10 @@
 <template>
   <ProductBaseLayout
     :breadcrumbs='breadcrumbs'
+    :isLoading='isLoading'
+    :products='products'
   >
-    <div class='electronics h-100'>
-      <div
-        v-if='isLoading'
-        class='d-flex flex-row w-100 mt-8'
-      >
-        <v-spacer />
-        <CircleLoader
-          size='100'
-        />
-        <v-spacer />
-      </div>
-
-      <BaseEmptyData
-        v-else-if='!products.length'
-        class='mt-8'
-      />
-
-      <div
-        v-else
-        class='electronics__content pa-3'
-      >
-        <ProductCardBase
-          v-for='product in products'
-          :key='product.id'
-          :data='product'
-          @show-product-details='selectedProduct = product; dialog=true'
-        />
-
-        <v-dialog
-          v-if='dialog'
-          :model-value='true'
-          width='auto'
-        >
-          <ProductCardDetails
-            :data='selectedProduct'
-            @close='closeCardDetails'
-          />
-        </v-dialog>
-      </div>
-
+    <template #pagination>
       <BasePagination
         v-model:perPage='perPage'
         v-model:page='currentPage'
@@ -49,9 +12,7 @@
         :total-count='totalCount'
         class='electronics__pagination'
       />
-    </div>
-
-
+    </template>
   </ProductBaseLayout>
 </template>
 
@@ -66,10 +27,6 @@ import {computed, ref, Ref, onMounted} from 'vue'
 import { debounceFilter, watchWithFilter } from '@vueuse/core'
 import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
 import BasePagination from '@/components/pagination/BasePagination.vue'
-import ProductCardBase from '@/components/common/productCards/ProductCardBase.vue'
-import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
-import CircleLoader from '@/components/loader/CircleLoader.vue'
-import BaseEmptyData from '@/components/emptyData/BaseEmptyData.vue'
 
 import {productsUrls} from '@/constants/urls'
 import {IBreadcrumb} from '@/types/breadcrumbs'
@@ -89,8 +46,6 @@ const products = computed((): Product[] => {
   return productsStore.getItems
 })
 
-const dialog = ref(false)
-const selectedProduct: any = ref(null)
 const currentPage = ref(1)
 const pageLengthList: Ref<number[]> = ref([5, 10, 15, 50])
 const perPage: Ref<number> = ref(pageLengthList.value[0])
@@ -120,23 +75,12 @@ watchWithFilter(
     eventFilter: debounceFilter(300),
   },
 )
-
-const closeCardDetails = () => {
-  dialog.value = false
-  selectedProduct.value = null
-}
 </script>
 
 <style lang="scss" scoped>
 .electronics {
   display: flex;
   flex-direction: column;
-
-  &__content {
-    display: grid;
-    grid-auto-flow: row;
-    grid-gap: 20px;
-  }
 
   &__pagination {
     flex: 0 0 auto;

@@ -171,7 +171,7 @@ const ttt = () => {
     grid-auto-flow: column;
 
     button {
-      text-transform: capitalize;
+      text-transform: initial;
       font-weight: 600;
     }
   }

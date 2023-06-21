@@ -28,6 +28,12 @@
   </v-btn>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'ProfileBtn',
+}
+</script>
+
 <script setup lang="ts">
 import {defineProps, defineEmits, computed, ComputedRef} from 'vue'
 import {INavbarMenuBtns} from '@/types/navbarMenu'
