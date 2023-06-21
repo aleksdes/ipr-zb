@@ -2,7 +2,7 @@
   <ProductBaseLayout
     :breadcrumbs='breadcrumbs'
   >
-    <div class='electronics h-100'>
+    <div class='watch h-100'>
       <div
         v-if='isLoading'
         class='d-flex flex-row w-100 mt-8'
@@ -21,7 +21,7 @@
 
       <div
         v-else
-        class='electronics__content pa-3'
+        class='watch__content pa-3'
       >
         <ProductCardBase
           v-for='product in products'
@@ -47,40 +47,39 @@
         v-model:page='currentPage'
         :page-length-list='pageLengthList'
         :total-count='totalCount'
-        class='electronics__pagination'
+        class='watch__pagination'
       />
     </div>
-
-
   </ProductBaseLayout>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'ElectronicsView',
+  name: 'WomanWatchesView',
 }
 </script>
 
 <script setup lang="ts">
-import {computed, ref, Ref, onMounted} from 'vue'
+import {computed, onMounted, ref, Ref} from 'vue'
 import { debounceFilter, watchWithFilter } from '@vueuse/core'
 import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
 import BasePagination from '@/components/pagination/BasePagination.vue'
 import ProductCardBase from '@/components/common/productCards/ProductCardBase.vue'
 import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
-import CircleLoader from '@/components/loader/CircleLoader.vue'
 import BaseEmptyData from '@/components/emptyData/BaseEmptyData.vue'
+import CircleLoader from '@/components/loader/CircleLoader.vue'
 
 import {productsUrls} from '@/constants/urls'
 import {IBreadcrumb} from '@/types/breadcrumbs'
 import {routeNames} from '@/router/RouteNames'
-import useProductsStore from '@/store/products/products'
 import {Product} from '@/types/products'
+import useProductsStore from '@/store/products/products'
 
 const breadcrumbs: IBreadcrumb[] = [
   {title: 'Главная', href: routeNames.home},
-  {title: 'Электроника'},
-  {title: 'Смартфоны'},
+  {title: 'Одежда'},
+  {title: 'Женская'},
+  {title: 'Часы'},
 ]
 
 const productsStore = useProductsStore()
@@ -101,7 +100,7 @@ const paginateFilter = computed(() => ({
   skip: (currentPage.value-1)*perPage.value,
 }))
 
-const fetchData = () => productsStore.fetchData(paginateFilter.value, productsUrls.PRODUCTS_CATEGORIES_SMARTPHONES_URL)
+const fetchData = () => productsStore.fetchData(paginateFilter.value, productsUrls.PRODUCTS_CATEGORIES_WOMENSWATCHES_URL)
 
 const isLoading = computed(() => {
   return productsStore.getLoading
@@ -128,7 +127,7 @@ const closeCardDetails = () => {
 </script>
 
 <style lang="scss" scoped>
-.electronics {
+.watch {
   display: flex;
   flex-direction: column;
 

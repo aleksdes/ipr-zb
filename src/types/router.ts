@@ -3,13 +3,36 @@ interface IElectronics {
   laptops: string
 }
 interface IClothing {
-  mens: string
-  woman: string
+  mens: {
+    shirts: string
+    shoes: string
+    watches: string
+  }
+  woman: {
+    dresses: string
+    shoes: string
+    bags: string
+    watches: string
+  }
 }
+
+interface IBeauty {
+  fragrances: string
+  skincare: string
+  sunglasses: string
+}
+interface IHome{
+  furniture: string
+  homeDecoration: string
+  lighting: string
+}
+
 export interface IRouteNames {
   home: string,
   electronics: IElectronics
   clothing: IClothing
-  pageNotFound: string,
+  beauty: IBeauty
   jewelry: string
+  interior: IHome
+  pageNotFound: string,
 }

@@ -21,7 +21,7 @@
 
       <div
         v-else
-        class='electronics__content pa-3'
+        class='laptops__content pa-3'
       >
         <ProductCardBase
           v-for='product in products'
@@ -60,20 +60,20 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {computed, ref, Ref} from 'vue'
+import {computed, onMounted, ref, Ref} from 'vue'
 import { debounceFilter, watchWithFilter } from '@vueuse/core'
 import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
 import BasePagination from '@/components/pagination/BasePagination.vue'
 import ProductCardBase from '@/components/common/productCards/ProductCardBase.vue'
 import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
+import BaseEmptyData from '@/components/emptyData/BaseEmptyData.vue'
+import CircleLoader from '@/components/loader/CircleLoader.vue'
 
 import {productsUrls} from '@/constants/urls'
 import {IBreadcrumb} from '@/types/breadcrumbs'
 import {routeNames} from '@/router/RouteNames'
-import useProductsStore from '@/store/products/products'
 import {Product} from '@/types/products'
-import BaseEmptyData from '@/components/emptyData/BaseEmptyData.vue'
-import CircleLoader from '@/components/loader/CircleLoader.vue'
+import useProductsStore from '@/store/products/products'
 
 const breadcrumbs: IBreadcrumb[] = [
   {title: 'Главная', href: routeNames.home},
@@ -105,6 +105,10 @@ const isLoading = computed(() => {
   return productsStore.getLoading
 })
 
+onMounted(async () => {
+  await fetchData()
+})
+
 watchWithFilter(
   paginateFilter,
   async () => {
@@ -112,7 +116,6 @@ watchWithFilter(
   },
   {
     eventFilter: debounceFilter(300),
-    immediate: true,
   },
 )
 

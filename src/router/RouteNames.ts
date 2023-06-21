@@ -7,9 +7,28 @@ export const routeNames: IRouteNames = {
     laptops: 'laptops',
   },
   clothing: {
-    mens: 'mens',
-    woman: 'womens',
+    mens: {
+      shirts: 'mens-shirts',
+      shoes: 'mens-shoes',
+      watches: 'mens-watches',
+    },
+    woman: {
+      dresses: 'woman-dresses',
+      shoes: 'woman-shoes',
+      bags: 'woman-bags',
+      watches: 'woman-watches',
+    },
+  },
+  beauty: {
+    fragrances: 'fragrances',
+    skincare: 'skincare',
+    sunglasses: 'sunglasses',
   },
   jewelry: 'jewelry',
+  interior: {
+    furniture: 'furniture',
+    homeDecoration: 'homeDecoration',
+    lighting: 'lighting',
+  },
   pageNotFound: '404',
 }

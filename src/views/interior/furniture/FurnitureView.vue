@@ -2,7 +2,7 @@
   <ProductBaseLayout
     :breadcrumbs='breadcrumbs'
   >
-    <div class='electronics h-100'>
+    <div class='furniture h-100'>
       <div
         v-if='isLoading'
         class='d-flex flex-row w-100 mt-8'
@@ -21,7 +21,7 @@
 
       <div
         v-else
-        class='electronics__content pa-3'
+        class='furniture__content pa-3'
       >
         <ProductCardBase
           v-for='product in products'
@@ -47,22 +47,20 @@
         v-model:page='currentPage'
         :page-length-list='pageLengthList'
         :total-count='totalCount'
-        class='electronics__pagination'
+        class='furniture__pagination'
       />
     </div>
-
-
   </ProductBaseLayout>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'ElectronicsView',
+  name: 'FurnitureView',
 }
 </script>
 
 <script setup lang="ts">
-import {computed, ref, Ref, onMounted} from 'vue'
+import {computed, onMounted, ref, Ref} from 'vue'
 import { debounceFilter, watchWithFilter } from '@vueuse/core'
 import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
 import BasePagination from '@/components/pagination/BasePagination.vue'
@@ -79,8 +77,8 @@ import {Product} from '@/types/products'
 
 const breadcrumbs: IBreadcrumb[] = [
   {title: 'Главная', href: routeNames.home},
-  {title: 'Электроника'},
-  {title: 'Смартфоны'},
+  {title: 'Красота и здоровье'},
+  {title: 'Парфюмерия'},
 ]
 
 const productsStore = useProductsStore()
@@ -101,7 +99,7 @@ const paginateFilter = computed(() => ({
   skip: (currentPage.value-1)*perPage.value,
 }))
 
-const fetchData = () => productsStore.fetchData(paginateFilter.value, productsUrls.PRODUCTS_CATEGORIES_SMARTPHONES_URL)
+const fetchData = () => productsStore.fetchData(paginateFilter.value, productsUrls.PRODUCTS_CATEGORIES_FURNITURE_URL)
 
 const isLoading = computed(() => {
   return productsStore.getLoading
@@ -128,7 +126,7 @@ const closeCardDetails = () => {
 </script>
 
 <style lang="scss" scoped>
-.electronics {
+.furniture {
   display: flex;
   flex-direction: column;
 

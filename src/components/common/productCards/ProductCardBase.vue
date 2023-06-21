@@ -3,21 +3,21 @@
     class='product'
     @click.stop='emits("showProductDetails")'
   >
-    <div class='product__box-thumbnail'>
-      <v-badge
-        color='red'
-        :content='"-" + Math.ceil(data.discountPercentage) + "%"'
-        :disabled='!data.discountPercentage'
-        offset-x='35'
-        offset-y='15'
-        location='bottom left'
-      >
+    <v-badge
+      color='red'
+      :content='"-" + Math.ceil(data.discountPercentage) + "%"'
+      :disabled='!data.discountPercentage'
+      offset-x='35'
+      offset-y='15'
+      location='bottom left'
+    >
+      <div class='product__box-thumbnail'>
         <v-img
           class='product__thumbnail'
           :src='data.thumbnail'
         />
-      </v-badge>
-    </div>
+      </div>
+    </v-badge>
 
     <div class='product__info'>
       <div class='text-left'>
@@ -115,6 +115,7 @@ const ttt = () => {
 
   &__thumbnail {
     width: 160px;
+    max-height: 100%;
   }
 
   &__info {

@@ -10,8 +10,8 @@ const useProductsCategoriesStore = defineStore('productsCategories', {
   actions: {
     ...baseStore.actions(productsUrls.PRODUCTS_CATEGORIES_URL),
     setData(data: any) {
-      if (data.products) {
-        this.items = data.products
+      if (data) {
+        this.items = data
       }
     },
   },
