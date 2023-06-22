@@ -2,6 +2,7 @@
   <v-menu
     :disabled='basketData.length === 0'
     open-on-hover
+    open-on-click
     :close-on-content-click='false'
     location='bottom right'
   >

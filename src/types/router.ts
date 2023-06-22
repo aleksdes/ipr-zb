@@ -28,6 +28,7 @@ interface IHome{
 }
 
 export interface IRouteNames {
+  login: string
   home: string,
   electronics: IElectronics
   clothing: IClothing

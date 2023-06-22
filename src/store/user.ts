@@ -1,5 +1,8 @@
 import { defineStore } from 'pinia'
 import { User, UserRoles } from '@/types/user'
+import useTokenStore from '@/store/token'
+import { authUrls } from '~/constants/urls'
+import useApi from '~/assets/js/helpers/useApi'
 
 const useUserStore = defineStore('user', {
   getters: {
@@ -12,13 +15,47 @@ const useUserStore = defineStore('user', {
     resetStore() {
       this.user = {
         id: null,
+        email: '',
+        username: '',
+        firstName: '',
+        lastName: '',
+        gender: '',
+        image: '',
+        phone: '',
+        roles: [],
       }
     },
 
-    async setUser() {
+    async setUser(result: any= {}) {
+      const tokenStore = useTokenStore()
 
+      if (tokenStore.accessToken) {
+        const response: any = await useApi.get(authUrls.USER_URL + '/' + result?.data?.id)
+        if (response.data) {
+          this.user = { ...this.user, ...response.data }
+          return {
+            data: this.user,
+          }
+        } else {
+          return response
+        }
+      }
+
+      await this.resetStore()
       return {
         data: this.user,
+      }
+    },
+
+    async setUserBySession(params: any = { useErrorHandler: true }) {
+      const response: any = await useApi.get(authUrls.USER_URL, null, { useErrorHandler: params.useErrorHandler })
+      if (response.data) {
+        this.user = { ...this.user, ...response.data }
+        return {
+          data: this.user,
+        }
+      } else {
+        return response
       }
     },
   },
@@ -27,6 +64,13 @@ const useUserStore = defineStore('user', {
     user: {
       id: null,
       roles: [UserRoles.ROLE_GUEST],
+      email: '',
+      username: '',
+      firstName: '',
+      lastName: '',
+      gender: '',
+      image: '',
+      phone: '',
     },
   }),
 })

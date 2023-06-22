@@ -26,6 +26,9 @@
 <script setup lang='ts'>
 import { computed } from 'vue'
 import {useRoute} from 'vue-router'
+import {setLocale} from '@vee-validate/i18n'
+
+setLocale('ru')
 
 const route = useRoute()
 

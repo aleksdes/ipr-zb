@@ -1,4 +1,6 @@
 import axios from 'axios'
+import errorHandler from '@/assets/js/helpers/useErrorHandler'
+import useTokenStore from '@/store/token'
 const api = axios.create({
   baseURL: 'https://dummyjson.com',
 })
@@ -7,6 +9,9 @@ const useResponse: IUseResponse = async (data = null, options: IOptionsUseRespon
   let response: any = {}
 
   const isUseErrorHandler = options.useErrorHandler !== undefined ? options.useErrorHandler : true
+
+  const tokenStore = useTokenStore()
+  options.token = tokenStore.accessToken
 
   let headers = options?.headers || {}
   headers = {
@@ -37,6 +42,9 @@ const useResponse: IUseResponse = async (data = null, options: IOptionsUseRespon
     })
   } catch (error) {
     console.error(error)
+
+    if (isUseErrorHandler) await errorHandler(error)
+
     response.errors = error
   }
 

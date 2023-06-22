@@ -5,13 +5,14 @@ export enum UserRoles {
 
 export type User = {
     id: string | number | null
-    roles?: UserRoles[] | []
-    permissions?: string[] | []
-    name?: string
-    surname?: string
-    email?: string
+    email: string
+    username: string
+    firstName: string
+    lastName: string
+    gender: string
+    image: string
     phone?: string
-    avatar?: string
+    roles?: UserRoles[] | []
     [key: string]: any
 }
 
