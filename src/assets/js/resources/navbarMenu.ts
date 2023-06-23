@@ -1,9 +1,17 @@
 import {markRaw} from 'vue'
 import { INavbarMenuBtns } from '@/types/navbarMenu'
+import NotificationBtn from '@/components/navbar/navbarMenu/navbarActionBtns/NotificationBtn.vue'
+import LikedProductsBtn from '@/components/navbar/navbarMenu/navbarActionBtns/LikedProductsBtn.vue'
+import BasketBtn from '@/components/navbar/navbarMenu/navbarActionBtns/BasketBtn.vue'
 import ProfileBtn from '@/components/navbar/navbarMenu/navbarActionBtns/ProfileBtn.vue'
-import Profile from '@/components/navbar/navbarMenu/navbarMenuComponents/Profile.vue'
+
+import Notifications from '@/components/navbar/navbarMenu/navbarMenuComponents/Notifications.vue'
+
 
 export const navbarMenuBtns: INavbarMenuBtns[] = [
-  { id: 'profileBtn', component: ProfileBtn, actionMenu: markRaw(Profile)},
+  { id: 'notificationBtn', component: NotificationBtn, actionMenu: markRaw(Notifications)},
+  { id: 'likedProductsBtn', component: LikedProductsBtn, actionMenu: ''},
+  { id: 'basketBtn', component: BasketBtn, actionMenu: ''},
+  { id: 'profileBtn', component: ProfileBtn, actionMenu: ''},
 ]
 

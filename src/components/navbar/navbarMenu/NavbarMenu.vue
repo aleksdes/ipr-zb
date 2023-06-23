@@ -53,7 +53,7 @@ const closeMenu = () => {
 }
 
 .navbar-menu-heading {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   display: grid;
   column-gap: 32px;
   grid-template-columns: auto 24px;
@@ -63,7 +63,7 @@ const closeMenu = () => {
 
 .navbar-menu-heading-title {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   padding: 3px 0;
 }
 

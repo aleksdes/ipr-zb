@@ -26,11 +26,12 @@ const useUserStore = defineStore('user', {
       }
     },
 
-    async setUser(result: any= {}) {
+    async setUser() {
       const tokenStore = useTokenStore()
 
       if (tokenStore.accessToken) {
-        const response: any = await useApi.get(authUrls.USER_URL + '/' + result?.data?.id)
+        const { id: userId }: User = tokenStore.getDataParseToken
+        const response: any = await useApi.get(authUrls.USER_URL + '/' + userId)
         if (response.data) {
           this.user = { ...this.user, ...response.data }
           return {

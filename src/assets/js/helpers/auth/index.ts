@@ -24,7 +24,7 @@ class Auth {
     result = await useApi.post(authUrls.LOGIN_URL, userCredential)
     if (!result.errors) {
       tokenStore.setToken(result)
-      result = await userStore.setUser(result)
+      result = await userStore.setUser()
     }
 
     return result

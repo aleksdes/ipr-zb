@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode'
 
 import useApi from '../assets/js/helpers/useApi'
 import { authUrls, MIN_TIME_ACCESS_TOKEN } from '@/constants/urls/auth'
+import {User} from '@/types/user'
 
 interface ITokenStore {
   accessToken: string | null
@@ -13,6 +14,10 @@ interface ITokenStore {
 
 const useTokenStore = defineStore('token', {
   getters: {
+    getDataParseToken(): User {
+      return jwt_decode(this.accessToken)
+    },
+
     getAccessToken(): string | null {
       return this.accessToken
     },

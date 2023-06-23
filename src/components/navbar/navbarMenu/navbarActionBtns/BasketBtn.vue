@@ -7,19 +7,25 @@
     location='bottom right'
   >
     <template v-slot:activator='{ props }'>
-      <v-badge
-        :model-value='basketData.length > 0'
-        :content='basketData.length'
-        color='orange-lighten-1'
-        v-bind='props'
+      <v-btn
+        class='pa-0'
+        size='x-small'
+        icon
       >
-        <v-icon
-          size='30'
-          class='pointer'
+        <v-badge
+          :model-value='basketData.length > 0'
+          :content='basketData.length'
+          color='orange-lighten-1'
+          v-bind='props'
         >
-          mdi-basket-outline
-        </v-icon>
-      </v-badge>
+          <v-icon
+            size='30'
+            class='pointer'
+          >
+            mdi-basket-outline
+          </v-icon>
+        </v-badge>
+      </v-btn>
     </template>
 
     <v-card
