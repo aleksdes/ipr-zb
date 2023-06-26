@@ -5,8 +5,8 @@
     icon
   >
     <v-badge
-      :model-value='true'
-      content='0'
+      :model-value='getLikes>0'
+      :content='getLikes'
       color='orange-lighten-1'
     >
       <v-icon
@@ -27,7 +27,13 @@ export default {
 
 <script setup lang="ts">
 import {defineProps, defineEmits, computed, ComputedRef} from 'vue'
+import useLikeProductsStore from '@/store/likeProducts'
 
+const likeProductsStore = useLikeProductsStore()
+
+const getLikes = computed(()=>{
+  return likeProductsStore.getItems.length
+})
 </script>
 
 <style lang="scss" scoped>

@@ -7,7 +7,7 @@
       v-slot='{ errors, field }'
       v-model='email'
       rules='required'
-      name='email'
+      name='логин'
     >
       <v-text-field
         :model-value='email'
@@ -19,6 +19,7 @@
         :error-messages='errors'
         dense
         variant='outlined'
+        class='mb-3'
       />
     </Field>
 
@@ -26,7 +27,7 @@
       v-slot='{ errors, field }'
       v-model='password'
       rules='required|min:4'
-      name='password'
+      name='пароль'
     >
       <v-text-field
         :model-value='password'
@@ -45,7 +46,7 @@
     </Field>
 
     <v-btn
-      class='login-form-btn text-white w-100 text-initial fw-6'
+      class='login-form__btn text-white w-100 text-initial fw-6'
       color='orange-lighten-1'
       height='40'
       elevation='0'
@@ -64,13 +65,13 @@ export default {
 </script>
 
 <script setup lang='ts'>
-import {computed, ref} from 'vue'
+import {defineEmits, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import Auth from '@/assets/js/helpers/auth'
 import {useForm, Form, Field} from 'vee-validate'
 import { notify } from '@/assets/js/helpers/useNotify'
-import { routeNames } from '@/router/RouteNames'
 
+const emits = defineEmits(['is-login'])
 const { meta } = useForm()
 
 const email = ref('kminchelle')
@@ -102,16 +103,20 @@ const sendLogin = async () => {
       }
 
       notify({ text: notifyMessage })
+    } else {
+      emits('is-login')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.login-form-btn {
-  display: flex;
-  width: 100%;
-  margin: 8px auto;
-  max-width: inherit;
+.login-form {
+  &__btn {
+    display: flex;
+    width: 100%;
+    margin: 8px auto;
+    max-width: inherit;
+  }
 }
 </style>

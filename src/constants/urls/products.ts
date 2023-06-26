@@ -2,6 +2,7 @@ export interface IProductsUrls {
   PRODUCTS_URL: string
   PRODUCTS_CATEGORIES_URL: string
   PRODUCTS_SEARCH_URL :string
+  PRODUCTS_LIKE_URL :string
 
   PRODUCTS_CATEGORIES_SMARTPHONES_URL: string
   PRODUCTS_CATEGORIES_LAPTOPS_URL: string
@@ -29,6 +30,7 @@ const productsUrls: IProductsUrls = {
   PRODUCTS_URL: '/products',
   PRODUCTS_CATEGORIES_URL: '/products/categories',
   PRODUCTS_SEARCH_URL: '/products/search',
+  PRODUCTS_LIKE_URL: '',
 
   PRODUCTS_CATEGORIES_SMARTPHONES_URL: '/category/smartphones',
   PRODUCTS_CATEGORIES_LAPTOPS_URL: '/category/laptops',

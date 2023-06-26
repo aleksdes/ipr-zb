@@ -1,7 +1,7 @@
 <template>
   <v-menu
     v-model='openMenu'
-    open-on-hover
+    :open-on-hover='false'
     open-on-click
     :close-on-content-click='false'
     location='bottom right'
@@ -35,9 +35,13 @@
       </v-btn>
     </template>
 
-    <MenuProfileBtnEmtyUser
+    <MenuProfileBtnEmptyUser
       v-if='!user'
       @login='login'
+    />
+
+    <MenuProfileBtnIsUser
+      v-if='user'
     />
 
     <ModalLoginUser
@@ -56,7 +60,8 @@ export default {
 <script setup lang="ts">
 import {computed, ComputedRef, ref} from 'vue'
 import useUserStore from '@/store/user'
-import MenuProfileBtnEmtyUser from './profileBtn/MenuProfileBtnEmtyUser.vue'
+import MenuProfileBtnEmptyUser from './profileBtn/MenuProfileBtnEmptyUser.vue'
+import MenuProfileBtnIsUser from './profileBtn/MenuProfileBtnIsUser.vue'
 import ModalLoginUser from '../../../autch/ModalLoginUser.vue'
 import {User} from '@/types/user'
 
@@ -64,14 +69,10 @@ const userStore = useUserStore()
 const openMenu = ref(false)
 const openLogin = ref(false)
 
-const user: ComputedRef<User & {fullName: string} | null> = computed((): User & {fullName: string} | null => {
+const user: ComputedRef<User | null> = computed((): User | null => {
   const dataUser: User = userStore.getUserData
   if (!dataUser.id) return null
-
-  return {
-    ...dataUser,
-    fullName: dataUser.name + ' ' + dataUser.surname,
-  }
+  return dataUser
 })
 
 const login = () => {

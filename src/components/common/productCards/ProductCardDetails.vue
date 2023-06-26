@@ -83,9 +83,10 @@
 
         <div class='product__actions'>
           <v-btn
-            color='grey-lighten-1'
+            :color='isLicked ? "orange-lighten-1" : "grey-lighten-1"'
             variant='outlined'
             class='product__action-like px-0'
+            @click.stop='likeProducts'
           >
             <v-icon>mdi-heart-outline</v-icon>
           </v-btn>
@@ -111,6 +112,7 @@ export default {
 
 <script setup lang="ts">
 import {ref, computed, defineEmits, defineProps, PropType} from 'vue'
+import useLikeProductsStore from '@/store/likeProducts'
 import {Product} from '@/types/products'
 
 const emits = defineEmits(['close'])
@@ -122,11 +124,19 @@ const props = defineProps({
   },
 })
 
+const likeProductsStore = useLikeProductsStore()
 const activeItem = ref(0)
 const imgItems = computed(() => {
   return [
     ...(props.data?.images || []),
   ]
+})
+
+const likeProducts = () => {
+  likeProductsStore.updateLikes(props.data)
+}
+const isLicked = computed(()=>{
+  return likeProductsStore.isLicked(props.data)
 })
 </script>
 

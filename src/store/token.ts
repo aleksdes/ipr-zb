@@ -31,7 +31,7 @@ const useTokenStore = defineStore('token', {
     async refreshToken() {
       const requestUrl = authUrls.REFRESH_URL
       const refreshTokenData = {
-        refreshToken: this.getRefreshToken(),
+        refreshToken: this.getRefreshToken,
       }
 
       if (refreshTokenData.refreshToken) {

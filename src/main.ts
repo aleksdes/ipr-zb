@@ -7,6 +7,7 @@ import vuetify from '@/plugins/vuetify'
 import Notifications from '@kyvg/vue3-notification'
 import '@/assets/styles/styles.scss'
 import locales from './locales/index'
+import JWTMiddlewares from '@/middlewares/jwtMiddlewares'
 
 const app = createApp(App)
 
@@ -16,5 +17,9 @@ app.use(layouts)
 app.use(vuetify)
 app.use(Notifications)
 app.use(locales)
+
+JWTMiddlewares({
+  router,
+})
 
 app.mount('#app')

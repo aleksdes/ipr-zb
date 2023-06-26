@@ -8,7 +8,9 @@
     @close='emits("close")'
   >
     <p class='login-title'>Войти</p>
-    <LoginForm />
+    <LoginForm
+      @is-login='emits("close")'
+    />
   </base-modal>
 </template>
 <script lang="ts">
@@ -30,6 +32,6 @@ const emits = defineEmits(['close'])
 .login-title {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
 }
 </style>

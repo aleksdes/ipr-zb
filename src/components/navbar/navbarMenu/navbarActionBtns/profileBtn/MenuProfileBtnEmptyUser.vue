@@ -31,7 +31,7 @@
 
 <script lang="ts">
 export default {
-  name: 'MenuProfileBtnEmtyUser',
+  name: 'MenuProfileBtnEmptyUser',
 }
 </script>
 

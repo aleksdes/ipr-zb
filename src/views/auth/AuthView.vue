@@ -27,7 +27,7 @@ export default {
 <script setup lang='ts'>
 import {computed} from 'vue'
 import {useRoute} from 'vue-router'
-import moment from 'moment'
+
 import LoginForm from '../../components/autch/LoginForm.vue'
 
 const route = useRoute()
@@ -53,12 +53,7 @@ const title = computed((): string => {
   }
 })
 
-const copyright = computed(() => {
-  const baseYear = '2023'
-  const currentYear = moment().format('YYYY')
-  const year = currentYear === baseYear ? baseYear : `${baseYear}-${currentYear}`
-  return `@ ${year} EasyShop`
-})
+
 
 </script>
 

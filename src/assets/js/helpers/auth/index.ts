@@ -49,7 +49,7 @@ class Auth {
   static async logout() {
     const userStore = useUserStore()
     const tokenStore = useTokenStore()
-    const refreshToken = tokenStore.getRefreshToken()
+    const refreshToken = tokenStore.getRefreshToken
 
     tokenStore.resetStore()
     await userStore.resetStore()

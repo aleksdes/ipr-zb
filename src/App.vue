@@ -27,6 +27,7 @@
 import { computed } from 'vue'
 import {useRoute} from 'vue-router'
 import {setLocale} from '@vee-validate/i18n'
+import useLikeProductsStore from '@/store/likeProducts'
 
 setLocale('ru')
 
@@ -36,4 +37,8 @@ const layout = computed(() => {
   if (!route.name) return ''
   return route.meta?.layout || 'DefaultLayout'
 })
+
+const likeProductsStore = useLikeProductsStore()
+
+likeProductsStore.initLikes()
 </script>
