@@ -1,7 +1,7 @@
 <template>
   <v-badge
     :model-value='isNotifications'
-    :content='notificationsItems.length'
+    :content='notificationsItemsActive.length'
     color='orange-lighten-1'
     v-bind='props'
   >
@@ -34,6 +34,7 @@ export default {
 import {defineProps, defineEmits, computed, ComputedRef} from 'vue'
 import {INavbarMenuBtns} from '@/types/navbarMenu'
 import useNotificationsStore from '@/store/notifications'
+import {INotificationMessages} from '@/types/common'
 
 interface Props {
   btnData: INavbarMenuBtns
@@ -46,12 +47,12 @@ const emits = defineEmits({
 })
 const notificationsStore = useNotificationsStore()
 
-const notificationsItems = computed(()=>{
-  return notificationsStore.getItems
+const notificationsItemsActive = computed(()=>{
+  return notificationsStore.getItems.filter((item: INotificationMessages) => item.active)
 })
 
 const isNotifications = computed(()=>{
-  return notificationsItems.value.length
+  return !!(notificationsItemsActive.value.length)
 })
 
 const clickMenu = () => {

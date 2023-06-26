@@ -28,7 +28,7 @@ export default {
 import {computed} from 'vue'
 import {useRoute} from 'vue-router'
 import moment from 'moment'
-import LoginForm from './components/login/LoginForm.vue'
+import LoginForm from '../../components/autch/LoginForm.vue'
 
 const route = useRoute()
 

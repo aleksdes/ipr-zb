@@ -7,14 +7,16 @@
       Go back to the homepage if you dare
     </div>
 
-    <v-btn
-      rounded='xl'
-      elevation='4'
-      size='x-large'
-      color='light-blue'
-    >
-      Go home!
-    </v-btn>
+    <router-link :to='{name: routeNames.home}'>
+      <v-btn
+        rounded='xl'
+        elevation='4'
+        size='x-large'
+        color='light-blue'
+      >
+        Go home!
+      </v-btn>
+    </router-link>
   </div>
 </template>
 
@@ -26,6 +28,7 @@ export default  {
 
 <script setup lang='ts'>
 import Animate404 from '@/components/404/Animate404.vue'
+import {routeNames} from '@/router/RouteNames'; '@/router/RouteNames'
 </script>
 
 <style lang="scss" scoped>

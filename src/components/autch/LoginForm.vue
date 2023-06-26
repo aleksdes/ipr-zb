@@ -18,7 +18,7 @@
         clearable
         :error-messages='errors'
         dense
-        outlined
+        variant='outlined'
       />
     </Field>
 
@@ -35,18 +35,18 @@
         placeholder='Пароль'
         required
         dense
-        outlined
+        variant='outlined'
         clearable
         :error-messages='errors'
-        :append-icon='passwordIsVisible ? "mdi-eye" : "mdi-eye-off"'
+        :append-inner-icon='passwordIsVisible ? "mdi-eye" : "mdi-eye-off"'
         :type='passwordIsVisible ? "text" : "password"'
-        @click:append='passwordIsVisible = !passwordIsVisible'
+        @click:append-inner='passwordIsVisible = !passwordIsVisible'
       />
     </Field>
 
     <v-btn
-      class='login-form-btn d-block white--text text-none w-100'
-      color='light-blue'
+      class='login-form-btn text-white w-100 text-initial fw-6'
+      color='orange-lighten-1'
       height='40'
       elevation='0'
       :disabled='!meta.valid'
@@ -102,10 +102,6 @@ const sendLogin = async () => {
       }
 
       notify({ text: notifyMessage })
-    } else {
-      await router.push({
-        name: routeNames.home,
-      })
     }
   }
 }
@@ -113,7 +109,9 @@ const sendLogin = async () => {
 
 <style lang="scss" scoped>
 .login-form-btn {
-  max-width: 207px;
-  margin: 8px auto 24px;
+  display: flex;
+  width: 100%;
+  margin: 8px auto;
+  max-width: inherit;
 }
 </style>
