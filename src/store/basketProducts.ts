@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia'
 import baseStore, { IBaseStore } from './baseStoreFetchData'
-import {productsUrls} from '@/constants/urls'
+import {commonUrls} from '@/constants/urls'
 import {Product} from '@/types/products'
 
-const useLikeProductsStore = defineStore('likeProducts', {
+const useBasketStore = defineStore('basket', {
   getters: {
     ...baseStore.getters,
   },
 
   actions: {
-    ...baseStore.actions(productsUrls.PRODUCTS_LIKE_URL),
+    ...baseStore.actions(commonUrls.BASKET_URL),
 
-    async initLikes() {
+    async initBasket() {
       const likes: any = await localStorage.getItem('likes')
       this.items = JSON.parse(likes)
     },
@@ -43,4 +43,4 @@ const useLikeProductsStore = defineStore('likeProducts', {
   }),
 })
 
-export default useLikeProductsStore
+export default useBasketStore

@@ -1,7 +1,7 @@
 <template>
   <v-menu
     v-model='openMenu'
-    :open-on-hover='false'
+    open-on-hover
     open-on-click
     :close-on-content-click='false'
     location='bottom right'
