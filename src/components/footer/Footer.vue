@@ -80,7 +80,7 @@ const copyright = computed(() => {
 
 <style lang="scss" scoped>
 .footer {
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
   display: flex;
   flex-direction: column;
   padding: 30px;

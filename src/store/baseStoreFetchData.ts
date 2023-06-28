@@ -1,8 +1,8 @@
 import useApi from '@/assets/js/helpers/useApi'
 
 export interface IMetaBaseStore {
-  current_page: number
-  per_page: number
+  limit: number
+  skip: number
   total: number
 }
 
@@ -16,9 +16,9 @@ export interface IBaseStore {
 export interface IBaseStoreGetters {
   getLoading: (state: IBaseStore) => boolean
   getItems: (state: IBaseStore) => any
-  getPage: (state: IBaseStore) => number
+  getSkip: (state: IBaseStore) => number
   getMeta: (state: IBaseStore) => IMetaBaseStore
-  getPerPage: (state: IBaseStore) => number
+  getLimit: (state: IBaseStore) => number
   getTotal: (state: IBaseStore) => number
   getFilter: (state: IBaseStore) => any
   getItemsForOptions: (state: IBaseStore) => any
@@ -37,7 +37,7 @@ export interface IBaseStoreActions {
   [key: string]: any
 }
 
-const filterParams = (params: any) => {
+export const filterParams = (params: any) => {
   if (!params) return null
   return Object.keys(params).reduce((acc: any, curr) => {
     if (params[curr] !== null && params[curr] !== undefined) {
@@ -62,15 +62,15 @@ const getters: IBaseStoreGetters = {
       return {
         ...item,
         label: item.name,
-        code: item.extid || item.id,
+        code: item.id,
       }
     })
   },
-  getPage(state: IBaseStore): number {
-    return state.meta.current_page || 0
+  getSkip(state: IBaseStore): number {
+    return state.meta.skip || 0
   },
-  getPerPage(state: IBaseStore): number {
-    return state.meta.per_page || 0
+  getLimit(state: IBaseStore): number {
+    return state.meta.limit || 1000
   },
   getTotal(state: IBaseStore): number {
     return state.meta.total || 0
@@ -85,8 +85,8 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
     resetStore() {
       this.items = []
       this.meta = {
-        ...this.meta,
-        current_page: 0,
+        limit: 1000,
+        skip: 0,
         total: 0,
       }
     },
@@ -96,7 +96,8 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
 
         this.meta = {
           ...this.meta,
-          current_page: 0,
+          limit: data?.data?.limit,
+          skip: data?.data?.skip,
           total: data?.data?.total,
         }
       }
@@ -107,14 +108,14 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
     setItems(items: any[]) {
       this.items = items
     },
-    setFilter(filters: any = {}) {
+    async setFilter(filters: any = {}) {
       const currentFilters: any = {
         ...this.filter,
         ...filters,
       }
 
       this.filter = currentFilters
-      this.fetchData(this.filter)
+      await this.fetchData(this.filter)
     },
     delFilter() {
       this.filter = {}
@@ -124,7 +125,7 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
       this.loading = true
       const result: any = await useApi.get(apiUrl+url, null, { params: filteredFilters })
       this.loading = false
-      console.log('result', result)
+
       this.setData(result.data)
       return result
     },
@@ -133,7 +134,7 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
       const result: any = await useApi.get(apiUrl+url, null, { params: filteredFilters })
       return result
     },
-    async deleteData(id: string | number) {
+    async deleteData(id: string | number = '') {
       const result: any = await useApi.delete(id ? `${apiUrl}/${id}` : `${apiUrl}`, null)
       if (!result.errors) {
         await this.fetchData()
@@ -147,8 +148,8 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
 const state: IBaseStore = {
   filter: {},
   meta: {
-    current_page: 0,
-    per_page: 1000,
+    limit: 1000,
+    skip: 0,
     total: 0,
   },
   items: [],

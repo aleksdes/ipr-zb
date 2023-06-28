@@ -57,12 +57,13 @@
         </v-btn>
 
         <v-btn
-          color='orange-lighten-1'
+          :color='isBasket ? "orange-lighten-1" : "grey-lighten-1"'
           class='text-white'
           elevation='0'
-          @click.stop='ttt'
+          :variant='isBasket ? "elevated" : "outlined"'
+          @click.stop='updateStatusProduct'
         >
-          Купить
+          {{isBasket ? 'В корзине' : 'Купить'}}
         </v-btn>
       </div>
     </div>
@@ -78,6 +79,7 @@ export default {
 <script setup lang="ts">
 import {ref, computed, defineEmits, defineProps, PropType} from 'vue'
 import useLikeProductsStore from '@/store/likeProducts'
+import useBasketStore from '@/store/basketProducts'
 import {Product} from '@/types/products'
 
 const emits = defineEmits(['showProductDetails'])
@@ -90,9 +92,7 @@ const props = defineProps({
 })
 
 const likeProductsStore = useLikeProductsStore()
-const ttt = () => {
-  console.log('ttt')
-}
+const basketStore = useBasketStore()
 
 const likeProducts = () => {
   likeProductsStore.updateLikes(props.data)
@@ -101,6 +101,16 @@ const likeProducts = () => {
 const isLicked = computed(()=>{
   return likeProductsStore.isLicked(props.data)
 })
+
+const isBasket = computed(()=>{
+  return basketStore.checkProductInBasket(props.data.id)
+})
+
+const updateStatusProduct = () => {
+  if (!isBasket.value) {
+    basketStore.addToBasket(props.data.id)
+  }
+}
 </script>
 
 <style lang="scss" scoped>

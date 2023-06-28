@@ -42,7 +42,8 @@ const useUserStore = defineStore('user', {
         }
       }
 
-      await this.resetStore()
+      if (this.user.id) await this.resetStore()
+
       return {
         data: this.user,
       }

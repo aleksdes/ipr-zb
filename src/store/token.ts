@@ -110,12 +110,8 @@ const useTokenStore = defineStore('token', {
     },
 
     resetStore() {
-      useCookies().remove('refreshToken', {
-        path: '/',
-      })
-      useCookies().remove('accessToken', {
-        path: '/',
-      })
+      useCookies().remove('refreshToken')
+      useCookies().remove('accessToken')
       this.removeToken()
     },
   },

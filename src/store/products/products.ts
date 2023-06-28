@@ -15,7 +15,6 @@ const useProductsStore = defineStore('products', {
 
         this.meta = {
           ...this.meta,
-          current_page: 0,
           total: data?.total,
         }
       }
