@@ -12,12 +12,12 @@ export type Product = {
   images: string[]
 }
 
-type PartBasketProduct = Pick<Product, 'id' | 'title' | 'price'>
-export type BasketProduct = PartBasketProduct & {
+export type BasketProduct = {
   quantity: number
-  total: number
-  discountPercentage: number
-  discountedPrice: number
-  data?: Product
+  data: Product
 }
 
+export type BasketProductStorage = {
+  quantity: number
+  id: number
+}

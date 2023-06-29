@@ -35,21 +35,15 @@ setLocale('ru')
 const route = useRoute()
 const userStore = useUserStore()
 const basketStore = useBasketStore()
+const likeProductsStore = useLikeProductsStore()
 
 const layout = computed(() => {
   if (!route.name) return ''
   return route.meta?.layout || 'DefaultLayout'
 })
 
-const likeProductsStore = useLikeProductsStore()
-
 likeProductsStore.initLikes()
-userStore.$subscribe(async (_, store) => {
-  console.log('store.user', store.user)
-  if (store.user.id) {
-    await basketStore.fetchBasketUser({ url: store.user.id })
-  }
-})
+basketStore.fetchBasketUser()
 </script>
 
 <style lang="scss" scoped>

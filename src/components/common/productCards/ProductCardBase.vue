@@ -60,6 +60,7 @@
           :color='isBasket ? "orange-lighten-1" : "grey-lighten-1"'
           class='text-white'
           elevation='0'
+          width='120'
           :variant='isBasket ? "elevated" : "outlined"'
           @click.stop='updateStatusProduct'
         >
@@ -102,12 +103,12 @@ const isLicked = computed(()=>{
   return likeProductsStore.isLicked(props.data)
 })
 
-const isBasket = computed(()=>{
+const isBasket = computed(() => {
   return basketStore.checkProductInBasket(props.data.id)
 })
 
 const updateStatusProduct = () => {
-  if (!isBasket.value) {
+  if (!basketStore.checkProductInBasket(props.data.id)) {
     basketStore.addToBasket(props.data.id)
   }
 }

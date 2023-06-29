@@ -1,20 +1,19 @@
 import { defineStore } from 'pinia'
-import {filterParams, IBaseStore} from './baseStoreFetchData'
+import {IBaseStore} from './baseStoreFetchData'
 import {commonUrls, productsUrls} from '@/constants/urls'
-import {BasketProduct, Product} from '@/types/products'
+import {BasketProduct, BasketProductStorage, Product} from '@/types/products'
 import useApi from '@/assets/js/helpers/useApi'
 
-interface IBasketStoreFetch {
+interface IBasketStore {
   id: number | null
   products: BasketProduct[]
   total: number
   discountedTotal: number
-  userId: number
   totalProducts: number
   totalQuantity: number
 }
-export type BasketStore = Pick<IBaseStore, 'loading'> & IBasketStoreFetch
-export type BasketMetricsStore = Pick<IBasketStoreFetch, 'total' | 'discountedTotal' | 'totalProducts' | 'totalQuantity'>
+export type BasketStore = Pick<IBaseStore, 'loading'> & IBasketStore
+export type BasketMetricsStore = Pick<IBasketStore, 'total' | 'discountedTotal' | 'totalProducts' | 'totalQuantity'>
 
 const useBasketStore = defineStore('basket', {
   getters: {
@@ -30,88 +29,98 @@ const useBasketStore = defineStore('basket', {
         totalQuantity: this.totalQuantity,
       }
     },
+
+    getBasketProducts(): BasketProduct[] {
+      return this.products
+    },
   },
 
   actions: {
-    async fetchBasketUser({filter = {}, url = ''}: {filter?: any, url?: string | number}) {
-      const filteredFilters = filterParams(filter)
-      const result: any = await useApi.get(commonUrls.BASKET_URL + url, null, { params: filteredFilters })
-
-      await this.parseBasketUser(result)
-      return result
+    resetBasketMetrics() {
+      this.total = 0
+      this.discountedTotal = 0
+      this.totalProducts = 0
+      this.totalQuantity = 0
     },
 
-    async parseBasketUser(result: any) {
-      const { data, errors }: any = result
-      console.log('parseBasketUser', data)
-      if (data) {
-        this.$state = {
-          ...this.$state,
-          ...((data?.carts && data?.carts[0]) || data),
-        }
+    async fetchBasketUser() {
+      const storageProducts = await localStorage.getItem('basket')
+      if (!storageProducts) {
+        await localStorage.setItem('basket', JSON.stringify([]))
+        return
       }
+      const result: BasketProductStorage[] = JSON.parse(storageProducts)
+      await this.fetchBasketProducts(result)
+      await this.parseBasketProducts()
+    },
 
-      this.products = await Promise.all(this.products.map( async (product: BasketProduct) => {
+    async fetchBasketProducts(result: BasketProductStorage[]) {
+      this.products = await Promise.all(result.map( async (product: BasketProductStorage): Promise<BasketProduct> => {
         const { data }: any = await useApi.get(`${productsUrls.PRODUCTS_URL}/${product.id}`)
 
         return {
-          ...product,
+          quantity: product.quantity,
           data: data,
         }
       }))
-
-      await localStorage.setItem('basket', JSON.stringify(this.$state))
-      return {data, errors}
     },
 
-    async updateBasket(newProducts: any[] = []) {
-      let data: any = this.products
-        .filter((item: BasketProduct) => item.quantity > 0)
-        .map((item: BasketProduct) => {
-          return {
-            id: item.id,
-            quantity: item.quantity,
-          }
-        })
+    async parseBasketProducts() {
+      this.resetBasketMetrics()
 
-      data = [
-        ...data,
-        ...newProducts,
-      ]
-      console.log('updateBasket', this.id)
-      const result: any = await useApi.put(`${commonUrls.BASKET_BY_ID_URL}/${this.id}`, {
-        merge: false,
-        products: data,
+      this.products.forEach((product: BasketProduct) => {
+        const price = product.data.price
+        const totalPriceProduct = price * product.quantity
+        const totalPriceProductWitchDiscount = totalPriceProduct * product.data.discountPercentage
+
+        this.totalProducts++
+        this.totalQuantity = this.totalQuantity + product.quantity
+        this.total = this.total + totalPriceProduct
+        this.discountedTotal = this.discountedTotal + totalPriceProductWitchDiscount
       })
-
-      this.parseBasketUser(result)
     },
 
-    addToBasket(productId: string | number) {
-      const product: BasketProduct | undefined = this.products.find((item: BasketProduct) => item.id === productId)
-      if (product !==undefined && !!product) {
-        product.quantity++
-        this.updateBasket()
+    async addToBasket(productId: number) {
+      const storageProducts = await localStorage.getItem('basket')
+      if (!storageProducts) return
+      const result: BasketProductStorage[] = JSON.parse(storageProducts)
+      const productFind: BasketProductStorage | undefined = result.find((item: BasketProductStorage) => item.id === productId)
+
+      if (productFind !== undefined) {
+        productFind.quantity++
       } else {
-        this.updateBasket([{
+        result.push({
           id: productId,
           quantity: 1,
-        }])
+        })
       }
+
+      await localStorage.setItem('basket', JSON.stringify(result))
+      this.fetchBasketUser()
     },
 
-    deleteToBasket(productId: string | number) {
-      const product: BasketProduct | undefined = this.products.find((item: BasketProduct) => item.id === productId)
-      if (product !==undefined && !!product) {
-        product.quantity--
+    async deleteToBasket(productId: string | number) {
+      const storageProducts = await localStorage.getItem('basket')
+      if (!storageProducts) return
+      let result: BasketProductStorage[] = JSON.parse(storageProducts)
+      const productFind: BasketProductStorage | undefined  = result.find((item: any) => item.id === productId)
 
-        this.updateBasket()
+      if (productFind !== undefined) {
+        productFind.quantity--
+        if (productFind.quantity === 0) {
+          result = result.filter((item: BasketProductStorage) => item.id !== productId)
+        }
+      } else {
+        return false
       }
+
+      await localStorage.setItem('basket', JSON.stringify(result))
+      this.fetchBasketUser()
     },
 
-    checkProductInBasket(productId: string | number) {
-      const product: BasketProduct | undefined = this.products.find((item: BasketProduct) => item.id === productId)
-      return product ?? false
+    checkProductInBasket(productId: number) {
+      const product: BasketProduct | undefined = this.products.find((item: BasketProduct) => item.data.id === productId)
+      return product !== undefined
     },
   },
 
@@ -121,7 +130,6 @@ const useBasketStore = defineStore('basket', {
     products: [],
     total: 0,
     discountedTotal: 0,
-    userId: 0,
     totalProducts: 0,
     totalQuantity: 0,
   }),

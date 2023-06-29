@@ -13,6 +13,7 @@ const useLikeProductsStore = defineStore('likeProducts', {
 
     async initLikes() {
       const likes: any = await localStorage.getItem('likes')
+      if (!likes) return
       this.items = JSON.parse(likes)
     },
 
