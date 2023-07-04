@@ -4,7 +4,7 @@
       v-if='!isMobile'
       v-model='showMenu'
       :width='230'
-      :rail-width='90'
+      :rail-width='95'
       :rail='mini'
       permanent
       class='left-menu'

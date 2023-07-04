@@ -59,6 +59,7 @@
         <v-btn
           :color='isBasket ? "orange-lighten-1" : "grey-lighten-1"'
           class='text-white'
+          :disabled='basketStore.getLoading'
           elevation='0'
           width='120'
           :variant='isBasket ? "elevated" : "outlined"'

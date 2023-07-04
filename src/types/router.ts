@@ -36,4 +36,5 @@ export interface IRouteNames {
   jewelry: string
   interior: IHome
   pageNotFound: string,
+  basket: string
 }

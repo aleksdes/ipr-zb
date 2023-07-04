@@ -12,10 +12,12 @@
       />
 
       <div class='app-navbar__logo'>
-        <v-img
-          :src='require("@/assets/img/logotype.svg")'
-          width='130'
-        />
+        <router-link :to='{name: routeNames.home}'>
+          <v-img
+            :src='require("@/assets/img/logotype.svg")'
+            width='130'
+          />
+        </router-link>
       </div>
 
       <nav class='app-navbar__navs'>
@@ -63,6 +65,7 @@ import {INavbarMenuBtns} from '@/types/navbarMenu'
 import { useDisplay } from 'vuetify'
 import {navbarMenuBtns} from '@/assets/js/resources/navbarMenu'
 import {useLeftMenu} from '@/components/leftMenu/LeftMenu.vue'
+import {routeNames} from '@/router/RouteNames'
 
 const leftMenuStore = useLeftMenu
 const heightNavbar = 60

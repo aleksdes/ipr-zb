@@ -52,9 +52,6 @@ const title = computed((): string => {
       return ''
   }
 })
-
-
-
 </script>
 
 <style lang='scss' scoped>

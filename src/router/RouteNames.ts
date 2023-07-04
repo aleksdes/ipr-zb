@@ -31,5 +31,6 @@ export const routeNames: IRouteNames = {
     homeDecoration: 'homeDecoration',
     lighting: 'lighting',
   },
+  basket: 'basket',
   pageNotFound: '404',
 }

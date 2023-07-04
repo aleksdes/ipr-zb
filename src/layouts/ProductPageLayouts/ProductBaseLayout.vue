@@ -8,7 +8,7 @@
     <div class='products__page-content h-100 w-100'>
       <v-col
         :cols='showBasket ? 9 : 12'
-        class='pa-0'
+        class='pa-3'
       >
         <div class='products__box-list h-100'>
           <slot name='content'>
@@ -30,7 +30,7 @@
 
             <div
               v-else
-              class='products__list pa-3'
+              class='products__list'
             >
               <ProductCardBase
                 v-for='product in products'
@@ -59,7 +59,7 @@
       <v-col
         v-if='showBasket'
         cols='3'
-        class='pa-0'
+        class='pa-3'
       >
         <BasketCard/>
       </v-col>

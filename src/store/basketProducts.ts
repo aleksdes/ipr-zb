@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import {IBaseStore} from './baseStoreFetchData'
-import {commonUrls, productsUrls} from '@/constants/urls'
+import {productsUrls} from '@/constants/urls'
 import {BasketProduct, BasketProductStorage, Product} from '@/types/products'
 import useApi from '@/assets/js/helpers/useApi'
 
@@ -44,6 +44,7 @@ const useBasketStore = defineStore('basket', {
     },
 
     async fetchBasketUser() {
+      this.loading = true
       const storageProducts = await localStorage.getItem('basket')
       if (!storageProducts) {
         await localStorage.setItem('basket', JSON.stringify([]))
@@ -52,6 +53,7 @@ const useBasketStore = defineStore('basket', {
       const result: BasketProductStorage[] = JSON.parse(storageProducts)
       await this.fetchBasketProducts(result)
       await this.parseBasketProducts()
+      this.loading = false
     },
 
     async fetchBasketProducts(result: BasketProductStorage[]) {
@@ -81,8 +83,12 @@ const useBasketStore = defineStore('basket', {
     },
 
     async addToBasket(productId: number) {
+      this.loading = true
       const storageProducts = await localStorage.getItem('basket')
-      if (!storageProducts) return
+      if (!storageProducts) {
+        this.loading = false
+        return
+      }
       const result: BasketProductStorage[] = JSON.parse(storageProducts)
       const productFind: BasketProductStorage | undefined = result.find((item: BasketProductStorage) => item.id === productId)
 
@@ -96,7 +102,8 @@ const useBasketStore = defineStore('basket', {
       }
 
       await localStorage.setItem('basket', JSON.stringify(result))
-      this.fetchBasketUser()
+      await this.fetchBasketUser()
+      this.loading = false
     },
 
     async deleteToBasket(productId: string | number) {
@@ -115,12 +122,17 @@ const useBasketStore = defineStore('basket', {
       }
 
       await localStorage.setItem('basket', JSON.stringify(result))
-      this.fetchBasketUser()
+      await this.fetchBasketUser()
     },
 
     checkProductInBasket(productId: number) {
       const product: BasketProduct | undefined = this.products.find((item: BasketProduct) => item.data.id === productId)
       return product !== undefined
+    },
+
+    async clearBasket() {
+      await localStorage.setItem('basket', JSON.stringify([]))
+      this.fetchBasketUser()
     },
   },
 

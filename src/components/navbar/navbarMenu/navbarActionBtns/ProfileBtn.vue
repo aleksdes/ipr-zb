@@ -46,7 +46,6 @@
 
     <ModalLoginUser
       v-if='openLogin'
-      @close='openLogin = false'
     />
   </v-menu>
 </template>
@@ -62,12 +61,11 @@ import {computed, ComputedRef, ref} from 'vue'
 import useUserStore from '@/store/user'
 import MenuProfileBtnEmptyUser from './profileBtn/MenuProfileBtnEmptyUser.vue'
 import MenuProfileBtnIsUser from './profileBtn/MenuProfileBtnIsUser.vue'
-import ModalLoginUser from '../../../autch/ModalLoginUser.vue'
+import ModalLoginUser, {useLoginModal} from '../../../autch/ModalLoginUser.vue'
 import {User} from '@/types/user'
 
 const userStore = useUserStore()
 const openMenu = ref(false)
-const openLogin = ref(false)
 
 const user: ComputedRef<User | null> = computed((): User | null => {
   const dataUser: User = userStore.getUserData
@@ -75,8 +73,11 @@ const user: ComputedRef<User | null> = computed((): User | null => {
   return dataUser
 })
 
+const openLogin = computed(() => {
+  return useLoginModal.getIsOpen()
+})
 const login = () => {
-  openLogin.value = true
+  useLoginModal.setIsOpen(true)
 }
 </script>
 
