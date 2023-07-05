@@ -4,7 +4,7 @@
   >
     <div class='d-flex flex-row align-center'>
       <div
-        class='product__box-thumbnail d-flex align-center'
+        class='product__box-thumbnail d-flex'
         :class='{"product__box-thumbnail--empty": !data.thumbnail}'
       >
         <v-img

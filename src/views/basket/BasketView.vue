@@ -1,5 +1,5 @@
 <template>
-  <div class='basket py-3 h-100'>
+  <div class='basket pt-4 py-5 h-100'>
     <h2 class='mb-2'>Корзина</h2>
 
     <v-card
@@ -24,11 +24,15 @@
       v-else
       class='basket__content'
     >
-      <v-card
+      <div
         class='basket__product-list'
       >
-        <p>sfdbgvdfxvgf</p>
-      </v-card>
+        <ProductCardBasketBase
+          v-for='product in basketData'
+          :key='product.id'
+          :data='product'
+        />
+      </div>
 
       <v-card
         class='basket__actions'
@@ -65,8 +69,10 @@ export default {
 
 <script setup lang="ts">
 import {computed, onMounted, ref, Ref, ComputedRef} from 'vue'
+import ProductCardBasketBase from '@/components/common/productCards/ProductCardBasketBase.vue'
 import {Product, BasketProduct} from '@/types/products'
 import useBasketStore from '@/store/basketProducts'
+
 const basketStore = useBasketStore()
 
 const basketData: ComputedRef<Product[]> = computed((): Product[] => {
@@ -92,7 +98,6 @@ const isLoading = computed(() => {
   flex-direction: column;
   align-items: flex-start;
 
-  &__product-list,
   &__actions {
     box-shadow: 0 0 14px rgba(0, 0, 0, 10%);
     padding: 15px;
@@ -100,11 +105,17 @@ const isLoading = computed(() => {
     text-align: initial;
   }
 
+  &__product-list {
+    display: grid;
+    grid-gap: 20px;
+  }
+
   &__content {
     display: grid;
     grid-template-columns: auto 350px;
     grid-gap: 20px;
     width: 100%;
+    align-items: start;
   }
 
   &__actions {

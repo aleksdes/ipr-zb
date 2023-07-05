@@ -134,6 +134,22 @@ const useBasketStore = defineStore('basket', {
       await localStorage.setItem('basket', JSON.stringify([]))
       this.fetchBasketUser()
     },
+
+    async clearProductBasket(productId: number) {
+      const storageProducts = await localStorage.getItem('basket')
+      if (!storageProducts) return
+      let result: BasketProductStorage[] = JSON.parse(storageProducts)
+      const productFind: BasketProductStorage | undefined  = result.find((item: any) => item.id === productId)
+
+      if (productFind !== undefined) {
+        result = result.filter((item: BasketProductStorage) => item.id !== productId)
+      } else {
+        return false
+      }
+
+      await localStorage.setItem('basket', JSON.stringify(result))
+      await this.fetchBasketUser()
+    },
   },
 
   state: (): BasketStore => ({
