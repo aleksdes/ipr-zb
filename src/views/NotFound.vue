@@ -28,13 +28,14 @@ export default  {
 
 <script setup lang='ts'>
 import Animate404 from '@/components/404/Animate404.vue'
-import {routeNames} from '@/router/RouteNames'; '@/router/RouteNames'
+import {routeNames} from '@/router/RouteNames'
 </script>
 
 <style lang="scss" scoped>
 .page {
   height: 100%;
   display: flex;
+  padding: 70px 0;
 
   .description {
     font-style: normal;

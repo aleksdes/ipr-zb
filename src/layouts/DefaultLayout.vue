@@ -2,7 +2,7 @@
   <div class='h-100'>
     <navbar />
     <left-menu class='layout-menu' />
-    <div class='main-wrap overflow-y-auto overflow-x-hidden white-gray scroll'>
+    <div class='main-wrap white-gray overflow-y-auto overflow-x-hidden scroll'>
       <slot />
     </div>
   </div>

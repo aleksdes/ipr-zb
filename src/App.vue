@@ -1,11 +1,17 @@
 <template>
   <v-app>
     <v-main>
-      <component :is='layout'>
+      <component
+        :is='layout'
+      >
         <router-view v-slot='{ Component, route }'>
-          <transition name='fade'
-                      mode='out-in'>
-            <div :key='route.name'>
+          <transition
+            name='fade'
+            mode='out-in'
+          >
+            <div
+              :key='route.name'
+            >
               <component :is='Component' />
             </div>
           </transition>
@@ -15,9 +21,11 @@
       <Footer />
     </v-main>
 
-    <notifications class='notifications'
-                   group='app-front'
-                   position='bottom right' />
+    <notifications
+      class='notifications'
+      group='app-front'
+      position='bottom right'
+    />
   </v-app>
 </template>
 
@@ -27,13 +35,11 @@ import { useRoute } from 'vue-router'
 import { setLocale } from '@vee-validate/i18n'
 import useLikeProductsStore from '@/store/likeProducts'
 import Footer from '@/components/footer/Footer.vue'
-import useUserStore from '@/store/user'
 import useBasketStore from '@/store/basketProducts'
 
 setLocale('ru')
 
 const route = useRoute()
-const userStore = useUserStore()
 const basketStore = useBasketStore()
 const likeProductsStore = useLikeProductsStore()
 

@@ -37,4 +37,5 @@ export interface IRouteNames {
   interior: IHome
   pageNotFound: string,
   basket: string
+  wishlist: string
 }

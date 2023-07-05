@@ -3,6 +3,7 @@
     class='pa-0'
     size='x-small'
     icon
+    @click='goLikePage'
   >
     <v-badge
       :model-value='getLikes>0'
@@ -26,14 +27,23 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {defineProps, defineEmits, computed, ComputedRef} from 'vue'
+import {computed} from 'vue'
 import useLikeProductsStore from '@/store/likeProducts'
+import {useRouter} from 'vue-router'
+import {routeNames} from '@/router/RouteNames'
 
 const likeProductsStore = useLikeProductsStore()
 
+const router = useRouter()
+
 const getLikes = computed(()=>{
-  return likeProductsStore.getItems.length
+  return likeProductsStore.getLikeProducts.length
 })
+
+const goLikePage = () => {
+  if (getLikes.value === 0) return
+  router.push({name: routeNames.wishlist})
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div class='basket pt-4 py-5 h-100'>
+  <div class='basket pa-5 h-100'>
     <h2 class='mb-2'>Корзина</h2>
 
     <v-card

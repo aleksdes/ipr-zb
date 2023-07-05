@@ -17,11 +17,11 @@ export type BasketMetricsStore = Pick<IBasketStore, 'total' | 'discountedTotal' 
 
 const useBasketStore = defineStore('basket', {
   getters: {
-    getLoading(state: BasketStore): boolean {
-      return state.loading
+    getLoading(): boolean {
+      return this.loading
     },
 
-    getBasketMetrics(state: BasketStore): BasketMetricsStore {
+    getBasketMetrics(): BasketMetricsStore {
       return {
         total: this.total,
         discountedTotal: this.discountedTotal,
@@ -80,6 +80,33 @@ const useBasketStore = defineStore('basket', {
         this.total = this.total + totalPriceProduct
         this.discountedTotal = this.discountedTotal + totalPriceProductWitchDiscount
       })
+    },
+
+    async addGroupToBasket(productIds: number[]) {
+      this.loading = true
+      const storageProducts = await localStorage.getItem('basket')
+      if (!storageProducts) {
+        this.loading = false
+        return
+      }
+      const result: BasketProductStorage[] = JSON.parse(storageProducts)
+
+      productIds.forEach((id: number) => {
+        const productFind: BasketProductStorage | undefined = result.find((item: BasketProductStorage) => item.id === id)
+
+        if (productFind !== undefined) {
+          return
+        } else {
+          result.push({
+            id: id,
+            quantity: 1,
+          })
+        }
+      })
+
+      await localStorage.setItem('basket', JSON.stringify(result))
+      await this.fetchBasketUser()
+      this.loading = false
     },
 
     async addToBasket(productId: number) {

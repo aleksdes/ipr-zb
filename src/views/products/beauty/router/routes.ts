@@ -5,17 +5,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/beauty/fragrances',
     name: routeNames.beauty.fragrances,
-    component: () => import('@/views/beauty/fragrances/FragrancesView.vue'),
+    component: () => import('@/views/products/beauty/fragrances/FragrancesView.vue'),
   },
   {
     path: '/beauty/skincare',
     name: routeNames.beauty.skincare,
-    component: () => import('@/views/beauty/skincare/SkincareView.vue'),
+    component: () => import('@/views/products/beauty/skincare/SkincareView.vue'),
   },
   {
     path: '/beauty/sunglasses',
     name: routeNames.beauty.sunglasses,
-    component: () => import('@/views/beauty/sunglasses/SunglassesView.vue'),
+    component: () => import('@/views/products/beauty/sunglasses/SunglassesView.vue'),
   },
 ]
 

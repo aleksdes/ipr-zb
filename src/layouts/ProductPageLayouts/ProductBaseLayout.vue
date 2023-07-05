@@ -43,6 +43,7 @@
                 v-if='dialog'
                 :model-value='true'
                 width='auto'
+                @update:modelValue='closeCardDetails'
               >
                 <ProductCardDetails
                   :data='selectedProduct'

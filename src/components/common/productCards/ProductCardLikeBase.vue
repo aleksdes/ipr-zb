@@ -2,7 +2,18 @@
   <v-card
     class='product'
   >
-    <div class='d-flex flex-row'>
+    <div class='d-flex flex-row align-start'>
+      <div class='product__box-selected'>
+        <v-checkbox
+          :model-value='modelValue'
+          :value='data.id'
+          hide-details
+          density='comfortable'
+          color='orange-lighten-1'
+          @update:model-value='emits("update:modelValue", $event)'
+        />
+      </div>
+
       <div
         class='product__box-thumbnail d-flex align-center'
         :class='{"product__box-thumbnail--empty": !data.thumbnail}'
@@ -10,6 +21,7 @@
         <v-img
           v-if='data.thumbnail'
           class='product__thumbnail'
+          cover
           :src='data.thumbnail'
         />
         <v-icon
@@ -30,64 +42,43 @@
           </p>
           <p class='product__desc'>{{data.description}}</p>
         </div>
-
-        <div class='my-3'>
-          <v-btn
-            size='30'
-            icon
-            :color='isLicked ? "orange-lighten-1" : ""'
-            variant='outlined'
-            class='product__action-like px-0'
-            @click.stop='likeProducts'
-          >
-            <v-icon size='16'>mdi-heart-outline</v-icon>
-          </v-btn>
-
-          <v-btn
-            v-if='showDelete'
-            size='30'
-            icon
-            class='ml-4'
-            variant='outlined'
-            @click='basketStore.clearProductBasket(data.id)'
-          >
-            <v-icon size='16'>mdi-trash-can-outline</v-icon>
-          </v-btn>
-        </div>
       </div>
     </div>
 
-    <div class='product__amount'>
-      <v-btn
-        size='20'
-        variant='outlined'
-        class='px-0'
-        color='grey'
-        @click.stop='basketStore.deleteToBasket(data.id)'
-      >
-        <v-icon size='12'>mdi-minus</v-icon>
-      </v-btn>
+    <div class='product__box-actions text-right h-100'>
+      <p class='product__price mb-4'>{{data.price}} &#36;</p>
 
-      <p class='text-center'>{{amountProduct}}</p>
+      <div>
+        <v-btn
+          size='30'
+          icon
+          :color='isLicked ? "orange-lighten-1" : ""'
+          variant='outlined'
+          class='product__action-like px-0'
+          @click.stop='likeProducts'
+        >
+          <v-icon size='16'>mdi-heart-outline</v-icon>
+        </v-btn>
 
-      <v-btn
-        size='20'
-        variant='outlined'
-        class='px-0'
-        color='grey'
-        @click.stop='basketStore.addToBasket(data.id)'
-      >
-        <v-icon size='12'>mdi-plus</v-icon>
-      </v-btn>
+        <v-btn
+          :color='isBasket ? "orange-lighten-1" : "grey-lighten-1"'
+          class='text-white text-initial fw-6 ml-3'
+          :disabled='basketStore.getLoading'
+          elevation='0'
+          width='120'
+          :variant='isBasket ? "elevated" : "outlined"'
+          @click.stop='updateStatusProduct'
+        >
+          {{isBasket ? 'В корзине' : 'Купить'}}
+        </v-btn>
+      </div>
     </div>
-
-    <p class='product__price'>{{data.price}} &#36;</p>
   </v-card>
 </template>
 
 <script setup lang="ts">
-import {computed, defineProps, PropType} from 'vue'
-import {BasketProduct, Product} from '@/types/products'
+import {computed, defineProps, defineEmits, PropType} from 'vue'
+import {Product} from '@/types/products'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
 
@@ -100,8 +91,13 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  modelValue: {
+    type: Array,
+    default: ()=>([]),
+  },
 })
 
+const emits = defineEmits(['update:modelValue'])
 const basketStore = useBasketStore()
 const likeProductsStore = useLikeProductsStore()
 
@@ -113,12 +109,15 @@ const isLicked = computed(()=>{
   return likeProductsStore.isLicked(props.data)
 })
 
-const amountProduct = computed(()=>{
-  const findProduct: BasketProduct | undefined = basketStore.getBasketProducts.find((item: BasketProduct) => item.data.id === props.data.id)
-  if (findProduct !== undefined) {
-    return findProduct.quantity
-  } else return 0
+const isBasket = computed(() => {
+  return basketStore.checkProductInBasket(props.data.id)
 })
+
+const updateStatusProduct = () => {
+  if (!basketStore.checkProductInBasket(props.data.id)) {
+    basketStore.addToBasket(props.data.id)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -128,10 +127,16 @@ const amountProduct = computed(()=>{
   border-radius: 8px;
   text-align: initial;
   display: grid;
-  grid-template-columns: minmax(0, 500px) auto auto;
+  grid-template-columns: minmax(0, 500px) auto;
   align-items: flex-start;
   justify-content: space-between;
   grid-column-gap: 15px;
+
+  &__box-selected {
+    & > * {
+      width: 40px;
+    }
+  }
 
   &__box-thumbnail {
     min-width: 60px;
@@ -182,21 +187,21 @@ const amountProduct = computed(()=>{
     overflow: hidden;
   }
 
-  &__amount {
-    display: grid;
-    grid-auto-flow: column;
-    grid-gap: 15px;
-    padding: 5px 10px;
-    border-radius: 8px;
-    border: 1px solid grey;
-    align-items: center;
-  }
-
   &__price {
     font-size: 20px;
     font-weight: 600;
     line-height: 20px;
     color: map-get($orange, 'lighten-1');
+  }
+
+  &__box-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  :deep .v-checkbox .v-selection-control {
+    min-height: 0;
   }
 }
 </style>

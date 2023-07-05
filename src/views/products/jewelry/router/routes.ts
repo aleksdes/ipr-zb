@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/jewelry',
     name: routeNames.jewelry,
-    component: () => import('@/views/jewelry/JewelryView.vue'),
+    component: () => import('@/views/products/jewelry/JewelryView.vue'),
   },
 ]
 
