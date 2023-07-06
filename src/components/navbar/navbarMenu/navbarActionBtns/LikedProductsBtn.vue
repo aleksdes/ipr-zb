@@ -1,7 +1,7 @@
 <template>
   <v-btn
     class='pa-0'
-    size='x-small'
+    size='45'
     icon
     @click='goLikePage'
   >

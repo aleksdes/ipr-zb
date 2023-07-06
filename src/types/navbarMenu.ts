@@ -3,5 +3,6 @@ export interface INavbarMenuBtns {
   component: any
   actionMenu: any
   title?: string
+  typeLink?: boolean
 }
 

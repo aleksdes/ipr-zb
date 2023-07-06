@@ -9,13 +9,22 @@
         </h3>
       </slot>
 
-      <button @click.stop.prevent='closeMenu'>
+      <v-btn
+        icon
+        size='24'
+        elevation='0'
+        @click.stop.prevent='closeMenu'
+      >
         <v-icon width='24'>
           mdi-close-circle-outline
         </v-icon>
-      </button>
+      </v-btn>
     </div>
-    <slot />
+
+    <div class='px-2 pb-6'>
+      <slot />
+    </div>
+
   </div>
 </template>
 
@@ -46,19 +55,22 @@ const closeMenu = () => {
 
 <style lang='scss' scoped>
 .navbar-menu {
-  padding: 24px;
   height: inherit;
   display: flex;
   flex-direction: column;
 }
 
 .navbar-menu-heading {
-  margin-bottom: 20px;
+  padding: 24px;
+  background-color: white;
+  z-index: 10;
   display: grid;
   column-gap: 32px;
   grid-template-columns: auto 24px;
   justify-content: space-between;
   align-items: flex-start;
+  position: sticky;
+  top: 0;
 }
 
 .navbar-menu-heading-title {
@@ -66,5 +78,4 @@ const closeMenu = () => {
   font-weight: 600;
   padding: 3px 0;
 }
-
 </style>

@@ -28,7 +28,6 @@ interface IHome{
 }
 
 export interface IRouteNames {
-  login: string
   home: string,
   electronics: IElectronics
   clothing: IClothing
@@ -38,4 +37,5 @@ export interface IRouteNames {
   pageNotFound: string,
   basket: string
   wishlist: string
+  profile: string
 }

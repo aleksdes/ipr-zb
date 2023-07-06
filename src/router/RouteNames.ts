@@ -2,7 +2,6 @@ import { IRouteNames } from '@/types/router'
 
 export const routeNames: IRouteNames = {
   home: 'home',
-  login: 'login',
   electronics: {
     smartphones: 'smartphones',
     laptops: 'laptops',
@@ -33,5 +32,6 @@ export const routeNames: IRouteNames = {
   },
   basket: 'basket',
   wishlist: 'wishlist',
+  profile: 'profile',
   pageNotFound: '404',
 }

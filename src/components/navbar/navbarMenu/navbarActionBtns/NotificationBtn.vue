@@ -1,27 +1,25 @@
 <template>
-  <v-badge
-    :model-value='isNotifications'
-    :content='notificationsItemsActive.length'
-    color='orange-lighten-1'
-    v-bind='props'
+  <v-btn
+    class='notification-btn pa-0'
+    size='45'
+    :color='currentMenuItem && currentMenuItem.actionMenu === btnData.actionMenu ? "light-blue-darken-1" : ""'
+    icon
+    @click.prevent='clickMenu()'
   >
-    <v-btn
-      class='notification-btn pa-0'
-      size='x-small'
-      icon
-      @click.prevent='clickMenu()'
+    <v-badge
+      :model-value='isNotifications'
+      :content='notificationsItemsActive.length'
+      color='orange-lighten-1'
+      v-bind='props'
     >
       <v-icon
         size='30'
         class='profile-btn__icon'
-        :class='{
-          "notification-btn__icon--active": currentMenuItem && currentMenuItem.actionMenu === btnData.actionMenu,
-        }'
       >
         mdi-bell-outline
       </v-icon>
-    </v-btn>
-  </v-badge>
+    </v-badge>
+  </v-btn>
 </template>
 
 <script lang="ts">
@@ -61,13 +59,4 @@ const clickMenu = () => {
 </script>
 
 <style lang="scss" scoped>
-.notification-btn {
-  &__icon {
-    color: map-get($grey, 'darken-1');
-
-    &--active {
-      color: map-get($light-blue, 'darken-1');
-    }
-  }
-}
 </style>

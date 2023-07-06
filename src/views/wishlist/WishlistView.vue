@@ -31,7 +31,20 @@
           :key='product.id'
           v-model='selectedLikeProduct'
           :data='product'
+          @show-product-details='selectedProduct = product; dialog=true'
         />
+
+        <v-dialog
+          v-if='dialog'
+          :model-value='true'
+          width='auto'
+          @update:modelValue='closeCardDetails'
+        >
+          <ProductCardDetails
+            :data='selectedProduct'
+            @close='closeCardDetails'
+          />
+        </v-dialog>
       </div>
 
       <v-card
@@ -46,7 +59,7 @@
           <b>{{LikeMetrics.total}} &#36;</b>
         </div>
 
-        <div class='d-flex flex-row align-center justify-space-between w-100'>
+        <div class='favorites__box-btns w-100'>
           <div
             class='favorites__select-all'
           >
@@ -61,7 +74,7 @@
 
           <div>
             <v-btn
-              size='35'
+              size='30'
               icon
               color='grey-lighten-1'
               variant='outlined'
@@ -74,7 +87,7 @@
               color='orange-lighten-1'
               class='text-white text-initial fw-6 ml-3'
               elevation='0'
-              width='100'
+              width='120'
               @click='buySelectedLike'
             >
               Купить
@@ -82,7 +95,6 @@
           </div>
         </div>
       </v-card>
-
     </div>
   </div>
 </template>
@@ -95,6 +107,7 @@ export default {
 
 <script setup lang="ts">
 import {computed, ref, Ref, ComputedRef, watch} from 'vue'
+import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
 import ProductCardLikeBase from '@/components/common/productCards/ProductCardLikeBase.vue'
 import {Product} from '@/types/products'
 import useBasketStore from '@/store/basketProducts'
@@ -105,6 +118,13 @@ const likeStore = useLikeProductsStore()
 
 const selectedAllProducts = ref(false)
 const selectedLikeProduct: any = ref([])
+const dialog = ref(false)
+const selectedProduct: any = ref(null)
+
+const closeCardDetails = () => {
+  dialog.value = false
+  selectedProduct.value = null
+}
 
 const likeData: ComputedRef<Product[]> = computed((): Product[] => {
   return likeStore.getLikeProducts
@@ -145,13 +165,6 @@ const buySelectedLike = () => {
   flex-direction: column;
   align-items: flex-start;
 
-  &__actions {
-    box-shadow: 0 0 14px rgba(0, 0, 0, 10%);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: initial;
-  }
-
   &__product-list {
     display: grid;
     grid-gap: 20px;
@@ -159,20 +172,43 @@ const buySelectedLike = () => {
 
   &__content {
     display: grid;
-    grid-template-columns: auto 350px;
+    grid-auto-flow: row;
     grid-gap: 20px;
     width: 100%;
     align-items: start;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: auto 350px;
+    }
   }
 
   &__actions {
-    width: 350px;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 10%);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: initial;
+    grid-row: 1 / 2;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 
-    &__title {
-      font-weight: 700;
+    @media (min-width: 1024px) {
+      grid-row: auto;
+      position: sticky;
+      top: 80px;
+    }
+  }
+
+  &__box-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    @media (min-width: 400px) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 
@@ -182,9 +218,16 @@ const buySelectedLike = () => {
     padding: 5px 8px;
     background-color: map-get($grey, 'lighten-3');
     border-radius: 8px;
+    margin-bottom: 10px;
+    width: 100%;
 
     :deep .v-checkbox .v-selection-control {
       min-height: 0;
+    }
+
+    @media (min-width: 400px) {
+      margin-bottom: 0;
+      width: auto;
     }
   }
 }

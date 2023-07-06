@@ -32,6 +32,30 @@
       </div>
     </div>
 
+    <v-expansion-panels
+      class='footer__expansion-panels'
+    >
+      <v-expansion-panel
+        v-for='item in footerLinks'
+        :key='item.sectionTitle'
+        :title='item.sectionTitle'
+        color='#48555c'
+        bg-color='#48555c'
+      >
+        <v-expansion-panel-text>
+          <ul class='footer__list-link mb-5'>
+            <li
+              v-for='(link, index) in item.links'
+              :key='index'
+              class='footer__link mt-3'
+            >
+              {{link.title}}
+            </li>
+          </ul>
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
     <p class='text-center text-white'>{{ copyright }}</p>
   </footer>
 </template>
@@ -87,9 +111,34 @@ const copyright = computed(() => {
   background-color: map-get($blue-grey, 'darken-4');
 
   &__box-content {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-column-gap: 70px;
+    //display: grid;
+    //grid-template-columns: auto;
+    //grid-column-gap: 20px;
+    display: none;
+
+    //@media (min-width: 360px) {
+    //  display: grid;
+    //  grid-template-columns: repeat(2, 1fr);
+    //  grid-column-gap: 30px;
+    //}
+
+    @media (min-width: 768px) {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-column-gap: 70px;
+    }
+  }
+
+  &__expansion-panels {
+    margin-bottom: 30px;
+
+    :deep .v-expansion-panel-title {
+      color: white;
+    }
+
+    @media (min-width: 768px) {
+      display: none;
+    }
   }
 
   &__section {
@@ -103,8 +152,8 @@ const copyright = computed(() => {
   }
 
   &__list-link {
-    color: white;
     text-align: left;
+    color: white;
 
     li {
       list-style-type: none;

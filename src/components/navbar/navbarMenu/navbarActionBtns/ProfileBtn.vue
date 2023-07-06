@@ -1,6 +1,7 @@
 <template>
   <v-menu
     v-model='openMenu'
+    :disabled='typeLink'
     open-on-hover
     open-on-click
     :close-on-content-click='false'
@@ -10,7 +11,10 @@
       <v-btn
         class='profile-btn pa-0'
         icon
+        size='45'
+        :color='openMenu ? "light-blue-darken-1" : props.color'
         v-bind='props'
+        @click='goProfile'
       >
         <v-icon
           v-if='!user'
@@ -57,13 +61,23 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {computed, ComputedRef, ref} from 'vue'
+import {computed, ComputedRef, ref, defineProps} from 'vue'
+import {useRouter} from 'vue-router'
 import useUserStore from '@/store/user'
 import MenuProfileBtnEmptyUser from './profileBtn/MenuProfileBtnEmptyUser.vue'
 import MenuProfileBtnIsUser from './profileBtn/MenuProfileBtnIsUser.vue'
 import ModalLoginUser, {useLoginModal} from '../../../autch/ModalLoginUser.vue'
 import {User} from '@/types/user'
+import {routeNames} from '@/router/RouteNames'
 
+const props = defineProps({
+  typeLink: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const router = useRouter()
 const userStore = useUserStore()
 const openMenu = ref(false)
 
@@ -79,16 +93,21 @@ const openLogin = computed(() => {
 const login = () => {
   useLoginModal.setIsOpen(true)
 }
+const goProfile = () => {
+  if (props.typeLink) {
+    router.push({name: routeNames.profile})
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .profile-btn {
-  &__icon {
-    color: map-get($grey, 'darken-1');
-
-    &--active {
-      color: map-get($light-blue, 'darken-1');
-    }
-  }
+  //&__icon {
+  //  color: map-get($grey, 'darken-1');
+  //
+  //  &--active {
+  //    color: map-get($light-blue, 'darken-1');
+  //  }
+  //}
 }
 </style>

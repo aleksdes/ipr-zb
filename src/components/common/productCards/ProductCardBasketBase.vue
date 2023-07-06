@@ -1,8 +1,9 @@
 <template>
   <v-card
     class='product'
+    @click.stop='emits("showProductDetails")'
   >
-    <div class='d-flex flex-row'>
+    <div class='product__box-info d-flex flex-row'>
       <div
         class='product__box-thumbnail d-flex align-center'
         :class='{"product__box-thumbnail--empty": !data.thumbnail}'
@@ -49,7 +50,7 @@
             icon
             class='ml-4'
             variant='outlined'
-            @click='basketStore.clearProductBasket(data.id)'
+            @click.stop='basketStore.clearProductBasket(data.id)'
           >
             <v-icon size='16'>mdi-trash-can-outline</v-icon>
           </v-btn>
@@ -81,12 +82,12 @@
       </v-btn>
     </div>
 
-    <p class='product__price'>{{data.price}} &#36;</p>
+    <p class='product__price ml-auto'>{{data.price}} &#36;</p>
   </v-card>
 </template>
 
 <script setup lang="ts">
-import {computed, defineProps, PropType} from 'vue'
+import {computed, defineProps, PropType, defineEmits} from 'vue'
 import {BasketProduct, Product} from '@/types/products'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
@@ -102,6 +103,7 @@ const props = defineProps({
   },
 })
 
+const emits = defineEmits(['showProductDetails'])
 const basketStore = useBasketStore()
 const likeProductsStore = useLikeProductsStore()
 
@@ -128,10 +130,22 @@ const amountProduct = computed(()=>{
   border-radius: 8px;
   text-align: initial;
   display: grid;
-  grid-template-columns: minmax(0, 500px) auto auto;
+  grid-template-columns: auto;
   align-items: flex-start;
   justify-content: space-between;
   grid-column-gap: 15px;
+
+  @media (min-width: 570px) {
+    grid-template-columns: minmax(0, 500px) auto 70px;
+  }
+
+  &__box-info {
+    grid-column: 1 / 3;
+
+    @media (min-width: 570px) {
+      grid-column: auto;
+    }
+  }
 
   &__box-thumbnail {
     min-width: 60px;
@@ -141,7 +155,7 @@ const amountProduct = computed(()=>{
     overflow: hidden;
     margin-right: 10px;
 
-    @media (min-width: 768px) {
+    @media (min-width: 375px) {
       min-width: 130px;
       height: 100px;
       width: 130px;
@@ -190,6 +204,12 @@ const amountProduct = computed(()=>{
     border-radius: 8px;
     border: 1px solid grey;
     align-items: center;
+    grid-column: 1 / 2;
+    margin-right: auto;
+
+    @media (min-width: 570px) {
+      grid-column: auto;
+    }
   }
 
   &__price {
@@ -197,6 +217,13 @@ const amountProduct = computed(()=>{
     font-weight: 600;
     line-height: 20px;
     color: map-get($orange, 'lighten-1');
+    grid-column: 2 / 3;
+    margin: auto 0;
+
+    @media (min-width: 570px) {
+      grid-column: auto;
+      margin: 0;
+    }
   }
 }
 </style>

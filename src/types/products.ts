@@ -21,3 +21,5 @@ export type BasketProductStorage = {
   quantity: number
   id: number
 }
+
+export type ViewedProductStorage = Product & {viewed_at: number}

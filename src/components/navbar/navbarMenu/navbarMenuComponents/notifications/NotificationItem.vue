@@ -74,6 +74,13 @@ const mouseenterMessage = () => {
     margin-right: 15px;
   }
 
+  &__title,
+  &__time,
+  &__desc {
+    text-align: left;
+  }
+
+
   &__title {
     font-weight: 700;
   }

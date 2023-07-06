@@ -42,7 +42,6 @@
       fixed
       location='bottom'
       temporary
-      height='auto'
       :touchless='true'
       class='left-menu--mobile'
     >
@@ -83,10 +82,17 @@ export default {
     const showMenu = ref(true)
     const mini = ref(true)
     const leftMenuStore = useLeftMenu
-    const drawer = computed(() => leftMenuStore.state.drawer)
+    const drawer = computed({
+      get() {
+        return leftMenuStore.state.drawer
+      },
+      set() {
+        leftMenuStore.openMenu()
+      },
+    })
 
     const isMobile = computed(() => {
-      return displayWidth.value < 1263
+      return displayWidth.value < 1024
     })
 
     const onToggleMenu = () => {
@@ -99,6 +105,7 @@ export default {
       drawer,
       isMobile,
       onToggleMenu,
+      leftMenuStore,
       menuItems,
     }
   },

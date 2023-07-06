@@ -1,12 +1,13 @@
 .v-breadcrumbs.breadcrumbs {
   .v-breadcrumbs-item {
     font-weight: 500;
-    opacity: 50%;
+    opacity: 80%;
     color: map-get($grey, 'darken-4');
     font-size: 14px;
   }
 
   .v-breadcrumbs-item--disabled {
+    opacity: 50%;
     color: map-get($grey, 'darken-1');
   }
 

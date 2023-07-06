@@ -1,8 +1,9 @@
 <template>
   <v-card
     class='product'
+    @click.stop='emits("showProductDetails")'
   >
-    <div class='d-flex flex-row align-start'>
+    <div class='product__box-info d-flex flex-row align-start'>
       <div class='product__box-selected'>
         <v-checkbox
           :model-value='modelValue'
@@ -11,6 +12,7 @@
           density='comfortable'
           color='orange-lighten-1'
           @update:model-value='emits("update:modelValue", $event)'
+          @click.stop
         />
       </div>
 
@@ -46,7 +48,7 @@
     </div>
 
     <div class='product__box-actions text-right h-100'>
-      <p class='product__price mb-4'>{{data.price}} &#36;</p>
+      <p class='product__price'>{{data.price}} &#36;</p>
 
       <div>
         <v-btn
@@ -97,7 +99,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'showProductDetails'])
 const basketStore = useBasketStore()
 const likeProductsStore = useLikeProductsStore()
 
@@ -127,10 +129,17 @@ const updateStatusProduct = () => {
   border-radius: 8px;
   text-align: initial;
   display: grid;
-  grid-template-columns: minmax(0, 500px) auto;
+  grid-template-columns: auto;
   align-items: flex-start;
   justify-content: space-between;
-  grid-column-gap: 15px;
+
+  @media (min-width: 360px) {
+    grid-template-columns: minmax(0, 500px) minmax(0, 200px);
+  }
+
+  @media (min-width: 640px) {
+    grid-column-gap: 15px;
+  }
 
   &__box-selected {
     & > * {
@@ -146,7 +155,7 @@ const updateStatusProduct = () => {
     overflow: hidden;
     margin-right: 10px;
 
-    @media (min-width: 768px) {
+    @media (min-width: 540px) {
       min-width: 130px;
       height: 100px;
       width: 130px;
@@ -158,6 +167,15 @@ const updateStatusProduct = () => {
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  &__box-info {
+    grid-column: 1 / 3;
+    padding-bottom: 10px;
+
+    @media (min-width: 640px) {
+      grid-column: auto;
     }
   }
 
@@ -192,12 +210,32 @@ const updateStatusProduct = () => {
     font-weight: 600;
     line-height: 20px;
     color: map-get($orange, 'lighten-1');
+    margin-bottom: 8px;
+
+    @media (min-width: 360px) {
+      margin-bottom: 0;
+    }
   }
 
   &__box-actions {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-end;
+    grid-column: 1 / 3;
+
+    @media (min-width: 360px) {
+      grid-column: 1 / 3;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    @media (min-width: 640px) {
+      grid-column: auto;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-top: 0;
+    }
   }
 
   :deep .v-checkbox .v-selection-control {

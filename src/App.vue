@@ -18,7 +18,11 @@
         </router-view>
       </component>
 
-      <Footer />
+      <!--      <div style=' position: sticky;bottom: 0; top: 0; min-height: 2em; background: red; z-index: 10000000'>fdgh5g64ergvrt5455433</div>-->
+
+      <Footer
+        v-if='layout'
+      />
     </v-main>
 
     <notifications

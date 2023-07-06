@@ -66,7 +66,7 @@ const emits = defineEmits({
 .notifications {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: initial;
 
   &__box-empty {
     width: 250px;

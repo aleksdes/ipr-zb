@@ -22,7 +22,7 @@
 
     <div
       v-else
-      class='basket__content'
+      class='basket__content mb-5'
     >
       <div
         class='basket__product-list'
@@ -31,7 +31,20 @@
           v-for='product in basketData'
           :key='product.id'
           :data='product'
+          @show-product-details='selectedProduct = product; dialog=true'
         />
+
+        <v-dialog
+          v-if='dialog'
+          :model-value='true'
+          width='auto'
+          @update:modelValue='closeCardDetails'
+        >
+          <ProductCardDetails
+            :data='selectedProduct'
+            @close='closeCardDetails'
+          />
+        </v-dialog>
       </div>
 
       <v-card
@@ -56,8 +69,9 @@
           Перейти к оформлению
         </v-btn>
       </v-card>
-
     </div>
+
+    <RecentlyViewed />
   </div>
 </template>
 
@@ -68,10 +82,21 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {computed, onMounted, ref, Ref, ComputedRef} from 'vue'
+import {computed, ref, Ref, ComputedRef} from 'vue'
+import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
 import ProductCardBasketBase from '@/components/common/productCards/ProductCardBasketBase.vue'
+import RecentlyViewed from '@/components/common/recentlyViewed/RecentlyViewed.vue'
+
 import {Product, BasketProduct} from '@/types/products'
 import useBasketStore from '@/store/basketProducts'
+
+const dialog = ref(false)
+const selectedProduct: any = ref(null)
+
+const closeCardDetails = () => {
+  dialog.value = false
+  selectedProduct.value = null
+}
 
 const basketStore = useBasketStore()
 
@@ -98,13 +123,6 @@ const isLoading = computed(() => {
   flex-direction: column;
   align-items: flex-start;
 
-  &__actions {
-    box-shadow: 0 0 14px rgba(0, 0, 0, 10%);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: initial;
-  }
-
   &__product-list {
     display: grid;
     grid-gap: 20px;
@@ -112,20 +130,30 @@ const isLoading = computed(() => {
 
   &__content {
     display: grid;
-    grid-template-columns: auto 350px;
+    grid-auto-flow: row;
     grid-gap: 20px;
     width: 100%;
     align-items: start;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: auto 350px;
+    }
   }
 
   &__actions {
-    width: 350px;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 10%);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: initial;
+    grid-row: 1 / 2;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 
-    &__title {
-      font-weight: 700;
+    @media (min-width: 1024px) {
+      grid-row: auto;
+      position: sticky;
+      top: 80px;
     }
   }
 }

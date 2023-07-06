@@ -4,7 +4,6 @@ import NotificationBtn from '@/components/navbar/navbarMenu/navbarActionBtns/Not
 import LikedProductsBtn from '@/components/navbar/navbarMenu/navbarActionBtns/LikedProductsBtn.vue'
 import BasketBtn from '@/components/navbar/navbarMenu/navbarActionBtns/BasketBtn.vue'
 import ProfileBtn from '@/components/navbar/navbarMenu/navbarActionBtns/ProfileBtn.vue'
-
 import Notifications from '@/components/navbar/navbarMenu/navbarMenuComponents/Notifications.vue'
 
 
@@ -14,4 +13,13 @@ export const navbarMenuBtns: INavbarMenuBtns[] = [
   { id: 'basketBtn', component: BasketBtn, actionMenu: ''},
   { id: 'profileBtn', component: ProfileBtn, actionMenu: ''},
 ]
+
+export const bottomNavbarMenuBtns: INavbarMenuBtns[] = [
+  { id: 'notificationBtn', component: NotificationBtn, actionMenu: markRaw(Notifications)},
+  { id: 'likedProductsBtn', component: LikedProductsBtn, actionMenu: '', typeLink: true},
+  { id: 'basketBtn', component: BasketBtn, actionMenu: '', typeLink: true},
+  { id: 'profileBtn', component: ProfileBtn, actionMenu: '', typeLink: true},
+]
+
+
 

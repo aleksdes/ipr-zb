@@ -1,5 +1,5 @@
 <template>
-  <div class='products py-3 h-100'>
+  <div class='products pa-3 h-100'>
     <Breadcrumbs
       :part='props.breadcrumbs'
       class='mb-2'
@@ -7,8 +7,10 @@
 
     <div class='products__page-content h-100 w-100'>
       <v-col
-        :cols='showBasket ? 9 : 12'
-        class='pa-3'
+        :cols='12'
+        :md='showBasket ? 8 : 12'
+        :lg='showBasket ? 9 : 12'
+        class='pa-2'
       >
         <div class='products__box-list h-100'>
           <slot name='content'>
@@ -59,13 +61,13 @@
 
       <v-col
         v-if='showBasket'
-        cols='3'
-        class='pa-3'
+        cols='4'
+        lg='3'
+        class='pa-2 d-none d-md-block'
       >
         <BasketCard/>
       </v-col>
     </div>
-
   </div>
 </template>
 
@@ -85,6 +87,7 @@ import ProductCardDetails from '@/components/common/productCards/ProductCardDeta
 import ProductCardBase from '@/components/common/productCards/ProductCardBase.vue'
 import CircleLoader from '@/components/loader/CircleLoader.vue'
 import {Product} from '@/types/products'
+import { useDisplay } from 'vuetify'
 
 const props = defineProps({
   breadcrumbs: {
@@ -112,6 +115,7 @@ const closeCardDetails = () => {
   selectedProduct.value = null
 }
 
+const { width } = useDisplay()
 </script>
 
 <style lang="scss" scoped>

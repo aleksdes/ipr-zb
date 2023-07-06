@@ -79,7 +79,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {ref, computed, defineEmits, defineProps, PropType} from 'vue'
+import {computed, defineEmits, defineProps, PropType} from 'vue'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
 import {Product} from '@/types/products'
@@ -121,24 +121,32 @@ const updateStatusProduct = () => {
   padding: 20px;
   grid-column-gap: 12px;
   display: grid;
-  grid-template-columns: auto minmax(0,1fr) 170px;
-  grid-template-rows: 1fr;
+
+  @media (min-width: 360px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: auto minmax(0,1fr) 170px;
+  }
 
   &:hover &__name {
     color: map-get($orange, 'lighten-1');
   }
 
   &__box-thumbnail {
-    width: 160px;
-    height: 140px;
+    width: 100px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
 
-  &__thumbnail {
-    width: 160px;
-    max-height: 100%;
+    @media (min-width: 640px) {
+      width: 160px;
+      height: 140px;
+    }
   }
 
   &__info {
@@ -146,6 +154,11 @@ const updateStatusProduct = () => {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    grid-column: 1 / 3;
+
+    @media (min-width: 360px) {
+      grid-column: auto;
+    }
   }
 
   &__brand {
@@ -159,11 +172,16 @@ const updateStatusProduct = () => {
   }
 
   &__name {
-    font-size: 35px;
-    line-height: 35px;
+    font-size: 26px;
+    line-height: 26px;
     font-weight: 600;
     transition: 0.1s linear;
     cursor: pointer;
+
+    @media (min-width: 640px) {
+      font-size: 35px;
+      line-height: 36px;
+    }
   }
 
   &__stock {
@@ -179,6 +197,21 @@ const updateStatusProduct = () => {
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
+    grid-column: 1 / 3;
+    margin-top: 5px;
+
+    @media (min-width: 360px) {
+      grid-column: 1 / 3;
+      flex-direction: row;
+      margin-top: 15px;
+    }
+
+    @media (min-width: 640px) {
+      grid-column: auto;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-top: 0;
+    }
   }
 
   &__price {
@@ -186,6 +219,11 @@ const updateStatusProduct = () => {
     font-weight: 600;
     line-height: 35px;
     color: map-get($orange, 'lighten-1');
+    margin-bottom: 10px;
+
+    @media (min-width: 360px) {
+      margin-bottom: 0;
+    }
   }
 
   &__actions {

@@ -6,11 +6,6 @@
       color='white'
       class='app-navbar'
     >
-      <v-app-bar-nav-icon
-        class='d-lg-none ma-0'
-        @click.stop='leftMenuStore.openMenu()'
-      />
-
       <div class='app-navbar__logo'>
         <router-link :to='{name: routeNames.home}'>
           <v-img
@@ -20,7 +15,10 @@
         </router-link>
       </div>
 
-      <nav class='app-navbar__navs'>
+      <nav
+        v-if='displayWidth>768'
+        class='app-navbar__navs'
+      >
         <template
           v-for='navBtn in navMenuBtns'
           :key='navBtn.id'
@@ -33,6 +31,13 @@
           />
         </template>
       </nav>
+
+      <v-app-bar-nav-icon
+        v-if='displayWidth<=1024'
+        size='40'
+        class='ma-0 ml-3'
+        @click.stop='leftMenuStore.openMenu()'
+      />
     </v-app-bar>
 
     <v-navigation-drawer
@@ -48,7 +53,6 @@
         @onClose='onCloseMenu()'
       />
     </v-navigation-drawer>
-
   </div>
 </template>
 
@@ -60,9 +64,8 @@ export default  {
 
 <script setup lang="ts">
 import {ref, computed} from 'vue'
-
-import {INavbarMenuBtns} from '@/types/navbarMenu'
 import { useDisplay } from 'vuetify'
+import {INavbarMenuBtns} from '@/types/navbarMenu'
 import {navbarMenuBtns} from '@/assets/js/resources/navbarMenu'
 import {useLeftMenu} from '@/components/leftMenu/LeftMenu.vue'
 import {routeNames} from '@/router/RouteNames'
@@ -125,6 +128,10 @@ const onCloseMenu: () => void = (): void => {
     grid-auto-flow: column;
     gap: 20px;
     align-items: center;
+
+    @media (min-width: 768px) {
+      margin-left: auto;
+    }
   }
 }
 

@@ -23,9 +23,6 @@ const errorHandler = async (errors: any) => {
             userStore.resetStore()
             tokenStore.resetStore()
 
-            await router.push({
-              name: routeNames.login,
-            })
             return
           }
         }
@@ -33,9 +30,6 @@ const errorHandler = async (errors: any) => {
         if (TYPE_AUTH === 'session') {
           await Auth.logoutBySession()
 
-          await router.push({
-            name: routeNames.login,
-          })
           return
         }
 

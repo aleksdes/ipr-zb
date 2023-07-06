@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-breadcrumbs
-      class='breadcrumbs pa-0'
+      class='breadcrumbs pa-0 scroll'
       :items='usePart'
       divider='mdi-chevron-right'
     >
@@ -56,16 +56,19 @@ const toRoute = (item: IBreadcrumb) => {
 
 <style lang="scss">
 .breadcrumbs {
+  overflow-x: scroll;
+  /* хром, сафари */
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  /* ie 10+ */
+  -ms-overflow-style: none;
+  /* фф (свойство больше не работает, других способов тоже нет)*/
+  overflow: -moz-scrollbars-none;
+
   &__item--pointer {
     cursor: pointer;
-  }
-
-  .breadcrumbs__item .v-breadcrumbs__item {
-    color: map-get($grey, 'lighten-1');
-  }
-
-  .disabled.v-breadcrumbs__item {
-    color: map-get($grey, 'lighten-5');
   }
 }
 </style>

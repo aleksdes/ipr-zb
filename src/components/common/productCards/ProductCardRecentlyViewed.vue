@@ -1,74 +1,56 @@
 <template>
-  <v-card
+  <div
     class='product'
   >
     <v-btn
-      icon='mdi-close'
-      size='xs-small'
+      size='25'
+      icon
       class='product__close bg-white'
       elevation='0'
-      @click='emits("close")'
-    />
-
-    <div class='product__box-imgs'>
-      <v-card
-        outlined
-        color='transparent'
-        elevation='0'
-        class='product__thumbnail mb-3'
-        max-height='300'
+      @click='deleteViewed'
+    >
+      <v-icon
+        size='20'
+        color='grey'
       >
-        <v-img
-          class='product__thumbnail'
-          :src='imgItems[activeItem]'
-        />
-      </v-card>
+        mdi-close
+      </v-icon>
+    </v-btn>
 
-      <div class='product__box-previews'>
-        <div class='product__previews pb-4'>
-          <v-card
-            v-for='(item, key) in imgItems || []'
-            :key='key'
-            outlined
-            class='product__card-img'
-            color='transparent'
-            elevation='0'
-            @click='activeItem = key'
-          >
-            <v-img
-              :src='item'
-              cover
-              :class='{active: activeItem === key}'
-              class='flex-grow-1 text-center img'
-            />
-          </v-card>
+    <div>
+      <v-badge
+        color='red'
+        :content='"-" + Math.ceil(data.discountPercentage) + "%"'
+        :disabled='!data.discountPercentage'
+        offset-x='30'
+        offset-y='15'
+        location='bottom left'
+        class='w-100'
+      >
+        <div class='product__box-imgs w-100'>
+          <v-img
+            class='product__thumbnail'
+            :src='imgItems[0]'
+          />
         </div>
-      </div>
-    </div>
+      </v-badge>
 
-    <div class='product__info'>
-      <div>
+      <div class='text-left'>
         <div class='text-left'>
-          <p class='product__brand text-grey-darken-1'>{{data.brand}}</p>
-          <p class='product__name mb-4'>{{data.title}}</p>
+          <p class='fs-12 text-grey-darken-1'>{{data.brand}}</p>
+          <p class='product__name mb-2'>{{data.title}}</p>
         </div>
 
-        <div class='product__box-desc mb-3 mb-sm-6'>
-          <p class='product__desc-title text-grey-darken-1'>Описание</p>
+        <div class='product__box-desc mb-3'>
+          <p class='fs-12 text-grey-darken-1'>Описание</p>
           <p class='product__desc'>{{data.description || '='}}</p>
         </div>
 
         <div class='text-left mb-4'>
-          <v-badge
-            color='red'
-            :content='"-" + Math.ceil(data.discountPercentage) + "%"'
-            :disabled='!data.discountPercentage'
-            inline=''
-          />
           <div class='product__rating my-2'>
             <v-rating
               :model-value='data.rating'
-              size='24'
+              size='20'
               disabled
               color='orange-lighten-1'
             />
@@ -77,9 +59,11 @@
           <p class='product__stock'>В наличии: <span>{{data.stock || 0}}</span></p>
         </div>
       </div>
+    </div>
 
+    <div class='product__info'>
       <div class='product__box-price'>
-        <p class='product__price mb-4'>{{data.price}} &#36;</p>
+        <p class='product__price mb-2'>{{data.price}} &#36;</p>
 
         <div class='product__actions'>
           <v-btn
@@ -104,18 +88,18 @@
         </div>
       </div>
     </div>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'ProductCardDetails',
+  name: 'ProductCardRecentlyViewed',
 }
 </script>
 
 <script setup lang="ts">
-import {ref, computed, defineEmits, defineProps, PropType, onMounted} from 'vue'
-import {Product} from '@/types/products'
+import {ref, computed, defineEmits, defineProps, PropType} from 'vue'
+import {ViewedProductStorage} from '@/types/products'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
 import useRecentlyViewedStore from '@/store/recentlyViewed'
@@ -124,16 +108,15 @@ const emits = defineEmits(['close'])
 
 const props = defineProps({
   data: {
-    type: Object as PropType<Product>,
+    type: Object as PropType<ViewedProductStorage>,
     default: () => ({}),
   },
 })
 
-const viewedStore = useRecentlyViewedStore()
+const recentlyViewedStore = useRecentlyViewedStore()
 const likeProductsStore = useLikeProductsStore()
 const basketStore = useBasketStore()
 
-const activeItem = ref(0)
 const imgItems = computed(() => {
   return [
     ...(props.data?.images || []),
@@ -143,9 +126,11 @@ const imgItems = computed(() => {
 const likeProducts = () => {
   likeProductsStore.updateLikes(props.data)
 }
+
 const isLicked = computed(()=>{
   return likeProductsStore.isLicked(props.data)
 })
+
 const isBasket = computed(() => {
   return basketStore.checkProductInBasket(props.data.id)
 })
@@ -156,56 +141,31 @@ const updateStatusProduct = () => {
   }
 }
 
-onMounted(() => {
-  viewedStore.addRecentlyViewed(props.data)
-})
+const deleteViewed = () => {
+  recentlyViewedStore.deleteRecentlyViewed(props.data)
+}
 </script>
 
 <style lang="scss" scoped>
 .product {
-  width: 100%;
-  max-width: 800px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 8%);
-  padding: 20px;
-  grid-column-gap: 25px;
-  display: grid !important;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 240px;
+  padding: 14px;
   position: relative;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
 
   &__thumbnail {
     display: flex;
     align-items: center;
     overflow: hidden;
-    height: 150px;
-
-    @media (min-width: 768px) {
-      height: 300px;
-    }
+    height: 80px;
   }
 
   &__box-imgs {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  &__box-previews {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-gap: 15px;
-    width: inherit;
-  }
-
-  &__previews {
-    grid-column: 1 / 5;
-    overflow-x: overlay;
-    display: grid;
-    grid-auto-flow: column;
-    grid-gap: 8px;
   }
 
   &__card-img {
@@ -236,14 +196,22 @@ onMounted(() => {
   }
 
   &__name {
-    font-size: 28px;
-    line-height: 28px;
+    height: 35px;
+    font-size: 18px;
+    line-height: 18px;
     font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
-    @media (min-width: 768px) {
-      font-size: 35px;
-      line-height: 35px;
-    }
+  &__desc {
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &__stock {
@@ -263,9 +231,9 @@ onMounted(() => {
   }
 
   &__price {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 600;
-    line-height: 35px;
+    line-height: normal;
     color: map-get($orange, 'lighten-1');
   }
 
@@ -288,7 +256,7 @@ onMounted(() => {
 
   &__close {
     position: absolute;
-    top: 15px;
+    top: 0;
     right: 15px;
     z-index: 100;
   }
