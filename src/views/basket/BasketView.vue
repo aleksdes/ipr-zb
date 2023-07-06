@@ -82,7 +82,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {computed, ref, Ref, ComputedRef} from 'vue'
+import {computed, ref, ComputedRef} from 'vue'
 import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
 import ProductCardBasketBase from '@/components/common/productCards/ProductCardBasketBase.vue'
 import RecentlyViewed from '@/components/common/recentlyViewed/RecentlyViewed.vue'

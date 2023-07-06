@@ -78,7 +78,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {defineProps, PropType, ref, Ref} from 'vue'
+import {defineProps, PropType, ref} from 'vue'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs.vue'
 import BasketCard from '@/components/common/basketCards/BasketCard.vue'
 import {IBreadcrumb} from '@/types/breadcrumbs'

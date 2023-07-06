@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import {IBaseStore} from './baseStoreFetchData'
 import {productsUrls} from '@/constants/urls'
-import {BasketProduct, BasketProductStorage, Product} from '@/types/products'
+import {BasketProduct, BasketProductStorage} from '@/types/products'
 import useApi from '@/assets/js/helpers/useApi'
 
 interface IBasketStore {

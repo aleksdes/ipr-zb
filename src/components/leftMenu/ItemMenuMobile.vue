@@ -81,17 +81,6 @@ const props = defineProps({
 })
 const route = useRoute()
 
-const admins = [
-  ['Management', 'mdi-account-multiple-outline'],
-  ['Settings', 'mdi-cog-outline'],
-]
-const cruds = [
-  ['Create', 'mdi-plus-outline'],
-  ['Read', 'mdi-file-outline'],
-  ['Update', 'mdi-update'],
-  ['Delete', 'mdi-delete'],
-]
-
 const menu = (menu: ItemMenu[]) => {
   return menu.sort((a: ItemMenu, b: ItemMenu) => (a.sort && b.sort && a.sort > b.sort) ? 1: -1)
 }

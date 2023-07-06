@@ -10,6 +10,7 @@
             <img
               src='img/notification-empty.png'
               class='notifications__empty-img'
+              alt='notification-empty'
             >
             <p class='notifications__empty-title'>Пока ничего нет</p>
             <span class='notifications__empty-sub-title'>Здесь будут храниться<br>уведомления о событиях</span>
@@ -39,7 +40,7 @@ export default {
 </script>
 
 <script setup lang='ts'>
-import {computed, ComputedRef, defineEmits, watch} from 'vue'
+import {computed, ComputedRef, defineEmits} from 'vue'
 import NavbarMenu from '@/components/navbar/navbarMenu/NavbarMenu.vue'
 import NotificationItem from './notifications/NotificationItem.vue'
 import useNotificationsStore from '@/store/notifications'

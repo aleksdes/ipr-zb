@@ -106,7 +106,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {computed, ref, Ref, ComputedRef, watch} from 'vue'
+import {computed, ref, ComputedRef, watch} from 'vue'
 import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
 import ProductCardLikeBase from '@/components/common/productCards/ProductCardLikeBase.vue'
 import {Product} from '@/types/products'

@@ -2,8 +2,6 @@ import { notify } from '@/assets/js/helpers/useNotify'
 import { NotificationsOptions } from '@kyvg/vue3-notification'
 import useTokenStore from '@/store/token'
 import useUserStore from '@/store/user'
-import { router } from '@/plugins/router'
-import { routeNames } from '@/router/RouteNames'
 import { TYPE_AUTH } from '@/constants/urls/auth'
 import Auth from '@/assets/js/helpers/auth'
 

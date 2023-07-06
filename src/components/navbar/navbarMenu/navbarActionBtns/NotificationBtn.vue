@@ -29,7 +29,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {defineProps, defineEmits, computed, ComputedRef} from 'vue'
+import {defineProps, defineEmits, computed} from 'vue'
 import {INavbarMenuBtns} from '@/types/navbarMenu'
 import useNotificationsStore from '@/store/notifications'
 import {INotificationMessages} from '@/types/common'
