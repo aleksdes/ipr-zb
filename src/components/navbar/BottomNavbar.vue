@@ -22,19 +22,24 @@
       </nav>
     </v-bottom-navigation>
 
-    <v-navigation-drawer
+    <teleport
       v-show='showMenu'
-      :permanent='showMenu'
-      touchless
-      fixed
-      location='bottom'
-      :style='styleMenuSettings'
+      to='body'
     >
-      <component
-        :is='componentMenu'
-        @onClose='onCloseMenu()'
-      />
-    </v-navigation-drawer>
+      <v-navigation-drawer
+        :permanent='showMenu'
+        touchless
+        fixed
+        location='bottom'
+        :style='styleMenuSettings'
+      >
+        <component
+          :is='componentMenu'
+          @onClose='onCloseMenu()'
+        />
+      </v-navigation-drawer>
+    </teleport>
+
   </div>
 </template>
 
@@ -59,7 +64,9 @@ const currentMenuItem: any = ref<INavbarMenuBtns | null >(null)
 const showMenu = ref(false)
 
 const componentMenu = computed(() => {
-  return currentMenuItem.value ? currentMenuItem.value?.actionMenu : ''
+  const nameComponent: string = currentMenuItem.value ? currentMenuItem.value?.actionMenu : ''
+  if (!nameComponent) return null
+  return defineAsyncComponent(() => import('@/components/navbar/navbarMenu/navbarMenuComponents/' + nameComponent + '.vue'))
 })
 
 const styleMenuSettings = computed(() => {

@@ -61,9 +61,7 @@ const basketStore = useBasketStore()
 const basketMetrics: ComputedRef<BasketMetricsStore> = computed((): BasketMetricsStore => basketStore.getBasketMetrics)
 
 const goBasket = () => {
-  console.log('props.typeLink', props.typeLink)
   if (props.typeLink) {
-    console.log('props.typeLink', props.typeLink)
     router.push({name: routeNames.basket})
   }
 }

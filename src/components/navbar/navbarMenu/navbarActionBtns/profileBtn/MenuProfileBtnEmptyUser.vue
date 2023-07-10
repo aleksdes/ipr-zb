@@ -9,7 +9,7 @@
       <b class='mb-2'>Получайте бонусы, сохраняйте и отслеживайте заказы.</b>
       <v-btn
         color='orange-lighten-1'
-        class='text-white text-initial'
+        class='bg-orange-lighten-1 text-white text-initial'
         elevation='0'
         @click='emits("login")'
       >
