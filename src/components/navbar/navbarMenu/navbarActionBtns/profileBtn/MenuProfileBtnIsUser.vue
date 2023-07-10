@@ -7,7 +7,10 @@
     <div
       class='d-flex flex-column'
     >
-      <div class='d-flex flex-row align-center justify-space-between'>
+      <router-link
+        :to='{name: routeNames.profile}'
+        class='profile-menu__link-profile d-flex flex-row align-center justify-space-between'
+      >
         <p class='profile-menu__user-name'>{{user?.fullName}}</p>
         <v-btn
           class='profile-btn pa-0'
@@ -15,7 +18,7 @@
           size='35'
         >
           <v-icon
-            v-if='!user'
+            v-if='!user || !user.image'
             size='35'
             class='profile-btn__icon'
           >
@@ -32,7 +35,7 @@
               alt='avatar'
             /></v-avatar>
         </v-btn>
-      </div>
+      </router-link>
 
       <ul class='profile-menu__list-link mb-5'>
         <li
@@ -54,19 +57,23 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent ({
   name: 'MenuProfileBtnIsUser',
-}
+})
 </script>
 
 <script setup lang="ts">
 import {defineEmits, computed, ComputedRef} from 'vue'
+import {useRouter} from 'vue-router'
 import useUserStore from '@/store/user'
 import {User} from '@/types/user'
 import Auth from '@/assets/js/helpers/auth'
+import {routeNames} from '@/router/RouteNames'
 
 const userStore = useUserStore()
-
+const router = useRouter()
 const emits = defineEmits(['login'])
 
 const user: ComputedRef<User & {fullName: string} | null> = computed((): User & {fullName: string} | null => {
@@ -120,6 +127,11 @@ const logout = () => {
     font-weight: 600;
     font-size: 18px;
     margin-right: 15px;
+  }
+
+  &__link-profile {
+    text-decoration: none;
+    color: inherit;
   }
 }
 </style>

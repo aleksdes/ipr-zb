@@ -17,13 +17,14 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent ({
   name: 'SunglassesView',
-}
+})
 </script>
 
 <script setup lang="ts">
-import {computed, onMounted, ref, Ref} from 'vue'
+import {computed, ref, Ref} from 'vue'
 import { debounceFilter, watchWithFilter } from '@vueuse/core'
 import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
 import BasePagination from '@/components/pagination/BasePagination.vue'
@@ -58,12 +59,10 @@ const paginateFilter = computed(() => ({
 
 const fetchData = () => productsStore.fetchData(paginateFilter.value, productsUrls.PRODUCTS_CATEGORIES_SUNGLASSES_URL)
 
+fetchData()
+
 const isLoading = computed(() => {
   return productsStore.getLoading
-})
-
-onMounted(async () => {
-  await fetchData()
 })
 
 watchWithFilter(

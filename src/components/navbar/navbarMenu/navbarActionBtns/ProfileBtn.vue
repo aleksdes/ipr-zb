@@ -4,7 +4,7 @@
     :disabled='typeLink'
     open-on-hover
     open-on-click
-    :close-on-content-click='false'
+
     location='bottom right'
   >
     <template v-slot:activator='{ props }'>
@@ -17,7 +17,7 @@
         @click='goProfile'
       >
         <v-icon
-          v-if='!user'
+          v-if='!user || !user.image'
           size='45'
           class='profile-btn__icon'
           :class='{
@@ -35,7 +35,8 @@
           <v-img
             :src='user.image'
             alt='avatar'
-          /></v-avatar>
+          />
+        </v-avatar>
       </v-btn>
     </template>
 
@@ -47,17 +48,15 @@
     <MenuProfileBtnIsUser
       v-if='user'
     />
-
-    <ModalLoginUser
-      v-if='openLogin'
-    />
   </v-menu>
+
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent ({
   name: 'ProfileBtn',
-}
+})
 </script>
 
 <script setup lang="ts">
@@ -66,7 +65,7 @@ import {useRouter} from 'vue-router'
 import useUserStore from '@/store/user'
 import MenuProfileBtnEmptyUser from './profileBtn/MenuProfileBtnEmptyUser.vue'
 import MenuProfileBtnIsUser from './profileBtn/MenuProfileBtnIsUser.vue'
-import ModalLoginUser, {useLoginModal} from '../../../autch/ModalLoginUser.vue'
+import {useLoginModal} from '../../../autch/ModalLoginUser.vue'
 import {User} from '@/types/user'
 import {routeNames} from '@/router/RouteNames'
 
@@ -87,9 +86,6 @@ const user: ComputedRef<User | null> = computed((): User | null => {
   return dataUser
 })
 
-const openLogin = computed(() => {
-  return useLoginModal.getIsOpen()
-})
 const login = () => {
   useLoginModal.setIsOpen(true)
 }
@@ -101,13 +97,4 @@ const goProfile = () => {
 </script>
 
 <style lang="scss" scoped>
-.profile-btn {
-  //&__icon {
-  //  color: map-get($grey, 'darken-1');
-  //
-  //  &--active {
-  //    color: map-get($light-blue, 'darken-1');
-  //  }
-  //}
-}
 </style>

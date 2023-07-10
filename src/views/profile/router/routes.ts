@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/profile',
     name: routeNames.profile,
-    component: () => import('@/views/home/HomeView.vue'),
+    component: () => import('@/views/profile/ProfileView.vue'),
   },
 ]
 

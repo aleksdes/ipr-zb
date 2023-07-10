@@ -59,53 +59,52 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent ({
   name: 'LoginForm',
-}
+})
 </script>
 
 <script setup lang='ts'>
 import {defineEmits, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import Auth from '@/assets/js/helpers/auth'
-import {useForm, Form, Field} from 'vee-validate'
+import {useForm, Field} from 'vee-validate'
 import { notify } from '@/assets/js/helpers/useNotify'
-
-const emits = defineEmits(['is-login'])
+import {useLoginModal} from '@/components/autch/ModalLoginUser.vue'
+const emits = defineEmits(['isLogin'])
 const { meta } = useForm()
 
 const email = ref('kminchelle')
 const password = ref('0lelplR')
 const valid = ref(false)
 const passwordIsVisible = ref(false)
-
+const loginModalStore = useLoginModal
 const router = useRouter()
 
 const sendLogin = async () => {
   if (!meta.value.valid) return
-  const isValidateForm = true
-  if (isValidateForm) {
-    const dataLogin = {
-      username: email.value,
-      password: password.value,
-    }
+  const dataLogin = {
+    username: email.value,
+    password: password.value,
+  }
 
-    const { errors }: any = await Auth.login(dataLogin)
+  const { errors }: any = await Auth.login(dataLogin)
 
-    if (errors) {
-      let notifyMessage = ''
-      const status = errors?.response?.status
+  if (errors) {
+    let notifyMessage = ''
+    const status = errors?.response?.status
 
-      if (status === 422 || status === 400) {
-        notifyMessage = 'Неверный логин или пароль'
-      } else {
-        notifyMessage = 'Неизвестная ошибка. Попробуйте позже'
-      }
-
-      notify({ text: notifyMessage })
+    if (status === 422 || status === 400) {
+      notifyMessage = 'Неверный логин или пароль'
     } else {
-      emits('is-login')
+      notifyMessage = 'Неизвестная ошибка. Попробуйте позже'
     }
+
+    notify({ text: notifyMessage })
+  } else {
+    loginModalStore.setIsOpen(false)
   }
 }
 </script>

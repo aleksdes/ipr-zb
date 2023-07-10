@@ -48,9 +48,11 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent ({
   name: 'BasketBtnModalProducts',
-}
+})
 </script>
 
 <script setup lang="ts">
@@ -79,7 +81,7 @@ const updateStatusProduct = (id: number) => {
 <style lang="scss" scoped>
 .products {
   padding: 20px;
-  border-radius: 15px !important;
+  border-radius: 4px !important;
   box-shadow: 0 0 16px rgba(0, 0, 0, 8%) !important;
 
   &__list {

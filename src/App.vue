@@ -18,11 +18,10 @@
         </router-view>
       </component>
 
-      <!--      <div style=' position: sticky;bottom: 0; top: 0; min-height: 2em; background: red; z-index: 10000000'>fdgh5g64ergvrt5455433</div>-->
-
-      <Footer
-        v-if='layout'
-      />
+      <template v-if='layout'>
+        <Chat />
+        <Footer />
+      </template>
     </v-main>
 
     <notifications
@@ -30,15 +29,22 @@
       group='app-front'
       position='bottom right'
     />
+
+    <ModalLoginUser
+      v-if='openLogin'
+    />
   </v-app>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed} from 'vue'
 import { useRoute } from 'vue-router'
 import { setLocale } from '@vee-validate/i18n'
-import useLikeProductsStore from '@/store/likeProducts'
 import Footer from '@/components/footer/Footer.vue'
+import Chat from '@/components/chat/Chat.vue'
+import ModalLoginUser, {useLoginModal} from '@/components/autch/ModalLoginUser.vue'
+
+import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
 
 setLocale('ru')
@@ -46,6 +52,10 @@ setLocale('ru')
 const route = useRoute()
 const basketStore = useBasketStore()
 const likeProductsStore = useLikeProductsStore()
+
+const openLogin = computed(() => {
+  return useLoginModal.getIsOpen()
+})
 
 const layout = computed(() => {
   if (!route.name) return ''

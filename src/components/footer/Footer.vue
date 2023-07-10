@@ -61,9 +61,11 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent ({
   name: 'Footer',
-}
+})
 </script>
 
 <script setup lang="ts">
@@ -104,6 +106,7 @@ const copyright = computed(() => {
 
 <style lang="scss" scoped>
 .footer {
+  z-index: 0;
   border-radius: 8px 8px 0 0;
   display: flex;
   flex-direction: column;
@@ -111,16 +114,7 @@ const copyright = computed(() => {
   background-color: map-get($blue-grey, 'darken-4');
 
   &__box-content {
-    //display: grid;
-    //grid-template-columns: auto;
-    //grid-column-gap: 20px;
     display: none;
-
-    //@media (min-width: 360px) {
-    //  display: grid;
-    //  grid-template-columns: repeat(2, 1fr);
-    //  grid-column-gap: 30px;
-    //}
 
     @media (min-width: 768px) {
       display: grid;

@@ -17,9 +17,10 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent ({
   name: 'ElectronicsView',
-}
+})
 </script>
 
 <script setup lang="ts">
@@ -62,9 +63,7 @@ const isLoading = computed(() => {
   return productsStore.getLoading
 })
 
-onMounted(async () => {
-  await fetchData()
-})
+fetchData()
 
 watchWithFilter(
   paginateFilter,

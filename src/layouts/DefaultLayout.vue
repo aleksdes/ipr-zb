@@ -1,10 +1,10 @@
 <template>
   <div class='h-100'>
     <navbar />
-    <left-menu class='layout-menu' />
-    <div class='main-wrap white-gray scroll'>
-      <slot />
-    </div>
+    <!--    <left-menu class='layout-menu' />-->
+    <!--    <div class='main-wrap white-gray scroll'>-->
+    <!--      <slot />-->
+    <!--    </div>-->
 
     <BottomNavbar
       v-if='displayWidth<=768'
@@ -12,10 +12,12 @@
   </div>
 </template>
 
-<script lang='ts'>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent ({
   name: 'DefaultLayout',
-}
+})
 </script>
 
 <script setup lang='ts'>

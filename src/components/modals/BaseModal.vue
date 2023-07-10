@@ -61,10 +61,13 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent ({
   name: 'BaseModal',
-}
+})
 </script>
+
 <script setup lang='ts'>
 import {defineEmits, defineProps, useAttrs} from 'vue'
 import BaseModalActions from './BaseModalActions.vue'

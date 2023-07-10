@@ -24,7 +24,7 @@
           :key='navBtn.id'
         >
           <component
-            :is='navBtn.component'
+            :is='getNavbarBtn(navBtn.component)'
             :btn-data='navBtn'
             :current-menu-item='currentMenuItem'
             @updateCurrentMenu='clickMenu($event)'
@@ -41,7 +41,7 @@
     </v-app-bar>
 
     <v-navigation-drawer
-      v-if='showMenu'
+      v-model='showMenu'
       permanent
       fixed
       location='right'
@@ -57,13 +57,14 @@
 </template>
 
 <script lang="ts">
-export default  {
+import { defineComponent } from 'vue'
+export default defineComponent ({
   name: 'Navbar',
-}
+})
 </script>
 
 <script setup lang="ts">
-import {ref, computed} from 'vue'
+import {ref, computed, defineAsyncComponent} from 'vue'
 import { useDisplay } from 'vuetify'
 import {INavbarMenuBtns} from '@/types/navbarMenu'
 import {navbarMenuBtns} from '@/assets/js/resources/navbarMenu'
@@ -72,13 +73,15 @@ import {routeNames} from '@/router/RouteNames'
 
 const leftMenuStore = useLeftMenu
 const heightNavbar = 60
-const currentMenuItem: any = ref<INavbarMenuBtns | null >(null)
+const currentMenuItem: any = ref<INavbarMenuBtns | null>(null)
 const showMenu = ref(false)
 const navMenuBtns = navbarMenuBtns
 const { width: displayWidth } = useDisplay()
 
 const componentMenu = computed(() => {
-  return currentMenuItem.value ? currentMenuItem.value?.actionMenu : ''
+  const nameComponent: string = currentMenuItem.value ? currentMenuItem.value?.actionMenu : ''
+  if (!nameComponent) return null
+  return defineAsyncComponent(() => import('@/components/navbar/navbarMenu/navbarMenuComponents/' + nameComponent + '.vue'))
 })
 
 const styleMenuSettings = computed(() => {
@@ -88,6 +91,10 @@ const styleMenuSettings = computed(() => {
     width: widthDrawer.value,
   }
 })
+
+const getNavbarBtn = (name: string) => {
+  return defineAsyncComponent(() => import('@/components/navbar/navbarMenu/navbarActionBtns/' + name + '.vue'))
+}
 
 const widthDrawer = computed(() => {
   return displayWidth.value <= 500 ? '100%' : 'auto'

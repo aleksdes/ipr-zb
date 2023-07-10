@@ -17,13 +17,14 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent ({
   name: 'Laptops',
-}
+})
 </script>
 
 <script setup lang="ts">
-import {computed, onMounted, ref, Ref} from 'vue'
+import {computed,  ref, Ref} from 'vue'
 import { debounceFilter, watchWithFilter } from '@vueuse/core'
 import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
 import BasePagination from '@/components/pagination/BasePagination.vue'
@@ -62,9 +63,7 @@ const isLoading = computed(() => {
   return productsStore.getLoading
 })
 
-onMounted(async () => {
-  await fetchData()
-})
+fetchData()
 
 watchWithFilter(
   paginateFilter,

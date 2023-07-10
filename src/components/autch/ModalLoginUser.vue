@@ -9,13 +9,11 @@
   >
     <p class='login-title'>Войти</p>
 
-    <login-form
-      @is-login='loginModalStore.setIsOpen(false)'
-    />
+    <login-form />
   </base-modal>
 </template>
 <script lang="ts">
-import {useAttrs, reactive} from 'vue'
+import {useAttrs, reactive, defineComponent} from 'vue'
 import BaseModal from '@/components/modals/BaseModal.vue'
 import LoginForm from './LoginForm.vue'
 
@@ -32,7 +30,8 @@ export const useLoginModal = reactive({
     isOpen: false,
   },
 })
-export default {
+
+export default defineComponent({
   name: 'ModalLoginUser',
 
   components: {
@@ -44,23 +43,13 @@ export default {
     const attrs = useAttrs()
     const loginModalStore = useLoginModal
 
-
     return {
       attrs,
       loginModalStore,
     }
   },
-}
+})
 </script>
-
-<!--<script setup lang="ts">-->
-<!--import {defineProps, defineEmits, useAttrs} from 'vue'-->
-<!--import BaseModal from '@/components/modals/BaseModal.vue'-->
-<!--import LoginForm from './LoginForm.vue'-->
-
-<!--const attrs = useAttrs()-->
-<!--const emits = defineEmits(['close'])-->
-<!--</script>-->
 
 <style lang="scss" scoped>
 .login-title {

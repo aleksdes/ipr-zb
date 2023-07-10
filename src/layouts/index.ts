@@ -1,6 +1,8 @@
 import {App} from '@vue/runtime-core'
+import { defineAsyncComponent } from 'vue'
 
 const filesLayouts = require.context('.', true, /\.vue$/i)
+console.log('filesLayouts', filesLayouts)
 
 export default {
   install(app: App) {

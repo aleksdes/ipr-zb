@@ -12,7 +12,7 @@
           :key='navBtn.id'
         >
           <component
-            :is='navBtn.component'
+            :is='getNavbarBtn(navBtn.component)'
             :btn-data='navBtn'
             :current-menu-item='currentMenuItem'
             :typeLink='navBtn.typeLink'
@@ -39,13 +39,15 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent ({
   name: 'BottomNavbar',
-}
+})
 </script>
 
 <script setup lang="ts">
-import {ref, computed} from 'vue'
+import {ref, computed, defineAsyncComponent} from 'vue'
 import {bottomNavbarMenuBtns} from '@/assets/js/resources/navbarMenu'
 import {INavbarMenuBtns} from '@/types/navbarMenu'
 
@@ -55,6 +57,7 @@ const navMenuBtns = bottomNavbarMenuBtns
 
 const currentMenuItem: any = ref<INavbarMenuBtns | null >(null)
 const showMenu = ref(false)
+
 const componentMenu = computed(() => {
   return currentMenuItem.value ? currentMenuItem.value?.actionMenu : ''
 })
@@ -67,6 +70,10 @@ const styleMenuSettings = computed(() => {
     width: '100%',
   }
 })
+
+const getNavbarBtn = (name: string) => {
+  return defineAsyncComponent(() => import('@/components/navbar/navbarMenu/navbarActionBtns/' + name + '.vue'))
+}
 
 const clickMenu = (item: INavbarMenuBtns) => {
   if (showMenu.value && currentMenuItem.value && item.actionMenu === currentMenuItem.value.actionMenu) {

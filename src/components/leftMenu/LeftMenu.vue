@@ -53,7 +53,7 @@
 </template>
 
 <script lang='ts'>
-import {ref, computed, reactive} from 'vue'
+import {ref, computed, reactive, defineComponent} from 'vue'
 import menuItems from '@/assets/js/resources/leftMenu'
 import ItemMenu from './ItemMenu.vue'
 import ItemMenuMobile from './ItemMenuMobile.vue'
@@ -69,7 +69,7 @@ export const useLeftMenu = reactive({
   },
 })
 
-export default {
+export default defineComponent({
   name: 'LeftMenu',
 
   components: {
@@ -109,5 +109,5 @@ export default {
       menuItems,
     }
   },
-}
+})
 </script>

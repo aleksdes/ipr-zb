@@ -21,9 +21,11 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent ({
   name: 'PageSize',
-}
+})
 </script>
 
 <script setup lang='ts'>
