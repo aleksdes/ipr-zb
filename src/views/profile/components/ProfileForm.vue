@@ -121,7 +121,11 @@ import {User} from '@/types/user'
 const valid = ref(false)
 
 const userStore = useUserStore()
-const dataFormUser: any = ref({})
+const dataFormUser: any = ref({
+  infoMessages: false,
+  infoSMS: false,
+  infoEmail: false,
+})
 
 const user: ComputedRef<User> = computed((): User => {
   const dataUser: User = userStore.getUserData

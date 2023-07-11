@@ -15,7 +15,7 @@
       >
         <div class='mr-8 mb-3 mb-sm-0'>
           <v-icon
-            v-if='!user.image'
+            v-if='!user || !user.image'
             :size='displayWidth < 600 ? 100 : 150'
 
           >
@@ -28,7 +28,7 @@
             variant='outlined'
           >
             <v-img
-              :src='user.image'
+              :src='user && user.image || ""'
               alt='avatar'
             />
           </v-avatar>
