@@ -42,7 +42,7 @@ import {User} from '@/types/user'
 import moment from 'moment'
 import {IChatMessage} from '@/types/chat'
 
-const props = defineProps({
+defineProps({
   item: {
     type: Object as PropType<IChatMessage>,
     default: ()=>({}),

@@ -65,16 +65,13 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {defineEmits, computed, ComputedRef} from 'vue'
-import {useRouter} from 'vue-router'
+import {computed, ComputedRef} from 'vue'
 import useUserStore from '@/store/user'
 import {User} from '@/types/user'
 import Auth from '@/assets/js/helpers/auth'
 import {routeNames} from '@/router/RouteNames'
 
 const userStore = useUserStore()
-const router = useRouter()
-const emits = defineEmits(['login'])
 
 const user: ComputedRef<User & {fullName: string} | null> = computed((): User & {fullName: string} | null => {
   const dataUser: User = userStore.getUserData

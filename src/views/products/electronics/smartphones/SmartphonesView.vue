@@ -19,12 +19,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 export default defineComponent ({
-  name: 'ElectronicsView',
+  name: 'SmartphonesView',
 })
 </script>
 
 <script setup lang="ts">
-import {computed, ref, Ref, onMounted} from 'vue'
+import {computed, ref, Ref} from 'vue'
 import { debounceFilter, watchWithFilter } from '@vueuse/core'
 import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
 import BasePagination from '@/components/pagination/BasePagination.vue'

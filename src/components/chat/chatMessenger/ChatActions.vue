@@ -5,7 +5,7 @@
   >
     <div class='bg-light-blue-lighten-5 d-flex flex-row align-center pa-4'>
       <Field
-        v-slot='{ errors, field }'
+        v-slot='{ field }'
         v-model='dataForm.message'
         rules='required'
         name='message'
@@ -61,7 +61,7 @@ import {defineEmits, defineProps, ref, defineExpose} from 'vue'
 import {useForm, Field} from 'vee-validate'
 const { meta } = useForm()
 
-const props = defineProps({
+defineProps({
   disabled: {
     type: Boolean,
     default: false,

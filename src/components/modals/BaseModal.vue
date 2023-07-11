@@ -51,8 +51,8 @@
           <BaseModalActions
             class='px-6 py-4'
             v-bind='actionsProps'
-            @apply='$emit("apply")'
-            @cancel='$emit("cancel")'
+            @apply='submit'
+            @cancel='cancel'
           />
         </slot>
       </v-card-actions>
@@ -73,7 +73,7 @@ import {defineEmits, defineProps, useAttrs} from 'vue'
 import BaseModalActions from './BaseModalActions.vue'
 
 const attrs = useAttrs()
-const props = defineProps({
+defineProps({
   loading: {
     type: Boolean,
     default: false,

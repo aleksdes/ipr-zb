@@ -80,7 +80,8 @@ interface Props {
   items: ILeftMenu[] | IChild[],
   isMini?: boolean
 }
-const props = defineProps<Props>()
+
+defineProps<Props>()
 const route = useRoute()
 
 const menu = (menu: ItemMenu[]) => {

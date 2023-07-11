@@ -42,7 +42,7 @@ export default defineComponent ({
 <script setup lang='ts'>
 import { defineEmits, defineProps, useAttrs } from 'vue'
 
-const props = defineProps({
+defineProps({
   align: {
     type: String,
     default: 'left',

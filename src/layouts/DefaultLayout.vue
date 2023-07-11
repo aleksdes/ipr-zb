@@ -1,10 +1,10 @@
 <template>
   <div class='h-100'>
     <navbar />
-    <!--    <left-menu class='layout-menu' />-->
-    <!--    <div class='main-wrap white-gray scroll'>-->
-    <!--      <slot />-->
-    <!--    </div>-->
+    <left-menu class='layout-menu' />
+    <div class='main-wrap white-gray scroll'>
+      <slot />
+    </div>
 
     <BottomNavbar
       v-if='displayWidth<=768'

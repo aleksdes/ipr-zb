@@ -67,21 +67,18 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {defineEmits, ref} from 'vue'
-import {useRouter} from 'vue-router'
+import {ref} from 'vue'
 import Auth from '@/assets/js/helpers/auth'
 import {useForm, Field} from 'vee-validate'
 import { notify } from '@/assets/js/helpers/useNotify'
 import {useLoginModal} from '@/components/autch/ModalLoginUser.vue'
-const emits = defineEmits(['isLogin'])
-const { meta } = useForm()
 
+const { meta } = useForm()
 const email = ref('kminchelle')
 const password = ref('0lelplR')
 const valid = ref(false)
 const passwordIsVisible = ref(false)
 const loginModalStore = useLoginModal
-const router = useRouter()
 
 const sendLogin = async () => {
   if (!meta.value.valid) return

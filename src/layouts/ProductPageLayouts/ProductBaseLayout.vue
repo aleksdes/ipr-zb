@@ -89,7 +89,6 @@ import ProductCardDetails from '@/components/common/productCards/ProductCardDeta
 import ProductCardBase from '@/components/common/productCards/ProductCardBase.vue'
 import CircleLoader from '@/components/loader/CircleLoader.vue'
 import {Product} from '@/types/products'
-import { useDisplay } from 'vuetify'
 
 const props = defineProps({
   breadcrumbs: {
@@ -116,8 +115,6 @@ const closeCardDetails = () => {
   dialog.value = false
   selectedProduct.value = null
 }
-
-const { width } = useDisplay()
 </script>
 
 <style lang="scss" scoped>

@@ -100,13 +100,11 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, PropType} from 'vue'
+import { computed, defineProps, PropType} from 'vue'
 import {ViewedProductStorage} from '@/types/products'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
 import useRecentlyViewedStore from '@/store/recentlyViewed'
-
-const emits = defineEmits(['close'])
 
 const props = defineProps({
   data: {

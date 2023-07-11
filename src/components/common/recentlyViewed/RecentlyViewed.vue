@@ -75,6 +75,7 @@ onMounted(() => {
     overflow-x: overlay;
     grid-auto-flow: column;
     padding: 15px;
+    justify-content: flex-start;
   }
 }
 </style>

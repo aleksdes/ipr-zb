@@ -75,7 +75,7 @@ import {IChild, ILeftMenu} from '@/assets/js/resources/leftMenu'
 
 type ItemMenu = ILeftMenu | IChild
 
-const props = defineProps({
+defineProps({
   items: {
     type: Array as PropType<ItemMenu[]>,
     default: () => ([]),

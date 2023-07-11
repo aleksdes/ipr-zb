@@ -27,7 +27,7 @@ export default defineComponent ({
 <script setup lang="ts">
 import {defineProps, defineEmits} from 'vue'
 
-const props = defineProps({
+defineProps({
   active: {
     type: Boolean,
     default: false,

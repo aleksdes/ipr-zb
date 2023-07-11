@@ -10,7 +10,7 @@
         <Field
           v-if='fieldItem.id==="gender"'
           :key='fieldItem.id'
-          v-slot='{ errors, field }'
+          v-slot='{ field }'
           v-model='dataFormUser[fieldItem.id]'
           :rules='fieldItem.rules'
           :name='fieldItem.id'

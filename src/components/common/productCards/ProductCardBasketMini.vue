@@ -55,7 +55,7 @@
 import {defineEmits, defineProps, PropType} from 'vue'
 import {Product} from '@/types/products'
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object as PropType<Product>,
     default: ()=>({}),
@@ -67,7 +67,6 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['delete'])
-
 </script>
 
 <style lang="scss" scoped>

@@ -69,7 +69,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {computed, ref, ComputedRef, watch} from 'vue'
+import {computed, ComputedRef} from 'vue'
 import ProfileEmptyUser from './components/ProfileEmptyUser.vue'
 import ProfileForm from './components/ProfileForm.vue'
 import useUserStore from '@/store/user'

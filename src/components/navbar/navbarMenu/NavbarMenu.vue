@@ -39,11 +39,12 @@ export default defineComponent ({
 <script setup lang='ts'>
 import {defineProps, defineEmits} from 'vue'
 
-interface Props {
-  title?: string | null
-}
-
-const props = defineProps<Props>()
+defineProps({
+  title: {
+    default: '',
+    type: [String],
+  },
+})
 
 const emits = defineEmits({
   onClose: () => true,

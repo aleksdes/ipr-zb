@@ -32,7 +32,7 @@ export default defineComponent ({
 import {computed, defineEmits, defineProps} from 'vue'
 import { useDisplay } from 'vuetify'
 
-const props = defineProps({
+defineProps({
   items: {
     type: Array,
     default: ()=>([]),
