@@ -84,7 +84,7 @@ const useTokenStore = defineStore('token', {
         }
       }
 
-      if (this.expires && moment(this.expires).unix() - moment().unix() <= MIN_TIME_ACCESS_TOKEN) {
+      if (this.expires && this.expires- moment().unix() <= MIN_TIME_ACCESS_TOKEN) {
         this.removeToken()
         await this.refreshToken()
       }

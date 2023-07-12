@@ -5,12 +5,14 @@
       class='mb-2'
     />
 
+    <slot name='prepend'/>
+
     <div class='products__page-content h-100 w-100'>
       <v-col
         :cols='12'
         :md='showBasket ? 8 : 12'
         :lg='showBasket ? 9 : 12'
-        class='pa-2'
+        class='products__col'
       >
         <div class='products__box-list h-100'>
           <slot name='content'>
@@ -63,11 +65,13 @@
         v-if='showBasket'
         cols='4'
         lg='3'
-        class='pa-2 d-none d-md-block'
+        class='products__col d-none d-md-block'
       >
         <BasketCard/>
       </v-col>
     </div>
+
+    <slot name='append'/>
   </div>
 </template>
 
@@ -126,6 +130,10 @@ const closeCardDetails = () => {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  &__col {
+    padding: 8px;
   }
 
   &__box-list {

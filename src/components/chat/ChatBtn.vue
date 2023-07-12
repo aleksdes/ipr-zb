@@ -4,7 +4,7 @@
     elevation='6'
     color='orange-lighten-1'
     size='50'
-    class='ma-6'
+    class='ma-6 mt-1'
     @click='emits("onClick")'
   >
     <v-icon
