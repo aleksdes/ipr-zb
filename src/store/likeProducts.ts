@@ -8,7 +8,7 @@ interface ILikeStore {
   totalProducts: number
 }
 export type LikeStore = Pick<IBaseStore, 'loading'> & ILikeStore
-export type LikeMetricsStore = Pick<ILikeStore, 'total' | 'totalProducts'>
+export type LikeMetricsStore = Omit<ILikeStore, 'items'>
 
 const useLikeProductsStore = defineStore('likeProducts', {
   getters: {

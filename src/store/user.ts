@@ -22,7 +22,7 @@ const useUserStore = defineStore('user', {
         gender: '',
         image: '',
         phone: '',
-        roles: [],
+        roles: [UserRoles.ROLE_GUEST],
       }
     },
 

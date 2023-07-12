@@ -71,23 +71,21 @@ export default defineComponent ({
 <script setup lang='ts'>
 import {defineProps, PropType} from 'vue'
 import {useRoute} from 'vue-router'
-import {IChild, ILeftMenu} from '@/assets/js/resources/leftMenu'
-
-type ItemMenu = ILeftMenu | IChild
+import {ILeftMenu} from '@/assets/js/resources/leftMenu'
 
 defineProps({
   items: {
-    type: Array as PropType<ItemMenu[]>,
+    type: Array as PropType<ILeftMenu[]>,
     default: () => ([]),
   },
 })
 const route = useRoute()
 
-const menu = (menu: ItemMenu[]) => {
-  return menu.sort((a: ItemMenu, b: ItemMenu) => (a.sort && b.sort && a.sort > b.sort) ? 1: -1)
+const menu = (menu: ILeftMenu[]) => {
+  return menu.sort((a: ILeftMenu, b: ILeftMenu) => (a.sort && b.sort && a.sort > b.sort) ? 1: -1)
 }
 
-const checkActive = (item: ItemMenu): any => {
+const checkActive = (item: ILeftMenu): any => {
   if (item.to && item.to === route.name) return true
 
   if (item.child) {

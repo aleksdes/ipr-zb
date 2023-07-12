@@ -181,6 +181,11 @@ const updateStatusProduct = () => {
     cursor: pointer;
 
     @media (min-width: 640px) {
+      font-size: 30px;
+      line-height: 30px;
+    }
+
+    @media (min-width: 1024px) {
       font-size: 35px;
       line-height: 36px;
     }

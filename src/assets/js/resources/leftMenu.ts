@@ -2,23 +2,23 @@ import {routeNames} from '@/router/RouteNames'
 
 export interface ILeftMenu {
   id: string
-  to?: string;
   title: string;
-  icon: string;
-  sort: number;
-  color?: string;
-  child?: IChild[];
-}
-
-export interface IChild {
-  id: string
   to?: string;
-  title: string;
   icon?: string;
   sort?: number;
   color?: string;
-  child?: IChild[];
+  child?: ILeftMenu[];
 }
+
+// export interface IChild {
+//   id: string
+//   title: string;
+//   to?: string;
+//   icon?: string;
+//   sort?: number;
+//   color?: string;
+//   child?: IChild[];
+// }
 
 const leftMenu: ILeftMenu[] = [
   {

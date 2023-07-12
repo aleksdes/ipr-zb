@@ -6,8 +6,8 @@ export interface ICommonUrls {
 
 const commonUrls:ICommonUrls = {
   NOTIFICATIONS_URL: '',
-  BASKET_URL: '/carts/user/',
-  BASKET_BY_ID_URL: '/carts/',
+  BASKET_URL: '',
+  BASKET_BY_ID_URL: '',
 }
 
 export default commonUrls

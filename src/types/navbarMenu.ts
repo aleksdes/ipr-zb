@@ -1,7 +1,7 @@
 export interface INavbarMenuBtns {
   id: string | number
-  component: any
-  actionMenu: any
+  component: string
+  actionMenu?: string
   title?: string
   typeLink?: boolean
 }

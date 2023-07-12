@@ -80,11 +80,11 @@ const useTokenStore = defineStore('token', {
           await this.refreshToken()
         } else {
           this.accessToken = cookiesAccessToken.value
-          this.expires = cookiesAccessToken.expires
+          this.expires = moment(cookiesAccessToken.expires).unix()
         }
       }
 
-      if (this.expires && this.expires- moment().unix() <= MIN_TIME_ACCESS_TOKEN) {
+      if (this.expires && this.expires - moment().unix() <= MIN_TIME_ACCESS_TOKEN) {
         this.removeToken()
         await this.refreshToken()
       }

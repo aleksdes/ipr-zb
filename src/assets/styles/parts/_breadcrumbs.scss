@@ -1,18 +1,18 @@
 .v-breadcrumbs.breadcrumbs {
   .v-breadcrumbs-item {
     font-weight: 500;
-    opacity: 80%;
+    opacity: 0.8;
     color: map-get($grey, 'darken-4');
     font-size: 14px;
   }
 
   .v-breadcrumbs-item--disabled {
-    opacity: 50%;
+    opacity: 0.5;
     color: map-get($grey, 'darken-1');
   }
 
-  .v-breadcrumbs-divider i:before {
-    opacity: 50%;
+  .v-breadcrumbs-divider i::before {
+    opacity: 0.5;
     color: map-get($grey, 'darken-2');
   }
 }

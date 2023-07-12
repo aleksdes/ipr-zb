@@ -11,7 +11,7 @@
       <v-col
         :cols='12'
         :md='showBasket ? 8 : 12'
-        :lg='showBasket ? 9 : 12'
+        :lg='showBasket ? 8 : 12'
         class='products__col'
       >
         <div class='products__box-list h-100'>
@@ -64,10 +64,12 @@
       <v-col
         v-if='showBasket'
         cols='4'
-        lg='3'
+        lg='4'
         class='products__col d-none d-md-block'
       >
-        <BasketCard/>
+        <BasketCard
+          class='products__basket'
+        />
       </v-col>
     </div>
 
@@ -123,6 +125,8 @@ const closeCardDetails = () => {
 
 <style lang="scss" scoped>
 .products {
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 
@@ -145,6 +149,11 @@ const closeCardDetails = () => {
     display: grid;
     grid-auto-flow: row;
     grid-gap: 20px;
+  }
+
+  &__basket {
+    position: sticky;
+    top: 80px;
   }
 }
 </style>

@@ -30,7 +30,7 @@
       .v-list-item__prepend i {
         opacity: 1;
 
-        &:before {
+        &::before {
           font-size: 30px;
           color: map-get($blue-grey, 'darken-4');
         }
@@ -50,7 +50,7 @@
         border-radius: 8px;
         background-color: map-get($blue-grey, 'darken-4');
 
-        .v-list-item__prepend i:before {
+        .v-list-item__prepend i::before {
           font-size: 30px;
           color: white;
         }
@@ -67,8 +67,6 @@
 }
 
 .layer-menu {
-  //top: 60px !important;
-  //height: calc(100% - 60px);
   border-radius: 0;
   background: #fbfcfd;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 5%);
