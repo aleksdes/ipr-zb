@@ -23,12 +23,6 @@ module.exports = {
     ],
     'no-empty-first-line': null,
     'no-empty-source': null,
-    // indentation: [
-    //   2,
-    //   {
-    //     baseIndentLevel: 1,
-    //   },
-    // ],
     'color-hex-length': 'long',
     'declaration-no-important': null,
     'color-function-notation': null,
@@ -45,7 +39,5 @@ module.exports = {
     'number-leading-zero': null,
     'value-list-comma-newline-after': null,
     'scss/no-global-function-names': null,
-    // 'string-quotes': 'single',
-    // 'max-line-length': [true, 180],
   },
 }

@@ -33,5 +33,6 @@ export const routeNames: IRouteNames = {
   basket: 'basket',
   wishlist: 'wishlist',
   profile: 'profile',
+  animations: 'animations',
   pageNotFound: '404',
 }

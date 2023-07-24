@@ -51,12 +51,12 @@ class Auth {
     const tokenStore = useTokenStore()
     const refreshToken = tokenStore.getRefreshToken
 
-    tokenStore.resetStore()
-    await userStore.resetStore()
-
-    return useApi.delete(authUrls.REFRESH_URL, {
+    await useApi.delete(authUrls.REFRESH_URL, {
       refresh_token: refreshToken,
     })
+
+    tokenStore.resetStore()
+    await userStore.resetStore()
   }
 
   static async logoutBySession() {

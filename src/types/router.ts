@@ -38,4 +38,5 @@ export interface IRouteNames {
   basket: string
   wishlist: string
   profile: string
+  animations: string
 }
