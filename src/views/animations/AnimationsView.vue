@@ -1,7 +1,23 @@
 <template>
   <div class='animations pa-5 h-100'>
-    <CircleLoader />
+    <div
+      style='height: 500px;'
+      class='d-flex align-center justify-center'
+    >
+      <CircleLoader
+        size='150'
+        class='mx-auto'
+      />
+    </div>
+
     <CircleBurger />
+
+    <div
+      style='height: 500px;'
+      class='d-flex align-center justify-center'
+    >
+      <ShareBtn />
+    </div>
   </div>
 </template>
 
@@ -15,6 +31,7 @@ export default defineComponent ({
 <script setup lang="ts">
 import CircleLoader from './components/CircleLoader.vue'
 import CircleBurger from './components/CircleBurger.vue'
+import ShareBtn from './components/ShareBtn.vue'
 </script>
 
 <style lang="scss" scoped>
