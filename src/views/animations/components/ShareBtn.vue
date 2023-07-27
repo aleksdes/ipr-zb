@@ -2,7 +2,7 @@
   <div class='button-share'>
     <div
       class='main-button share-alt'
-      @click='open = !open'
+      @click='openSocial = !openSocial'
     >
       <div class='mdi mdi-share-variant'/>
     </div>
@@ -11,13 +11,36 @@
       <div
         v-for='item in social'
         :key='item.id'
-        :class='["branch", open ? "open" : "no-animation"]'
+        :class='["branch", openSocial ? "open" : "no-animation"]'
       >
         <div
           :id='item.id'
           class='node'
         >
           <div :class='["share-alt-icon", item.icon]'/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='button-messenger'>
+    <div
+      class='main-button social'
+      @click='openMessenger = !openMessenger'
+    >
+      <div class='mdi mdi-comment-processing-outline'/>
+    </div>
+
+    <div class='button-content'>
+      <div
+        :class='["container", openMessenger ? "open" : "no-animation"]'
+      >
+        <div
+          v-for='item in messenger'
+          :key='item.id'
+          class='segment'
+        >
+          <div :class='["social-icon", item.icon]'/>
         </div>
       </div>
     </div>
@@ -43,7 +66,15 @@ const social = [
   {id: 'twitter', icon: 'mdi mdi-twitter' },
 ]
 
-const open = ref(false)
+const messenger = [
+  {id: 'phone', icon: 'mdi mdi-phone' },
+  {id: 'whatsapp', icon: 'mdi mdi-whatsapp' },
+  {id: 'send-circle', icon: 'mdi mdi-send-circle' },
+  {id: 'gmail', icon: 'mdi mdi-gmail' },
+]
+
+const openSocial = ref(false)
+const openMessenger= ref(false)
 </script>
 
 <style lang="scss" scoped>
@@ -198,13 +229,9 @@ $youtube: #bb0000;
 /* Classes by name A-Z */
 .branch {
   @include flex-container(flex, column, nowrap, flex-start, center, stretch);
-  //@include absolute($top: -100%, $left: calc(25% - 25px));
-
   @include absolute($top: 50%, $left: 50%);
   @include size(10px, 10px);
   transform: translate(-50%, -50%) rotate(0deg);
-
-  //@include transform(rotate(0deg));
   @include transform-origin(center bottom);
   @include transition(all .5s);
   .node{
@@ -214,7 +241,6 @@ $youtube: #bb0000;
   &.open {
     @include absolute($top: -100px, $left: calc(25% - 25px));
     @include size(50px, 100px);
-    //@include transition-delay(.5s);
     &:nth-child(1) {
       @include transform(rotate(-90deg));
     }
@@ -244,6 +270,29 @@ $youtube: #bb0000;
   }
   &.no-animation {
     animation: none;
+  }
+}
+
+.node {
+  @include flex-item(auto, auto, 0, 0);
+  @include size(10px);
+  background-color: $background-grey;
+  border-radius: 50%;
+  border: solid 5px;
+  &#facebook {
+    border-color: $facebook;
+  }
+  &#google-plus{
+    border-color: $google-plus;
+  }
+  &#twitter{
+    border-color: $twitter;
+  }
+  &#pinterest {
+    border-color: $pinterest;
+  }
+  &#linkedin{
+    border-color: $linkedin;
   }
 }
 
@@ -293,104 +342,30 @@ $youtube: #bb0000;
   }
 
   // Social Icons
-  &.mdi-vine {
-    @include transform(translate3d(-50%, -50%, 0) rotate(-45deg));
+  &.mdi-phone {
+    @include transform( rotate(0deg));
   }
-  &.mdi-instagram {
-    @include transform(translate3d(-50%, -50%, 0) rotate(-90deg));
+  &.mdi-whatsapp {
+    @include transform( rotate(-45deg));
   }
-  &.mdi-whatsapp{
-    @include transform(translate3d(-50%, -50%, 0) rotate(-135deg));
+  &.mdi-send-circle{
+    @include transform( rotate(-90deg));
   }
-}
-
-.float-circle {
-  @include absolute($top: 50%, $left: 75%);
-  @include transform(translateX(-50%) translateY(-50%));
-  @include size(50px, 50px);
-  @include transition(transform .5s, background-color .5s, opacity .2s);
-  background-color: #FFF;
-  border-radius: 50%;
-  &.open {
-    cursor: pointer;
-    &#flickr {
-      background-color: $flickr;
-      @include transform(translate3d(-175%, -150%, 0));
-    }
-    &#youtube {
-      background-color: $youtube;
-      @include transform(translate3d(-50%, -200%, 0));
-    }
-    &#dropbox {
-      background-color: $dropbox;
-      @include transform(translate3d(75%, -150%, 0));
-    }
-    &:hover {
-      @include opacity(.9);
-    }
-    &:active {
-      @include opacity(.75);
-    }
-  }
-  &.no-animation{
-    animation: none;
-  }
-}
-
-.button-share {
-  position: relative;
-}
-
-.main-button {
-  position: relative;
-  z-index: 1;
-  @include transition(all .5s);
-  @include size(75px, 75px);
-  background-color: red;
-  border-radius: 50%;
-  color: #000;
-  cursor: pointer;
-}
-
-.button-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-}
-
-.node {
-  @include flex-item(auto, auto, 0, 0);
-  @include size(10px);
-  background-color: $background-grey;
-  border-radius: 50%;
-  border: solid 5px;
-  &#facebook {
-    border-color: $facebook;
-  }
-  &#google-plus{
-    border-color: $google-plus;
-  }
-  &#twitter{
-    border-color: $twitter;
-  }
-  &#pinterest {
-    border-color: $pinterest;
-  }
-  &#linkedin{
-    border-color: $linkedin;
+  &.mdi-gmail{
+    @include transform( rotate(-135deg));
   }
 }
 
 .segment {
+  display: flex;
+  align-items: flex-end;
   @include absolute($top: calc(100% - 100px), $left: calc(50% - 100px));
   @include transform(rotate(0deg) scale(0.1) translate3d(0,0,0));
   @include transform-origin(50% 100%);
   @include transition(transform .5s, color .2s);
   @include opacity(1);
   @include size(200px, 100px);
-  border-radius: 100px 100px 0px 0px;
+  border-radius: 100px 100px 0px 10px;
   color: #000;
   overflow: hidden;
   &:nth-child(1) {
@@ -413,12 +388,34 @@ $youtube: #bb0000;
   }
 }
 
-.share {
-  @include absolute($top: 50%, $left: 75%);
-  @include transform(translate3d(-50%, -50%, 0));
+.button-share, .button-messenger {
+  position: relative;
+}
+.button-messenger {
+  margin-left: 200px;
 }
 
-.share-icon{
+.main-button {
+  position: relative;
+  z-index: 1;
+  @include transition(all .5s);
+  @include size(75px, 75px);
+  background-color: orange;
+  border-radius: 50%;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.button-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.share-icon {
   color: #FFF;
   font-size: 25px;
 }
@@ -434,7 +431,8 @@ $youtube: #bb0000;
 }
 
 .social-icon {
-  margin: 23px 0 0 -65px;
-  font-size: 45px;
+  font-size: 35px;
+  position: static;
+  margin: 15px 0 4px 15px;
 }
 </style>
