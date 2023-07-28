@@ -18,6 +18,13 @@
     >
       <ShareBtn />
     </div>
+
+    <div
+      style='height: 500px;'
+      class='d-flex align-center justify-center'
+    >
+      <FloatText />
+    </div>
   </div>
 </template>
 
@@ -32,6 +39,7 @@ export default defineComponent ({
 import CircleLoader from './components/CircleLoader.vue'
 import CircleBurger from './components/CircleBurger.vue'
 import ShareBtn from './components/ShareBtn.vue'
+import FloatText from './components/FloatText.vue'
 </script>
 
 <style lang="scss" scoped>

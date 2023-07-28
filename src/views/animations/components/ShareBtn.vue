@@ -25,7 +25,7 @@
 
   <div class='button-messenger'>
     <div
-      class='main-button social'
+      class='main-button messenger'
       @click='openMessenger = !openMessenger'
     >
       <div class='mdi mdi-comment-processing-outline'/>
@@ -40,7 +40,7 @@
           :key='item.id'
           class='segment'
         >
-          <div :class='["social-icon", item.icon]'/>
+          <div :class='["messenger-icon", item.icon]'/>
         </div>
       </div>
     </div>
@@ -136,10 +136,6 @@ $youtube: #bb0000;
   @include position(relative, $args...);
 }
 
-@mixin fixed($args...) {
-  @include position(fixed, $args...);
-}
-
 @mixin keyframes($animation-name) {
   @-webkit-keyframes #{$animation-name} {
     @content;
@@ -226,7 +222,6 @@ $youtube: #bb0000;
   box-sizing: border-box;
 }
 
-/* Classes by name A-Z */
 .branch {
   @include flex-container(flex, column, nowrap, flex-start, center, stretch);
   @include absolute($top: 50%, $left: 50%);
@@ -327,7 +322,7 @@ $youtube: #bb0000;
 .mdi {
   @include relative($top: 50%, $left: 50%);
   @include transform(translate3d(-50%, -50%, 0) rotate(0deg));
-  // Share-alt Icons
+
   &.mdi-facebook{
     @include transform(translate3d(-50%, -50%, 0) rotate(90deg));
   }
@@ -341,7 +336,6 @@ $youtube: #bb0000;
     @include transform(translate3d(-50%, -50%, 0) rotate(-90deg));
   }
 
-  // Social Icons
   &.mdi-phone {
     @include transform( rotate(0deg));
   }
@@ -425,12 +419,12 @@ $youtube: #bb0000;
   color: #FFF;
 }
 
-.social {
+.messenger {
   @include absolute($top: 50%, $left: 50%);
   transform: translateX(-50%) translateY(-50%);
 }
 
-.social-icon {
+.messenger-icon {
   font-size: 35px;
   position: static;
   margin: 15px 0 4px 15px;
