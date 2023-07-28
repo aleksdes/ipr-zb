@@ -25,6 +25,12 @@
     >
       <FloatText />
     </div>
+    <div
+      style='height: 700px;'
+      class='d-flex align-center justify-center'
+    >
+      <RandomBubble />
+    </div>
   </div>
 </template>
 
@@ -40,9 +46,8 @@ import CircleLoader from './components/CircleLoader.vue'
 import CircleBurger from './components/CircleBurger.vue'
 import ShareBtn from './components/ShareBtn.vue'
 import FloatText from './components/FloatText.vue'
+import RandomBubble from './components/RandomBubble.vue'
 </script>
 
 <style lang="scss" scoped>
-.animations {
-}
 </style>
