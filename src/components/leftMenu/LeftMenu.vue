@@ -24,6 +24,22 @@
         nav
         class='toogle-block'
       >
+        <router-link
+          :to='{name: routeNames.animations}'
+        >
+          <v-list-item
+            class='left-menu__page-animations'
+          >
+            <v-icon
+              size='24'
+              class
+            >
+              mdi-animation-play
+            </v-icon>
+            <v-list-item-title v-if='!mini'>Анимации</v-list-item-title>
+          </v-list-item>
+        </router-link>
+
         <v-list-item @click='onToggleMenu'>
           <v-icon
             size='24'
@@ -58,6 +74,7 @@ import menuItems from '@/assets/js/resources/leftMenu'
 import ItemMenu from './ItemMenu.vue'
 import ItemMenuMobile from './ItemMenuMobile.vue'
 import { useDisplay } from 'vuetify'
+import {routeNames} from '@/router/RouteNames'
 
 export const useLeftMenu = reactive({
   openMenu() {
@@ -107,7 +124,41 @@ export default defineComponent({
       onToggleMenu,
       leftMenuStore,
       menuItems,
+      routeNames,
     }
   },
 })
 </script>
+
+<style scoped lang="scss">
+.left-menu {
+  &__page-animations {
+    background-color: map-get($red, 'lighten-5');
+    transform-origin: 50% 100%;
+    animation: colorAnimate 4s ease-in-out forwards infinite;
+  }
+}
+
+@keyframes colorAnimate {
+  0% {
+    transform: scale(1.1) rotate(-5deg);
+    background-color: map-get($blue, 'lighten-5');
+  }
+  25% {
+    transform: scale(0.9) rotate(0deg);
+    background-color: map-get($red, 'lighten-5');
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+    background: map-get($blue, 'lighten-5');
+  }
+  75% {
+    transform: scale(0.9) rotate(0deg);
+    background: map-get($red, 'lighten-5');
+  }
+  100% {
+    transform: scale(1.1) rotate(-5deg);
+    background: map-get($blue, 'lighten-5');
+  }
+}
+</style>
