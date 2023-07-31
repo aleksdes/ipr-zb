@@ -7,7 +7,10 @@ module.exports = {
       },
     ],
   ],
-  extends: ['stylelint-config-standard-scss'],
+  extends: [
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-vue"
+  ],
   rules: {
     'selector-pseudo-class-no-unknown': [
       true,
