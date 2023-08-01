@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-breadcrumbs
-      class='breadcrumbs pa-0 scroll'
+      class='breadcrumbs pa-0 pb-1 scroll'
       :items='usePart'
       divider='mdi-chevron-right'
     >
@@ -58,7 +58,7 @@ const toRoute = (item: IBreadcrumb) => {
 
 <style lang="scss">
 .breadcrumbs {
-  overflow-x: scroll;
+  overflow-x: auto;
   /* хром, сафари */
   &::-webkit-scrollbar {
     width: 0;

@@ -2,7 +2,7 @@ import axios from 'axios'
 import errorHandler from '@/assets/js/helpers/useErrorHandler'
 import useTokenStore from '@/store/token'
 const api = axios.create({
-  baseURL: 'https://dummyjson.com',
+  baseURL: process.env.VUE_APP_API_URL,
 })
 
 const useResponse: IUseResponse = async (data = null, options: IOptionsUseResponse) => {
