@@ -59,15 +59,12 @@ const toRoute = (item: IBreadcrumb) => {
 <style lang="scss">
 .breadcrumbs {
   overflow-x: auto;
-  /* хром, сафари */
+
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
-  /* ie 10+ */
   -ms-overflow-style: none;
-  /* фф (свойство больше не работает, других способов тоже нет)*/
-  overflow: -moz-scrollbars-none;
 
   &__item--pointer {
     cursor: pointer;
