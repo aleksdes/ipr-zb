@@ -3,7 +3,6 @@
        class='container'>
     <p class='random-bubble-text'>Happy Birthday to You</p>
   </div>
-  >
 </template>
 
 <script lang="ts">
