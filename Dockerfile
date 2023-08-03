@@ -2,7 +2,7 @@ FROM node:16.19.1-alpine as build-stage
 ENV NODE_OPTIONS=--openssl-legacy-provider
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm install --silent
 COPY ./ .
 RUN npm run build
 
