@@ -7,7 +7,7 @@ COPY ./ .
 RUN npm run build
 
 # production environment
-FROM nginx:1.19.6-alpine as production-stage
+FROM nginx as production-stage
 RUN mkdir /app
 COPY --from=build-stage /app/dist /app
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
