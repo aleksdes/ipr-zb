@@ -1,4 +1,4 @@
-FROM node:16.19.1-alpine as build-stage
+FROM node:16.19.1 as build-stage
 ENV NODE_OPTIONS=--openssl-legacy-provider
 WORKDIR /app
 COPY package*.json ./
