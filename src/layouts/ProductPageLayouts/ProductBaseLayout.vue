@@ -86,7 +86,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {defineProps, PropType, ref} from 'vue'
+import {PropType, ref} from 'vue'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs.vue'
 import BasketCard from '@/components/common/basketCards/BasketCard.vue'
 import {IBreadcrumb} from '@/types/breadcrumbs'
@@ -116,7 +116,7 @@ const props = defineProps({
 })
 
 const dialog = ref(false)
-const selectedProduct: any = ref(null)
+const selectedProduct = ref<Product | null>(null)
 const closeCardDetails = () => {
   dialog.value = false
   selectedProduct.value = null

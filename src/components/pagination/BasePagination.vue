@@ -68,7 +68,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {computed, defineProps, defineEmits} from 'vue'
+import {computed} from 'vue'
 import PageSize from '@/components/pageSize/PageSize.vue'
 import { useDisplay } from 'vuetify'
 

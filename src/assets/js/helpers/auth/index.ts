@@ -1,11 +1,12 @@
 import useTokenStore from '@/store/token'
-import useApi from '~/assets/js/helpers/useApi'
+import useApi, {IResponseReturn} from '~/assets/js/helpers/useApi'
 import useUserStore from '~/store/user'
 import { authUrls } from '~/constants/urls'
 import { X_CSRF_TOKEN } from '@/constants/urls/auth'
+import {IUserCredential} from '@/types/autch'
 
 class Auth {
-  static async registration(userCredential: any) {
+  static async registration(userCredential: IUserCredential) {
     const userStore = useUserStore()
     const tokenStore = useTokenStore()
     const result = await useApi.post(authUrls.REGISTRATION_URL, userCredential)
@@ -16,11 +17,11 @@ class Auth {
     return result
   }
 
-  static async login(userCredential: any) {
+  static async login(userCredential: IUserCredential) {
     const userStore = useUserStore()
     const tokenStore = useTokenStore()
 
-    let result: any = null
+    let result: IResponseReturn
     result = await useApi.post(authUrls.LOGIN_URL, userCredential)
     if (!result.errors) {
       tokenStore.setToken(result)
@@ -30,13 +31,13 @@ class Auth {
     return result
   }
 
-  static async loginBySession(userCredential: any) {
+  static async loginBySession(userCredential: IUserCredential) {
     const userStore = useUserStore()
     const tokenStore = useTokenStore()
 
     await tokenStore.removeCookiesDataByKey(X_CSRF_TOKEN)
 
-    let result: any = null
+    let result: IResponseReturn
     result = await useApi.post(authUrls.LOGIN_URL, userCredential)
     if (!result.errors) {
       await tokenStore.setCookiesData(X_CSRF_TOKEN, result.data.csrf_token)

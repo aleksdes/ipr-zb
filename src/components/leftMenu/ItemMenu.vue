@@ -76,7 +76,7 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { defineProps, PropType, ref } from 'vue'
+import {PropType, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { ILeftMenu } from '@/assets/js/resources/leftMenu'
 

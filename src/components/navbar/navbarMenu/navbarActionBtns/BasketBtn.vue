@@ -43,7 +43,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {computed, ComputedRef, defineProps, ref} from 'vue'
+import {computed, ComputedRef, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import BasketBtnModalProducts from './basketBtn/BasketBtnModalProducts.vue'
 import useBasketStore, {BasketMetricsStore} from '@/store/basketProducts'

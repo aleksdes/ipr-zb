@@ -52,7 +52,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {ref, computed, defineAsyncComponent} from 'vue'
+import {ref, computed, defineAsyncComponent, Ref} from 'vue'
 import {bottomNavbarMenuBtns} from '@/assets/js/resources/navbarMenu'
 import {INavbarMenuBtns} from '@/types/navbarMenu'
 
@@ -60,11 +60,11 @@ const heightBottomNavbar = 60
 const active = ref(true)
 const navMenuBtns = bottomNavbarMenuBtns
 
-const currentMenuItem: any = ref<INavbarMenuBtns | null >(null)
+const currentMenuItem: Ref<INavbarMenuBtns | null> = ref(null)
 const showMenu = ref(false)
 
 const componentMenu = computed(() => {
-  const nameComponent: string = currentMenuItem.value ? currentMenuItem.value?.actionMenu : ''
+  const nameComponent: string = currentMenuItem.value && currentMenuItem.value?.actionMenu ? currentMenuItem.value.actionMenu : ''
   if (!nameComponent) return null
   return defineAsyncComponent(() => import('@/components/navbar/navbarMenu/navbarMenuComponents/' + nameComponent + '.vue'))
 })

@@ -32,7 +32,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {computed, defineProps, PropType, ComputedRef} from 'vue'
+import {computed, PropType, ComputedRef} from 'vue'
 
 type iconSettings = {
   size?: number

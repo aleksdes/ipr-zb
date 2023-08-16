@@ -73,13 +73,13 @@ import {routeNames} from '@/router/RouteNames'
 
 const leftMenuStore = useLeftMenu
 const heightNavbar = 60
-const currentMenuItem: any = ref<INavbarMenuBtns | null>(null)
+const currentMenuItem = ref<INavbarMenuBtns | null>(null)
 const showMenu = ref(false)
 const navMenuBtns = navbarMenuBtns
 const { width: displayWidth } = useDisplay()
 
 const componentMenu = computed(() => {
-  const nameComponent: string = currentMenuItem.value ? currentMenuItem.value?.actionMenu : ''
+  const nameComponent: string = currentMenuItem.value && currentMenuItem.value?.actionMenu? currentMenuItem.value.actionMenu : ''
   if (!nameComponent) return null
   return defineAsyncComponent(() => import('@/components/navbar/navbarMenu/navbarMenuComponents/' + nameComponent + '.vue'))
 })

@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, defineProps, defineEmits, PropType} from 'vue'
+import {computed, PropType} from 'vue'
 import {Product} from '@/types/products'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'

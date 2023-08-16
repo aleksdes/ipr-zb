@@ -81,7 +81,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {computed, defineEmits, defineProps, PropType} from 'vue'
+import {computed, PropType} from 'vue'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
 import {Product} from '@/types/products'

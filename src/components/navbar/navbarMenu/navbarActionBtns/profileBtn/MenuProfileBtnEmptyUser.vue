@@ -38,8 +38,6 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {defineEmits} from 'vue'
-
 const emits = defineEmits(['login'])
 
 const linksMenu = [

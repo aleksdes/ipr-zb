@@ -29,7 +29,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {computed, defineEmits, defineProps} from 'vue'
+import {computed} from 'vue'
 import { useDisplay } from 'vuetify'
 
 defineProps({

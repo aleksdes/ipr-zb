@@ -1,4 +1,4 @@
-import useApi from '@/assets/js/helpers/useApi'
+import useApi, {IResponseReturn} from '@/assets/js/helpers/useApi'
 
 export interface IMetaBaseStore {
   limit: number
@@ -29,17 +29,17 @@ export interface IBaseStoreActions {
   setData: (data: any) => void
   setMeta: (meta: IMetaBaseStore) => void
   setItems: (items: any[]) => void
-  setFilter: (filters: any) => void
-  fetchData: (filter?: any, url?: string) => Promise<any>
-  deleteData: (id: string | number) => Promise<any>
+  setFilter: (filters: { [key: string]: any }) => void
+  fetchData: (filter?: { [key: string]: any }, url?: string) => Promise<IResponseReturn>
+  deleteData: (id: string | number) => Promise<IResponseReturn>
   resetStore: () => void
-  fetchDataWithoutStore: (filter?: any) => Promise<any>
+  fetchDataWithoutStore: (filter?: { [key: string]: any }) => Promise<IResponseReturn>
   [key: string]: any
 }
 
-export const filterParams = (params: any) => {
+export const filterParams = (params: {[key: string]: any} | null) => {
   if (!params) return null
-  return Object.keys(params).reduce((acc: any, curr) => {
+  return Object.keys(params).reduce((acc: { [key: string]: any }, curr) => {
     if (params[curr] !== null && params[curr] !== undefined) {
       acc[curr] = params[curr]
     }
@@ -51,13 +51,13 @@ const getters: IBaseStoreGetters = {
   getLoading(state: IBaseStore): boolean {
     return state.loading
   },
-  getItems(state: IBaseStore): any {
+  getItems(state: IBaseStore): Partial<IBaseStore> {
     return state.items
   },
   getMeta(state: IBaseStore): IMetaBaseStore {
     return state.meta || {}
   },
-  getItemsForOptions(state: IBaseStore): any {
+  getItemsForOptions(state: IBaseStore): Partial<IBaseStore> {
     return state.items.map((item: any) => {
       return {
         ...item,
@@ -75,7 +75,7 @@ const getters: IBaseStoreGetters = {
   getTotal(state: IBaseStore): number {
     return state.meta.total || 0
   },
-  getFilter(state: IBaseStore): any {
+  getFilter(state: IBaseStore): Partial<IBaseStore> {
     return state.filter
   },
 }
@@ -90,7 +90,7 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
         total: 0,
       }
     },
-    setData(data: any) {
+    setData(data: IResponseReturn) {
       if (data.data) {
         this.items = data.data
 
@@ -108,7 +108,7 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
     setItems(items: any[]) {
       this.items = items
     },
-    async setFilter(filters: any = {}) {
+    async setFilter(filters: { [key: string]: any } = {}) {
       const currentFilters: any = {
         ...this.filter,
         ...filters,
@@ -120,26 +120,26 @@ const actions: (apiUrl?: string | '') => IBaseStoreActions = (apiUrl: string | '
     delFilter() {
       this.filter = {}
     },
-    async fetchData(filter: any = {}, url='') {
+    async fetchData(filter: { [key: string]: any } = {}, url = '') {
       const filteredFilters = filterParams(filter)
       this.loading = true
-      const result: any = await useApi.get(apiUrl+url, null, { params: filteredFilters })
+      const result: IResponseReturn = await useApi.get(apiUrl + url, null, { params: filteredFilters })
       this.loading = false
 
-      this.setData(result.data)
+      if (result.data) this.setData(result.data)
       return result
     },
-    async fetchDataWithoutStore(filter: any = {}, url='') {
+    async fetchDataWithoutStore(filter: { [key: string]: any } = {}, url = '') {
       const filteredFilters = filterParams(filter)
-      const result: any = await useApi.get(apiUrl+url, null, { params: filteredFilters })
+      const result: IResponseReturn = await useApi.get(apiUrl + url, null, { params: filteredFilters })
       return result
     },
     async deleteData(id: string | number = '') {
-      const result: any = await useApi.delete(id ? `${apiUrl}/${id}` : `${apiUrl}`, null)
+      const result: IResponseReturn = await useApi.delete(id ? `${apiUrl}/${id}` : `${apiUrl}`, null)
+
       if (!result.errors) {
         await this.fetchData()
       }
-
       return result
     },
   }

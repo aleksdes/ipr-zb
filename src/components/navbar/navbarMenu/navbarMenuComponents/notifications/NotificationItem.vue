@@ -31,7 +31,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {defineProps, PropType, ref} from 'vue'
+import {PropType, ref} from 'vue'
 import moment from 'moment'
 import {INotificationMessages} from '@/types/common'
 import useNotificationsStore from '@/store/notifications'

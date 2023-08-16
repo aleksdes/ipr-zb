@@ -57,7 +57,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {defineEmits, defineProps, ref, defineExpose} from 'vue'
+import {ref} from 'vue'
 import {useForm, Field} from 'vee-validate'
 const { meta } = useForm()
 

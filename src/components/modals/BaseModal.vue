@@ -69,7 +69,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {defineEmits, defineProps, useAttrs} from 'vue'
+import {useAttrs} from 'vue'
 import BaseModalActions from './BaseModalActions.vue'
 
 const attrs = useAttrs()

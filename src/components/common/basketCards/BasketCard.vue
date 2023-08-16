@@ -10,6 +10,7 @@
       <v-img
         src='/img/basket-empty.svg'
         height='100'
+        width='auto'
         class='mx-auto mb-2'
       />
       <b class='basket-card__empty-title fs-18'>Корзина пуста</b>

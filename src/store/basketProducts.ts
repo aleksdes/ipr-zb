@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import {IBaseStore} from './baseStoreFetchData'
 import {productsUrls} from '@/constants/urls'
 import {BasketProduct, BasketProductStorage} from '@/types/products'
-import useApi from '@/assets/js/helpers/useApi'
+import useApi, {IResponseReturn} from '@/assets/js/helpers/useApi'
 
 interface IBasketStore {
   id: number | null
@@ -58,7 +58,7 @@ const useBasketStore = defineStore('basket', {
 
     async fetchBasketProducts(result: BasketProductStorage[]) {
       this.products = await Promise.all(result.map( async (product: BasketProductStorage): Promise<BasketProduct> => {
-        const { data }: any = await useApi.get(`${productsUrls.PRODUCTS_URL}/${product.id}`)
+        const { data }: IResponseReturn = await useApi.get(`${productsUrls.PRODUCTS_URL}/${product.id}`)
 
         return {
           quantity: product.quantity,

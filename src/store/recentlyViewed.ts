@@ -21,7 +21,7 @@ const useRecentlyViewedStore = defineStore('recentlyViewed', {
 
   actions: {
     async initRecentlyViewed() {
-      const viewedStorage: any = await localStorage.getItem('viewed')
+      const viewedStorage: string | null = await localStorage.getItem('viewed')
       if (!viewedStorage) return
       const viewed: ViewedProductStorage[] = JSON.parse(viewedStorage)
       this.items = viewed.filter((view: ViewedProductStorage) => {

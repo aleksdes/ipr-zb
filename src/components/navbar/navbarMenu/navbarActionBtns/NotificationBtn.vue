@@ -30,7 +30,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {defineProps, defineEmits, computed} from 'vue'
+import {computed} from 'vue'
 import {INavbarMenuBtns} from '@/types/navbarMenu'
 import useNotificationsStore from '@/store/notifications'
 import {INotificationMessages} from '@/types/common'

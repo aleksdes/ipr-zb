@@ -9,6 +9,7 @@
       <v-img
         src='/img/user-empty.svg'
         height='150'
+        width='auto'
         class='mx-auto mb-4'
       />
 

@@ -40,7 +40,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import { defineEmits, defineProps, useAttrs } from 'vue'
+import {useAttrs } from 'vue'
 
 defineProps({
   align: {
@@ -69,7 +69,7 @@ defineProps({
   },
 })
 
-const attrs: any = useAttrs()
+const attrs = useAttrs()
 const emits = defineEmits(['apply', 'cancel'])
 const apply = () => {
   emits('apply')

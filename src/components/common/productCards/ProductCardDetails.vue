@@ -116,7 +116,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {ref, computed, defineEmits, defineProps, PropType, onMounted} from 'vue'
+import {ref, computed, PropType, onMounted} from 'vue'
 import {Product} from '@/types/products'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
@@ -183,6 +183,7 @@ onMounted(() => {
     align-items: center;
     overflow: hidden;
     height: 150px;
+    width: 100%;
 
     @media (min-width: 768px) {
       height: 300px;

@@ -40,7 +40,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {defineProps, defineEmits, ref, computed, nextTick, PropType} from 'vue'
+import {ref, computed, nextTick, PropType} from 'vue'
 import useUserStore from '@/store/user'
 import ChatMessageItem from './chatMessenger/ChatMessageItem.vue'
 import ChatActions from './chatMessenger/ChatActions.vue'
@@ -72,7 +72,7 @@ const userId = computed(() => {
   return dataUser.id
 })
 
-const sendMessage = (dataMessage: any) => {
+const sendMessage = (dataMessage: {message: string}) => {
   const newMessage: IChatSendMessage = {
     author: userId.value,
     timestamp: moment().unix(),

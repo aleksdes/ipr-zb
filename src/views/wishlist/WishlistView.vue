@@ -13,6 +13,7 @@
         <v-img
           src='/img/likes-empty.svg'
           height='150'
+          width='auto'
           class='mx-auto mb-4'
         />
         <p class='basket__empty-desc'>В списке пока нет ни одного избранного товара</p>
@@ -118,9 +119,9 @@ const basketStore = useBasketStore()
 const likeStore = useLikeProductsStore()
 
 const selectedAllProducts = ref(false)
-const selectedLikeProduct: any = ref([])
+const selectedLikeProduct = ref<number[]>([])
 const dialog = ref(false)
-const selectedProduct: any = ref(null)
+const selectedProduct = ref<Product | null>(null)
 
 const closeCardDetails = () => {
   dialog.value = false

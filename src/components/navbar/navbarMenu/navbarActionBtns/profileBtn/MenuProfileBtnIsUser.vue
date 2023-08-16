@@ -33,7 +33,8 @@
             <v-img
               :src='user.image'
               alt='avatar'
-            /></v-avatar>
+            />
+          </v-avatar>
         </v-btn>
       </router-link>
 

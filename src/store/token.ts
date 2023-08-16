@@ -3,13 +3,13 @@ import { useCookies } from '@vueuse/integrations/useCookies'
 import { defineStore } from 'pinia'
 import jwt_decode from 'jwt-decode'
 
-import useApi from '../assets/js/helpers/useApi'
+import useApi, {IResponseReturn} from '../assets/js/helpers/useApi'
 import { authUrls, MIN_TIME_ACCESS_TOKEN } from '@/constants/urls/auth'
 import {User} from '@/types/user'
 
 interface ITokenStore {
   accessToken: string | null
-  expires: any
+  expires: number | null
 }
 
 const useTokenStore = defineStore('token', {
@@ -40,13 +40,13 @@ const useTokenStore = defineStore('token', {
       }
     },
 
-    setAccessToken(result: any) {
+    setAccessToken(result: IResponseReturn) {
       if (result.data) {
         this.accessToken = result.data?.token || result.data?.accessToken || null
         const dataToken: any = result.data?.accessToken || result.data?.token ? jwt_decode(result.data.accessToken || result.data.token) : null
         this.expires = dataToken.exp || null
 
-        const expiresAccessToken: any = this.expires ? moment.unix(this.expires).toDate() : null
+        const expiresAccessToken: Date | null = this.expires ? moment.unix(this.expires).toDate() : null
         const dataCookies = JSON.stringify({
           value: this.accessToken,
           expires: expiresAccessToken,
@@ -57,7 +57,7 @@ const useTokenStore = defineStore('token', {
       }
     },
 
-    setToken(result: any) {
+    setToken(result: IResponseReturn) {
       if (result.data) {
         const refreshToken = result.data.refreshToken
         this.setAccessToken(result)

@@ -13,6 +13,7 @@
         <v-img
           src='/img/basket-empty.svg'
           height='150'
+          width='auto'
           class='mx-auto mb-2'
         />
         <b class='basket__empty-title'>Корзина пуста</b>
@@ -93,7 +94,7 @@ import {Product, BasketProduct} from '@/types/products'
 import useBasketStore from '@/store/basketProducts'
 
 const dialog = ref(false)
-const selectedProduct: any = ref(null)
+const selectedProduct = ref<Product | null>(null)
 
 const closeCardDetails = () => {
   dialog.value = false
@@ -114,6 +115,10 @@ const isLoading = computed(() => {
   return basketStore.getLoading
 })
 
+// getImg(id: string) {
+//   const img = require.context('@/assets/img/ui-icons/types-ship', true, /\.svg$/i)
+//   return img(id)
+// }
 </script>
 
 <style lang="scss" scoped>

@@ -1,8 +1,9 @@
+import {Router} from 'vue-router'
 import useTokenStore from '@/store/token'
 import useUserStore from '@/store/user'
 
-const JWTMiddlewares = (context: any) => {
-  context.router.beforeEach(async (to: any, _: any, next: any ) => {
+const JWTMiddlewares = (context: { router: Router }) => {
+  context.router.beforeEach(async (to: any, _: any, next: any) => {
     const tokenStore = useTokenStore()
     const userStore = useUserStore()
 

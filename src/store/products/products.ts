@@ -9,6 +9,7 @@ const useProductsStore = defineStore('products', {
 
   actions: {
     ...baseStore.actions(productsUrls.PRODUCTS_URL),
+
     setData(data: any) {
       if (data.products) {
         this.items = data.products

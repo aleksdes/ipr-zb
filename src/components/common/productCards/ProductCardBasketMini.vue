@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineEmits, defineProps, PropType} from 'vue'
+import {PropType} from 'vue'
 import {Product} from '@/types/products'
 
 defineProps({

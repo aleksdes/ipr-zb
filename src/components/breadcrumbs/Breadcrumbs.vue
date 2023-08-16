@@ -36,7 +36,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {defineProps, PropType, toRef, Ref} from 'vue'
+import {PropType, toRef, Ref} from 'vue'
 import { IBreadcrumb } from '@/types/breadcrumbs'
 import {useRouter} from 'vue-router'
 

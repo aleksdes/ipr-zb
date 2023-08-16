@@ -41,7 +41,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {computed, ComputedRef, defineEmits} from 'vue'
+import {computed, ComputedRef} from 'vue'
 import NavbarMenu from '@/components/navbar/navbarMenu/NavbarMenu.vue'
 import NotificationItem from './notifications/NotificationItem.vue'
 import useNotificationsStore from '@/store/notifications'

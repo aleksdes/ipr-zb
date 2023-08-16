@@ -37,8 +37,6 @@ export default defineComponent ({
 </script>
 
 <script setup lang='ts'>
-import {defineProps, defineEmits} from 'vue'
-
 defineProps({
   title: {
     default: '',

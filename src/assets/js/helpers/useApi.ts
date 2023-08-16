@@ -5,8 +5,21 @@ const api = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
 })
 
-const useResponse: IUseResponse = async (data = null, options: IOptionsUseResponse) => {
-  let response: any = {}
+interface IOptionsUseResponse {
+  url: string
+  method: 'delete' | 'get' | 'patch' | 'post' | 'put'
+  [key: string]: any
+}
+
+interface IUseResponse {
+  (data: any | null, options: IOptionsUseResponse): Promise<IResponseReturn>
+}
+export interface IResponseReturn {
+  data?: any,
+  errors?: any
+}
+const useResponse: IUseResponse = async (data = null, options: IOptionsUseResponse): Promise<IResponseReturn> => {
+  let response: IResponseReturn = {}
 
   const isUseErrorHandler = options.useErrorHandler !== undefined ? options.useErrorHandler : true
 
@@ -51,22 +64,12 @@ const useResponse: IUseResponse = async (data = null, options: IOptionsUseRespon
   return response
 }
 
-interface IOptionsUseResponse {
-  url: string
-  method: 'delete' | 'get' | 'patch' | 'post' | 'put'
-  [key: string]: any
-}
-
-interface IUseResponse {
-  (data: any | null, options: IOptionsUseResponse): Promise<any>
-}
-
 interface IBaseApi {
-  delete(url: string, data: any | null, opts?: any): Promise<IUseResponse>
-  get(url: string, data?: null, opts?: any): Promise<IUseResponse>
-  patch(url: string, data: any | null, opts?: any): Promise<IUseResponse>
-  post(url: string, data: any | null, opts?: any): Promise<IUseResponse>
-  put(url: string, data: any | null, opts?: any): Promise<IUseResponse>
+  delete(url: string, data: any | null, opts?: any): Promise<IResponseReturn>
+  get(url: string, data?: null, opts?: any): Promise<IResponseReturn>
+  patch(url: string, data: any | null, opts?: any): Promise<IResponseReturn>
+  post(url: string, data: any | null, opts?: any): Promise<IResponseReturn>
+  put(url: string, data: any | null, opts?: any): Promise<IResponseReturn>
 }
 
 const useApi: IBaseApi = {

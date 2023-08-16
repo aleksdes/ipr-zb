@@ -100,7 +100,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import { computed, defineProps, PropType} from 'vue'
+import { computed, PropType} from 'vue'
 import {ViewedProductStorage} from '@/types/products'
 import useLikeProductsStore from '@/store/likeProducts'
 import useBasketStore from '@/store/basketProducts'
@@ -160,6 +160,7 @@ const deleteViewed = () => {
     align-items: center;
     overflow: hidden;
     height: 80px;
+    width: 100%;
   }
 
   &__box-imgs {

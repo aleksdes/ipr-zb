@@ -72,6 +72,8 @@ import Auth from '@/assets/js/helpers/auth'
 import {useForm, Field} from 'vee-validate'
 import { notify } from '@/assets/js/helpers/useNotify'
 import {useLoginModal} from '@/components/autch/ModalLoginUser.vue'
+import {IUserCredential} from '@/types/autch'
+import {IResponseReturn} from '@/assets/js/helpers/useApi'
 
 const { meta } = useForm()
 const email = ref('kminchelle')
@@ -82,12 +84,12 @@ const loginModalStore = useLoginModal
 
 const sendLogin = async () => {
   if (!meta.value.valid) return
-  const dataLogin = {
+  const dataLogin: IUserCredential = {
     username: email.value,
     password: password.value,
   }
 
-  const { errors }: any = await Auth.login(dataLogin)
+  const { errors }: IResponseReturn = await Auth.login(dataLogin)
 
   if (errors) {
     let notifyMessage = ''

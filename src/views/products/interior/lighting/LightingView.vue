@@ -37,8 +37,8 @@ import useProductsStore from '@/store/products/products'
 
 const breadcrumbs: IBreadcrumb[] = [
   {title: 'Главная', href: routeNames.home},
-  {title: 'Красота и здоровье'},
-  {title: 'Очки'},
+  {title: 'Для дома и дачи'},
+  {title: 'Освещение'},
 ]
 
 const productsStore = useProductsStore()

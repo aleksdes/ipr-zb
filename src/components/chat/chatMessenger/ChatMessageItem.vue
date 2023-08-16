@@ -36,7 +36,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {computed, defineProps, PropType} from 'vue'
+import {computed, PropType} from 'vue'
 import useUserStore from '@/store/user'
 import {User} from '@/types/user'
 import moment from 'moment'

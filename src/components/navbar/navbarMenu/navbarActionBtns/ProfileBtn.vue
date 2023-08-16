@@ -60,7 +60,7 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {computed, ComputedRef, ref, defineProps} from 'vue'
+import {computed, ComputedRef, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import useUserStore from '@/store/user'
 import MenuProfileBtnEmptyUser from './profileBtn/MenuProfileBtnEmptyUser.vue'

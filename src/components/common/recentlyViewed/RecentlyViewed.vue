@@ -40,14 +40,14 @@ export default defineComponent ({
 </script>
 
 <script setup lang="ts">
-import {computed, ComputedRef, ref, onMounted} from 'vue'
+import {computed, ComputedRef, ref, onMounted, Ref} from 'vue'
 import ProductCardRecentlyViewed from '@/components/common/productCards/ProductCardRecentlyViewed.vue'
 import ProductCardDetails from '@/components/common/productCards/ProductCardDetails.vue'
 import useRecentlyViewedStore from '@/store/recentlyViewed'
 import {ViewedProductStorage} from '@/types/products'
 
 const dialog = ref(false)
-const selectedProduct: any = ref(null)
+const selectedProduct: Ref<ViewedProductStorage | null> = ref(null)
 
 const viewedStore = useRecentlyViewedStore()
 const viewedData: ComputedRef<ViewedProductStorage[]> = computed((): ViewedProductStorage[] => {
