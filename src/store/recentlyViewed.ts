@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { IBaseStore } from './baseStoreFetchData'
-import { ViewedProductStorage, Product } from '@/types/products'
+import { ViewedProductStorage, Product } from '~/types/products'
 import moment from 'moment'
 
 interface IViewStore {

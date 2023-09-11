@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import baseStore, { IBaseStore } from './baseStoreFetchData'
-import {commonUrls} from '@/constants/urls'
-import {INotificationMessages} from '@/types/common'
+import {commonUrls} from '~/constants/urls'
+import {INotificationMessages} from '~/types/common'
 
 const useNotificationsStore = defineStore('notifications', {
   getters: {

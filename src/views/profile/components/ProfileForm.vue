@@ -10,7 +10,7 @@
         <Field
           v-if='fieldItem.id==="gender"'
           :key='fieldItem.id'
-          v-slot='{ field }'
+          v-slot='{ field, handleChange }'
           v-model='dataFormUser[fieldItem.id]'
           :rules='fieldItem.rules'
           :name='fieldItem.id'
@@ -22,6 +22,7 @@
               :model-value='dataFormUser.gender'
               color='orange-accent-3'
               v-bind='field'
+              @change='handleChange'
             >
               <v-btn
                 value='female'
@@ -43,7 +44,7 @@
         <Field
           v-else
           :key='fieldItem.id'
-          v-slot='{ errors, field }'
+          v-slot='{ errors, field, handleChange }'
           v-model='dataFormUser[fieldItem.id]'
           :rules='fieldItem.rules'
           :name='fieldItem.id'
@@ -59,6 +60,7 @@
             density='comfortable'
             variant='outlined'
             class='mb-3'
+            @input='handleChange'
           />
         </Field>
       </template>

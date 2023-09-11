@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "jest --config jest.config.js",
+    "test:integration": "jest --config jest.integration.config.js",
     "lint": "vue-cli-service lint && stylelint **/*.vue, **/*.scss",
     "lint:fix": "vue-cli-service lint --fix"
   },
@@ -28,8 +29,13 @@
     "vuetify": "^3.3.3"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.15",
+    "@babel/preset-typescript": "^7.22.11",
     "@mdi/font": "^7.2.96",
-    "@types/jest": "^27.0.1",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@testing-library/vue": "^7.0.0",
+    "@types/jest": "^27.5.2",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
@@ -47,7 +53,8 @@
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^8.0.3",
-    "jest": "^27.0.5",
+    "flush-promises": "^1.0.2",
+    "jest": "^27.5.1",
     "node-sass": "^7.0.3",
     "prettier": "2.8.8",
     "sass": "^1.32.7",
@@ -56,8 +63,9 @@
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard-scss": "^9.0.0",
     "stylelint-webpack-plugin": "^4.1.1",
-    "ts-jest": "^27.0.4",
+    "ts-jest": "^27.1.5",
     "typescript": "^4.7",
-    "vue-eslint-parser": "^9.3.0"
+    "vue-eslint-parser": "^9.3.0",
+    "wait-for-expect": "^3.0.2"
   }
 }

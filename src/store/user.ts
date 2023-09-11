@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { User, UserRoles } from '@/types/user'
-import useTokenStore from '@/store/token'
+import { User, UserRoles } from '~/types/user'
+import useTokenStore from '~/store/token'
 import { authUrls } from '~/constants/urls'
 import useApi from '~/assets/js/helpers/useApi'
 

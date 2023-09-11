@@ -9,6 +9,7 @@
         <v-icon
           max-width='3'
           class='text-gray'
+          data-tid='breadcrumbs-chevron'
         >
           mdi-chevron-right
         </v-icon>
@@ -18,6 +19,7 @@
           :disabled='item.disabled || !item.href'
           :class='["breadcrumbs__item", !item.href ? "disabled" : "breadcrumbs__item--pointer"]'
           active-class='disabled'
+          data-tid='breadcrumbs-item'
           @click.stop.prevent='toRoute(item)'
         >
           {{ item.title }}

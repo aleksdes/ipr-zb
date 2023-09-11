@@ -5,7 +5,7 @@
   >
     <div class='bg-light-blue-lighten-5 d-flex flex-row align-center pa-4'>
       <Field
-        v-slot='{ field }'
+        v-slot='{ field, handleChange }'
         v-model='dataForm.message'
         rules='required'
         name='message'
@@ -24,6 +24,7 @@
           hide-details
           no-resize
           @keyup.enter='sendMessage'
+          @change='handleChange'
         />
       </Field>
 

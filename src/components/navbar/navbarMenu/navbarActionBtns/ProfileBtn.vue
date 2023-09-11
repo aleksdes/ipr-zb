@@ -4,7 +4,6 @@
     :disabled='typeLink'
     open-on-hover
     open-on-click
-
     location='bottom right'
   >
     <template v-slot:activator='{ props }'>

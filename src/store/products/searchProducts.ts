@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import baseStore, { IBaseStore } from '../baseStoreFetchData'
-import {productsUrls} from '@/constants/urls'
+import {productsUrls} from '~/constants/urls'
 
 const useSearchProductsStore = defineStore('searchProducts', {
   getters: {

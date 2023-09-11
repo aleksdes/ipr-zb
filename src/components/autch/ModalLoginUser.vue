@@ -7,7 +7,11 @@
     :show-actions='false'
     @close='loginModalStore.setIsOpen(false)'
   >
-    <p class='login-title'>Войти</p>
+    <p
+      class='login-title'
+    >
+      Войти
+    </p>
 
     <login-form />
   </base-modal>

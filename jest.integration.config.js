@@ -1,7 +1,7 @@
 module.exports = {
   preset: "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
 
-  testMatch: ['**/*.unit.spec.ts'],
+  testMatch: ['**/*.integration.spec.ts'],
   testEnvironment: "jsdom",
   testEnvironmentOptions: {
     customExportConditions: ["node", "node-addons"]
@@ -32,4 +32,3 @@ module.exports = {
   ],
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts']
 };
-

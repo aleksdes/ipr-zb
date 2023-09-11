@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { IBaseStore } from './baseStoreFetchData'
-import { Product } from '@/types/products'
+import { Product } from '~/types/products'
 
 interface ILikeStore {
   items: Product[]

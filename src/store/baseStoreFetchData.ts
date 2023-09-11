@@ -1,4 +1,4 @@
-import useApi, {IResponseReturn} from '@/assets/js/helpers/useApi'
+import useApi, {IResponseReturn} from '~/assets/js/helpers/useApi'
 
 export interface IMetaBaseStore {
   limit: number

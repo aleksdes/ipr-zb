@@ -70,11 +70,11 @@ export default defineComponent({
 <script setup lang="ts">
 import { computed, ref, Ref, watch } from 'vue'
 import { debounceFilter, watchWithFilter } from '@vueuse/core'
-import ProductBaseLayout from '@/layouts/ProductPageLayouts/ProductBaseLayout.vue'
-import BasePagination from '@/components/pagination/BasePagination.vue'
-import RecentlyViewed from '@/components/common/recentlyViewed/RecentlyViewed.vue'
+import ProductBaseLayout from '~/layouts/ProductPageLayouts/ProductBaseLayout.vue'
+import BasePagination from '~/components/pagination/BasePagination.vue'
+import RecentlyViewed from '~/components/common/recentlyViewed/RecentlyViewed.vue'
 
-import { IBreadcrumb } from '@/types/breadcrumbs'
+import { IBreadcrumb } from '~/types/breadcrumbs'
 import useSearchProductsStore from '@/store/products/searchProducts'
 import { Product } from '@/types/products'
 

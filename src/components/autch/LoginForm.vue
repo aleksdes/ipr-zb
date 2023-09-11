@@ -4,10 +4,11 @@
     class='login-form'
   >
     <Field
-      v-slot='{ errors, field }'
+      v-slot='{ errors, field, handleChange }'
       v-model='email'
       rules='required'
       name='логин'
+      data-testid='form-login'
     >
       <v-text-field
         :model-value='email'
@@ -20,11 +21,12 @@
         dense
         variant='outlined'
         class='mb-3'
+        @input='handleChange'
       />
     </Field>
 
     <Field
-      v-slot='{ errors, field }'
+      v-slot='{ errors, field, handleChange }'
       v-model='password'
       rules='required|min:4'
       name='пароль'
@@ -42,6 +44,7 @@
         :append-inner-icon='passwordIsVisible ? "mdi-eye" : "mdi-eye-off"'
         :type='passwordIsVisible ? "text" : "password"'
         @click:append-inner='passwordIsVisible = !passwordIsVisible'
+        @input='handleChange'
       />
     </Field>
 

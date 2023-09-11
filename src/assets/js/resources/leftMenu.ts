@@ -10,16 +10,6 @@ export interface ILeftMenu {
   child?: ILeftMenu[];
 }
 
-// export interface IChild {
-//   id: string
-//   title: string;
-//   to?: string;
-//   icon?: string;
-//   sort?: number;
-//   color?: string;
-//   child?: IChild[];
-// }
-
 const leftMenu: ILeftMenu[] = [
   {
     id: 'electronics',

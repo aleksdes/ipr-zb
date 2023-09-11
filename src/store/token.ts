@@ -4,8 +4,8 @@ import { defineStore } from 'pinia'
 import jwt_decode from 'jwt-decode'
 
 import useApi, {IResponseReturn} from '../assets/js/helpers/useApi'
-import { authUrls, MIN_TIME_ACCESS_TOKEN } from '@/constants/urls/auth'
-import {User} from '@/types/user'
+import { authUrls, MIN_TIME_ACCESS_TOKEN } from '~/constants/urls/auth'
+import {User} from '~/types/user'
 
 interface ITokenStore {
   accessToken: string | null

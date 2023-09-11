@@ -5,11 +5,13 @@
     color='orange-lighten-1'
     size='50'
     class='ma-6 mt-1'
+    data-tid='chat-btn'
     @click='emits("onClick")'
   >
     <v-icon
       color='white'
       size='25'
+      data-tid='chat-btn-icon'
     >
       {{active ? 'mdi-window-close' : 'mdi-message'}}
     </v-icon>
