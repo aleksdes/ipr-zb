@@ -3,7 +3,7 @@
     <ChatBtn
       id='chatBtn'
       :active='openMenu'
-      @on-click='openMenu = !openMenu'
+      @onClick='openMenu = !openMenu'
     />
 
     <v-menu
@@ -12,6 +12,7 @@
       :close-on-content-click='false'
       location='top'
       offset='15'
+      data-tid='chat-menu'
       @update:model-value='!$event ? openMenu = false : ""'
     >
       <ChatMessenger
@@ -30,6 +31,7 @@
         touchless
         fixed
         location='bottom'
+        data-tid='chat-drawer'
         :style='styleMenuSettings'
       >
         <v-btn
@@ -37,7 +39,8 @@
           size='24'
           elevation='0'
           class='chat__close-btn'
-          @click.stop.prevent='openMenu = false'
+          data-tid='close-chat-drawer'
+          @click.stop.prevent='closeDrawer'
         >
           <v-icon width='24'>
             mdi-close-circle-outline
@@ -50,7 +53,6 @@
         />
       </v-navigation-drawer>
     </teleport>
-
   </div>
 </template>
 
@@ -74,6 +76,10 @@ const openMenu = ref(false)
 const isMobile = computed(() => {
   return displayWidth.value < 1024
 })
+
+const closeDrawer = () => {
+  openMenu.value = false
+}
 
 const styleMenuSettings = computed(() => {
   return {
@@ -100,7 +106,7 @@ const styleMenuSettings = computed(() => {
   &__messanger {
     height: 100vh;
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
       max-height: 500px;
     }
   }

@@ -9,6 +9,7 @@
         v-model='dataForm.message'
         rules='required'
         name='message'
+        data-tid='input-send'
       >
         <v-textarea
           :model-value='dataForm.message'
@@ -34,6 +35,7 @@
         :color='!meta.valid || disabled ? "grey-lighten-1" : "orange-lighten-1"'
         size='40'
         elevation='0'
+        data-tid='action-send'
         :disabled='!meta.valid || disabled'
         @click='sendMessage'
       >

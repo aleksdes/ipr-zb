@@ -8,7 +8,6 @@
       v-model='email'
       rules='required'
       name='логин'
-      data-testid='form-login'
     >
       <v-text-field
         :model-value='email'

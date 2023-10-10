@@ -5,3 +5,4 @@ declare module '*.vue' {
   export default component
 }
 
+declare module 'vuetify/lib/composables/layout.mjs';
